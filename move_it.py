@@ -1,7 +1,12 @@
 from flask import Flask
+import freight
 
 app = Flask(__name__)
 
+
+items=[
+
+]
 
 @app.route('/')
 def hello_world():

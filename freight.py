@@ -16,4 +16,3 @@ class freight :
         self.id=id
         self.receiver_name=receiver_name
 
-    
