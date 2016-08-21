@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0c95e333-509e-4f7f-a4f1-1b505bb7a63d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/address.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/freight.py" afterPath="$PROJECT_DIR$/freight.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/move_it.py" afterPath="$PROJECT_DIR$/move_it.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="0c95e333-509e-4f7f-a4f1-1b505bb7a63d" name="Default" comment="" />
     <ignored path="move_it.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
