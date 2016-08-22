@@ -1,7 +1,12 @@
 __author__ = 'shahryar_slg'
 
+from move_it import db
 
-class Address:
+class User(db.Model):
+    id = db.Column(db.INTEGER, primary_key=True)
+
+
+class Address(db.Model):
 
     def __init__(self, country, city, rest_of_address, zipcode):
         self.country = country
@@ -18,7 +23,6 @@ class Address:
         return address_string
 
 
-
     @staticmethod
     def str_to_object(address_string):
         """str --> (object of Address)"""
@@ -30,7 +34,32 @@ class Address:
             rod = rod + part + ' '
         address = Address(country=words_of_address[0],
                           city=words_of_address[1],
-                          rest_of_address = rod,
+                          rest_of_address=rod,
                           zipcode=words_of_address[-1]
                           )
         return address
+
+
+class Dimension:
+
+    def __init__(self, width, height, depth):
+        self.width = width
+        self.height = height
+        self.depth = depth
+
+
+class Freight(db.Model) :
+    """
+    later , other classes will inherit from this class
+    classes like : grocery , furnitcher , vehicle , etc.
+    """
+    def __init__(self, name, weight, destination, pickup_address, dimension, price, customer_name, receiver_name, id):
+        self.name=name
+        self.weight=weight
+        self.destination=destination
+        self.pickup_address=pickup_address
+        self.dimension=dimension
+        self.price=price
+        self.customer_name=customer_name
+        self.id=id
+        self.receiver_name=receiver_name
