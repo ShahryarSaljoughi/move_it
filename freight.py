@@ -1,6 +1,14 @@
 __author__ = 'shahryar_slg'
 
-class freight :
+class Dimension:
+
+    def __init__(self, width, height, depth):
+        self.width = width
+        self.height = height
+        self.depth = depth
+
+
+class Freight :
     """
     later , other classes will inherit from this class
     classes like : grocery , furnitcher , vehicle , etc.

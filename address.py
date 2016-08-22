@@ -17,10 +17,11 @@ class Address:
                                    + str(self.zipcode)])
         return address_string
 
-    """str --> (object of Address)"""
+
+
     @staticmethod
     def str_to_object(address_string):
-
+        """str --> (object of Address)"""
         words_of_address = address_string.split()
         rod = ""
         for part in words_of_address[2:]:
