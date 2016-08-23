@@ -8,12 +8,10 @@ app = Flask(__name__)
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 app.config[
-    'SQLALCHEMY_DATABASE_URI']=\
-    'sqlite:///'+ os.path.join(BASE_DIR,'/database/moveit_db.db')
-app.config['SQLALCHEMY_NATIVE_UNICODE']=True
-
-
-db=SQLAlchemy(app)
+    'SQLALCHEMY_DATABASE_URI'] =\
+    'sqlite:///'+ os.path.join(BASE_DIR, '/database/moveit_db.db')
+app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
+db = SQLAlchemy(app)
 
 
 @app.route('/shipment/<string:username>/freights',methods=['GET'])
