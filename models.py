@@ -9,11 +9,12 @@ class User(db.Model):
     __tablename__='users'
 
     email = db.Column(db.TEXT)
-    username = db.Column(db.TEXT)
+    username = db.Column(db.TEXT,unique=True)
     password = db.Column(db.TEXT)
     role = db.Column(db.INTEGER)
     phonenumber = db.Column(db.INTEGER)
     user_id = db.Column(db.INTEGER, primary_key=True)
+    freights = db.relationship('Freight', backref='person', lazy='dynamic')
 
     def __init__(self, username, password, email, role, phonenumber):
         self.email = email
@@ -23,7 +24,6 @@ class User(db.Model):
         self.username = username
 
 
-
 class Address(db.Model):
 
     __tablename__='address'
@@ -31,7 +31,8 @@ class Address(db.Model):
     city=db.Column(db.TEXT)
     rest_of_address=db.Column(db.TEXT)
     postal_code=db.Column(db.INTEGER)
-    id=db.Column()
+    address_id=db.Column(db.INTEGER,primary_key=True)
+    freights = db.relationship('Freight',backref='address',lazy='dynamic')
 
     def __init__(self, country, city, rest_of_address, zipcode):
         self.country = country
@@ -80,7 +81,7 @@ class Freight(db.Model) :
     __tablename__='freight'
 
 
-    freight_id = db.Column(db.INTEGER)
+    freight_id = db.Column(db.INTEGER, primary_key=True)
     name = db.Column(db.TEXT)
     price = db.Column(db.REAL)
     dimension.height = db.Column('height', db.REAL)
@@ -88,10 +89,10 @@ class Freight(db.Model) :
     dimension.depth = db.Column('depth', db.REAL)
     group = db.Column(db.INTEGER)
     weight = db.Column(db.REAL)
-    destination = db.Column(db.INTEGER)
-    pickup_address = db.Column(db.INTEGER)
+    destination = db.Column(db.INTEGER,db.ForeignKey('address.address_id') )
+    pickup_address = db.Column(db.INTEGER,db.ForeignKey('address.address_id'))
     receiver_name = db.Column()
-    owner = db.Column(db.INTEGER)
+    owner = db.Column(db.INTEGER,db.ForeignKey('users.user_id'))
 
     def __init__(self, name, weight,
                  destination, pickup_address, dimension,
