@@ -13,7 +13,7 @@ app.config[
 """
 #app.root_path : contains the absolut path of project
 #os.path.join(app.root_path,'database/moveit_db.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///E:/flask_example/move_it/database/moveit_db.db'
+app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///'+ app.root_path+'\\database\\shipment.db' #'sqlite:///E:/flask_example/move_it/database/moveit_db.db'
 app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
 db = SQLAlchemy(app)
 
