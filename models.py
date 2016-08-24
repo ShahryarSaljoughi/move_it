@@ -4,18 +4,19 @@ __author__ = 'shahryar_slg'
 from routes import db
 
 
-class User(db.Model):
+class User(db.Model):  #there is a relationhsip between User and Freight : User is parent , Freight is child
 
     __tablename__='users'
 
-    email = db.Column(db.TEXT)
+    email = db.Column(db.TEXT,unique=True,
+                      nullable=False)
     username = db.Column(db.TEXT,unique=True)
-    password = db.Column(db.TEXT)
+    password = db.Column(db.TEXT, nullable=False)
     role = db.Column(db.INTEGER)
     phonenumber = db.Column(db.INTEGER)
     user_id = db.Column(db.INTEGER, primary_key=True)
-    freights = db.relationship('Freight', backref='person', lazy='dynamic')
-
+    #freights = db.relationship('Freight', backref='users', lazy='dynamic')
+    freights = db.relationship('Freight')
     def __init__(self, username, password, email, role, phonenumber):
         self.email = email
         self.password = password
@@ -23,28 +24,33 @@ class User(db.Model):
         self.phonenumber = phonenumber
         self.username = username
 
+    def __repr__(self):
+        return "user : " + str(self.username)
+        #return "user : %s" str(self.username)
+
 
 class Address(db.Model):
 
-    __tablename__='address'
+    __tablename__ = 'address'
     country=db.Column(db.TEXT)
     city=db.Column(db.TEXT)
     rest_of_address=db.Column(db.TEXT)
     postal_code=db.Column(db.INTEGER)
     address_id=db.Column(db.INTEGER,primary_key=True)
-    freights = db.relationship('Freight',backref='address',lazy='dynamic')
+    #freights = db.relationship('Freight',backref='address',lazy='dynamic')
+    freight_id = db.Column(db.INTEGER,db.ForeignKey('freight.id'))
 
-    def __init__(self, country, city, rest_of_address, zipcode):
+    def __init__(self, country, city, rest_of_address, zipcode, freight_id):
         self.country = country
         self.city = city
         self.rest_of_address = rest_of_address
-        self.zipcode = zipcode
-
+        self.postal_code = zipcode
+        self.freight_id=freight_id
     def __repr__(self):
         address_string = ' '.join([self.country,
                                    self.city,
                                    self.rest_of_address, 'zipcode : '
-                                   + str(self.zipcode)])
+                                   + str(self.postal_code)])
         return address_string
 
     @staticmethod
@@ -81,16 +87,17 @@ class Freight(db.Model) :
     __tablename__='freight'
 
 
-    freight_id = db.Column(db.INTEGER, primary_key=True)
+    id = db.Column(db.INTEGER, primary_key=True)
     name = db.Column(db.TEXT)
     price = db.Column(db.REAL)
-    dimension.height = db.Column('height', db.REAL)
-    dimension.width = db.Column('width', db.REAL)
-    dimension.depth = db.Column('depth', db.REAL)
+    height = db.Column('height', db.REAL)
+    width = db.Column('width', db.REAL)
+    depth = db.Column('depth', db.REAL)
     group = db.Column(db.INTEGER)
     weight = db.Column(db.REAL)
-    destination = db.Column(db.INTEGER,db.ForeignKey('address.address_id') )
-    pickup_address = db.Column(db.INTEGER,db.ForeignKey('address.address_id'))
+    #destination = db.Column(db.INTEGER,db.ForeignKey('address.address_id') )
+    #pickup_address = db.Column(db.INTEGER,db.ForeignKey('address.address_id'))
+    addresses = db.relationship('Address')
     receiver_name = db.Column()
     owner = db.Column(db.INTEGER,db.ForeignKey('users.user_id'))
 
@@ -99,11 +106,17 @@ class Freight(db.Model) :
                  price, owner, receiver_name, freight_id, group):
         self.name = name
         self.weight = weight
-        self.destination = destination
-        self.pickup_address = pickup_address
-        self.dimension = dimension
+        self.destination = str(destination)
+        self.pickup_address =str(pickup_address)
+        #self.dimension = dimension
+        self.height=dimension.height
+        self.width=dimension.width
+        self.depth=dimension.depth
         self.price = price
         self.owner = owner
-        self.freight_id = freight_id
+        self.id = freight_id
         self.receiver_name = receiver_name
         self.group = group
+
+    def __repr__(self):
+        return str(self.__dict__)
