@@ -34,7 +34,9 @@ class User(db.Model):  #there is a relationhsip between User and Freight : User 
                                backref=db.backref('freights'))
 
     role_id = db.Column(db.INTEGER, db.ForeignKey('role.seq'))
-    role = db.relationship(role, backref=db.backref('users'))
+    role = db.relationship(role, backref=db.backref('users',
+                                                    uselist=True,
+                                                    cascade='delete,all'))
 
     def __init__(self, username, password, email, role, phonenumber):
         self.email = email
@@ -81,11 +83,11 @@ class Freight(db.Model) :
 
     def __init__(self, name, weight,
                  destination, pickup_address, dimension,
-                 price, owner, receiver_name, freight_id, group):
+                 price, owner, receiver_name):
         self.name = name
         self.weight = weight
-        self.destination = str(destination)
-        self.pickup_address = pickup_address
+        self.destination = [destination]
+        self.pickup_address = [pickup_address]
         # self.dimension = dimension
         self.height = dimension.height
         self.width = dimension.width
