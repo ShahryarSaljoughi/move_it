@@ -37,14 +37,14 @@ class User(db.Model):  #there is a relationhsip between User and Freight : User 
     role = db.relationship(role, backref=db.backref('users',
                                                     uselist=True,
                                                     cascade='delete,all'))
-
+    """
     def __init__(self, username, password, email, role, phonenumber):
         self.email = email
         self.password = password
         self.role = role
         self.phonenumber = phonenumber
         self.username = username
-
+    """
     def __repr__(self):
         return "user : " + str(self.username)
         #return "user : %s" str(self.username)
@@ -80,7 +80,7 @@ class Freight(db.Model) :
     # addresses = db.relationship('Address')
     receiver_name = db.Column(db.TEXT)
     owner = db.Column(db.INTEGER,db.ForeignKey('users.id'))
-
+    """
     def __init__(self, name, weight,
                  destination, pickup_address, dimension,
                  price, owner, receiver_name):
@@ -96,10 +96,9 @@ class Freight(db.Model) :
         self.owner = owner
         # self.id = freight_id
         self.receiver_name = receiver_name
-
+    """
     def __repr__(self):
         return str(self.__dict__)
-
 
 class PickupAddress(db.Model):
 
@@ -111,13 +110,14 @@ class PickupAddress(db.Model):
     id=db.Column(db.INTEGER,primary_key=True)
     # freights = db.relationship('Freight',backref='address',lazy='dynamic')
     freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
-
+    """
     def __init__(self, country, city, rest_of_address, zipcode, freight_id):
         self.country = country
         self.city = city
         self.rest_of_address = rest_of_address
         self.postal_code = zipcode
         self.freight_id=freight_id
+   """
     def __repr__(self):
         address_string = ' '.join([self.country,
                                    self.city,
@@ -152,13 +152,14 @@ class DestinationAddress(db.Model):
     id=db.Column(db.INTEGER,primary_key=True)
     # freights = db.relationship('Freight',backref='address',lazy='dynamic')
     freight_id = db.Column(db.INTEGER,db.ForeignKey('freights.id'))
-
+    """
     def __init__(self, country, city, rest_of_address, zipcode, freight_id):
         self.country = country
         self.city = city
         self.rest_of_address = rest_of_address
         self.postal_code = zipcode
         self.freight_id=freight_id
+   """
     def __repr__(self):
         address_string = ' '.join([self.country,
                                    self.city,
