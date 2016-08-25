@@ -5,21 +5,25 @@ from routes import db
 
 
 class role(db.Model):
+
     """
     this class is actually an Enum , used in users table
     """
     __tablename__ = 'role'
 
-    seq = db.Column(db.INTEGER,primary_key=True)
+    seq = db.Column(db.INTEGER, primary_key=True)
     title = db.Column(db.TEXT, nullable=False)
 
     def __init__(self, title):
         self.title=title
 
 
-
 class User(db.Model):  #there is a relationhsip between User and Freight : User is parent , Freight is child
-
+    """
+    tip : you SHOULD provide each object of this class with a role_id yourself ! :
+                1 corresponds with : customer
+                1 corresponds with : courier
+    """
     __tablename__='users'
 
     email = db.Column(db.TEXT,unique=True,
