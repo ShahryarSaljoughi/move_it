@@ -2,20 +2,16 @@ from flask import Flask, render_template, request
 import os
 from flask_sqlalchemy import SQLAlchemy
 import models
+from forms import SignupForm
 
 
 app = Flask(__name__)
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-"""
-app.config[
-    'SQLALCHEMY_DATABASE_URI'] =\
-    'sqlite:///'+ os.path.join(BASE_DIR, '/database/moveit_db.db')
-"""
-#app.root_path : contains the absolut path of project
-#os.path.join(app.root_path,'database/moveit_db.db')
-app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///'+ app.root_path+'\\database\\shipment.db' #'sqlite:///E:/flask_example/move_it/database/moveit_db.db'
+app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///'+ app.root_path+'\\database\\shipment.db'
 app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
 db = SQLAlchemy(app)
+app.secret_key = "development-key"
+
 
 
 @app.route('/shipment/<string:username>/freights',methods=['GET'])
@@ -31,23 +27,13 @@ def get_freights(username):
 def create_freight(username):
     pass
 
-@app.route('/signup',methods=['POST','GET'])
+@app.route('/signup',methods=['POST', 'GET'])
 def sign_up():
-        if request.method=='POST':
-            email = request.form['email']
-            password = request.form['password']
-            username = request.form['username']
-
-            role = request.form['role']
-            phonenumber = request.form['phonenumber']
-
-            new_user = models.User(username,password,email,role,phonenumber)
-            db.session.add(new_user)
-            db.session.commit()
-
-            return str(new_user)
-        elif request.method=='GET':
-            return "salam"
+    if request.method == 'GET':
+        form = SignupForm()
+        return render_template('signup.html', form=form)
+    elif request.method == 'POST':
+        return "success"
 
 
 @app.route('/salam',methods=['POST'])
