@@ -1,0 +1,43 @@
+{%  extends "layout.html" %}
+
+
+{% block content %}
+
+    <h2>Join Us "NOW"</h2>
+    <br>
+    <form method="post" action="/signup">
+        {{ form.hidden_tag()  }}
+<br>
+        <div class="form-row">
+            {{ form.username.label }}
+            <br>
+            {{ form.username }}
+        </div>
+<br>
+<br>
+        <div class="form-row">
+            {{ form.email.label }}
+            <br>
+            {{ form.email }}
+        </div>
+<br><br>
+
+         <div class="form-row">
+            {{ form.phone_number.label }}
+            <br>
+             {{ form.phone_number }}
+        </div>
+
+<br><br>
+        <div class="form-row">
+            {{ form.password.label }}
+            <br>
+            {{ form.password }}
+        </div>
+<br><br>
+        {{ form.submit(class="btn-primary") }}
+
+    </form>
+
+
+{% endblock %}
