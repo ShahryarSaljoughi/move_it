@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from flask import abort
 import os
 from flask_sqlalchemy import SQLAlchemy
 import models
@@ -32,17 +33,23 @@ def sign_up():
     form = SignupForm()
     if request.method == 'GET':
         return render_template('signup.html', form=form)
+
     elif request.method == 'POST':
+
         if form.validate() == False:
             return render_template('signup.html', form=form)
         else:
-            return "success"
-
-
-@app.route('/salam',methods=['POST'])
-def salam():
-    a=request.form['name']
-    return "got it"#str(a)
+            if request.json:
+                new_user=models.User(username=request.json['username'],
+                                     email=request.json['email'],
+                                     phonenumber=request.json['phonenumber'],
+                                     role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1
+                                     )
+                db.session.add(new_user)
+                db.session.commit()
+                return "success :) %r created" % new_user
+            else:
+                abort(400)
 
 
 @app.route('/author')
