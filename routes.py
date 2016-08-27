@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response, jsonify
 from flask import abort
 import os
 from flask_sqlalchemy import SQLAlchemy
@@ -35,23 +35,28 @@ def sign_up():
         return render_template('signup.html', form=form)
 
     elif request.method == 'POST':
+        print "request is post"
 
-        if form.validate() == False:
-            return render_template('signup.html', form=form)
+        if request.json:
+            new_user=models.User(username=request.json['username'],
+                                 email=request.json['email'],
+                                 phonenumber=request.json['phonenumber'],
+                                 role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
+                                 password=request.json['password']
+                                 )
+            db.session.add(new_user)
+            db.session.commit()
+            return "success :) %r created" % new_user
         else:
-            if request.json:
-                new_user=models.User(username=request.json['username'],
-                                     email=request.json['email'],
-                                     phonenumber=request.json['phonenumber'],
-                                     role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1
-                                     )
-                db.session.add(new_user)
-                db.session.commit()
-                return "success :) %r created" % new_user
-            else:
-                abort(400)
+            print "is about to return 400"
+            abort(400)
 
-
+@app.route('/post', methods=['POST'])
+def post():
+    if request.json:
+        print "request.json"
+        print request.json['title']
+    return "finished"
 @app.route('/author')
 def see_author():
     return render_template('aboutAuthor.html')
@@ -60,6 +65,12 @@ def see_author():
 @app.route('/')
 def hello_world():
     return 'main_page'
+
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 if __name__ == '__main__':
