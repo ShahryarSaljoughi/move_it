@@ -29,11 +29,14 @@ def create_freight(username):
 
 @app.route('/signup',methods=['POST', 'GET'])
 def sign_up():
+    form = SignupForm()
     if request.method == 'GET':
-        form = SignupForm()
         return render_template('signup.html', form=form)
     elif request.method == 'POST':
-        return "success"
+        if form.validate() == False:
+            return render_template('signup.html', form=form)
+        else:
+            return "success"
 
 
 @app.route('/salam',methods=['POST'])

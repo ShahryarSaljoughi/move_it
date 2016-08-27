@@ -14,28 +14,40 @@
             {{ form.username }}
         </div>
 <br>
-<br>
+
         <div class="form-row">
             {{ form.email.label }}
             <br>
             {{ form.email }}
         </div>
-<br><br>
+<br>
 
          <div class="form-row">
             {{ form.phone_number.label }}
             <br>
+             {% if form.phone_number.errors %}
+                 {% for error in form.phone_number.errors %}
+                     <p class="errors">{{ error }}</p>
+                 {% endfor %}
+             {% endif %}
              {{ form.phone_number }}
         </div>
 
-<br><br>
+<br>
         <div class="form-row">
             {{ form.password.label }}
             <br>
             {{ form.password }}
         </div>
-<br><br>
-        {{ form.submit(class="btn-primary") }}
+<br>
+
+        <div class="form-row">
+            {{ form.repeat_password.label }}
+            <br>
+            {{ form.repeat_password }}
+        </div>
+
+        <br>{{ form.submit(class="btn-primary") }}
 
     </form>
 
