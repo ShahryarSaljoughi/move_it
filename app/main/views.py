@@ -20,7 +20,8 @@ def get_user_freights(username):
     """
     user_id = User.query.filter_by(username=username).first().id
     freights = Freight.query.filter_by(owner=user_id).all()
-    return jsonify({'freights': freights})
+    freights_list = [fr.get_dict() for fr in freights]
+    return jsonify({'freights': freights_list})
 
 @main.route('/shipment/freights', )
 def get_freights():
