@@ -13,7 +13,7 @@ from .forms import SignupForm
 
 
 @main.route('/shipment/<string:username>/freights', methods=['GET'])
-def get_freights(username):
+def get_user_freights(username):
     """
     this will return the freights made by user!
     :return: text/json
@@ -22,6 +22,10 @@ def get_freights(username):
     freights = Freight.query.filter_by(owner=user_id).all()
     return jsonify({'freights': freights})
 
+@main.route('/shipment/freights')
+def get_freights():
+    freights = Freight.query.all()
+    return jsonify({'freights': freights})
 
 @main.route('/shipment/<string:username>/freights', methods=['POST'])
 def create_freight(username):
@@ -72,12 +76,12 @@ def sign_up():
         print "request is post"
 
         if request.json:
-            new_user = models.User(username=request.json['username'],
-                                   email=request.json['email'],
-                                   phonenumber=request.json['phonenumber'],
-                                   role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
-                                   password=request.json['password']
-                                   )
+            new_user = User(username=request.json['username'],
+                            email=request.json['email'],
+                            phonenumber=request.json['phonenumber'],
+                            role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
+                            password=request.json['password']
+                            )
             db.session.add(new_user)
             db.session.commit()
             return "success :) %r created" % new_user
