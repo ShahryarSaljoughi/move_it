@@ -1,8 +1,8 @@
 __author__ = 'shahryar_slg'
 
 
-from routes import db
-from database_mothods import get_user
+from app import db
+from app.database_mothods import get_user
 
 
 class role(db.Model):

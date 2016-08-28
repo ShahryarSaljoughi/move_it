@@ -1,9 +1,6 @@
 __author__ = 'shahryar_slg'
-import models
-from routes import db
-from initialize_db import courier
-from initialize_db import customer
-from initialize_db import courier
+from app import models
+from app.views import db
 
 
 def main():

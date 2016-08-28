@@ -1,7 +1,7 @@
 __author__ = 'shahryar_slg'
 
-from models import role
-from routes import db
+from app.models import role
+from app.views import db
 
 
 customer = role(title='customer')

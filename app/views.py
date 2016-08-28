@@ -1,20 +1,14 @@
-from flask import Flask, render_template, request, make_response, jsonify
+
+
+from flask import render_template, request, make_response, jsonify
 from flask import abort
-import os
 
-from flask_sqlalchemy import SQLAlchemy
-import models
-from models import Freight, User, DestinationAddress, PickupAddress
+from app import models
+from app.models import Freight, User, DestinationAddress, PickupAddress
 from forms import SignupForm
+from app import app
+from app import db
 
-
-app = Flask(__name__)
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + app.root_path+'\\database\\shipment.db'
-app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
-db = SQLAlchemy(app)
-
-app.secret_key = "development-key"
 
 
 @app.route('/shipment/<string:username>/freights', methods=['GET'])
