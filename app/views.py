@@ -22,7 +22,7 @@ def get_freights(username):
     return jsonify({'freights': freights})
 
 
-@app.route('/shipment/<string:username>freights', methods=['POST'])
+@app.route('/shipment/<string:username>/freights', methods=['POST'])
 def create_freight(username):
 
     destination_dict = request.json['destination']

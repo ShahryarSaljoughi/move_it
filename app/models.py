@@ -101,7 +101,7 @@ class Freight(db.Model):
         self.receiver_name = receiver_name
     """
     def __repr__(self):
-        return "freight: \n owner:" + \
+        return "freight: \n owner: " + \
                str(get_user(user_id=self.owner)) + "name:"+str(self.name)
 
 
