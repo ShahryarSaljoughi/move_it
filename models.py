@@ -2,6 +2,7 @@ __author__ = 'shahryar_slg'
 
 
 from routes import db
+from database_mothods import get_user
 
 
 class role(db.Model):
@@ -15,18 +16,18 @@ class role(db.Model):
     title = db.Column(db.TEXT, nullable=False)
 
     def __init__(self, title):
-        self.title=title
+        self.title = title
 
 
-class User(db.Model):  #there is a relationhsip between User and Freight : User is parent , Freight is child
+class User(db.Model):  # there is a relationship between User and Freight : User is parent , Freight is child
     """
     tip : you SHOULD provide each object of this class with a role_id yourself ! :
                 1 corresponds with : customer
                 1 corresponds with : courier
     """
-    __tablename__='users'
+    __tablename__ = 'users'
 
-    email = db.Column(db.TEXT,unique=True,
+    email = db.Column(db.TEXT, unique=True,
                       nullable=False)
     username = db.Column(db.TEXT, unique=True)
     password = db.Column(db.TEXT, nullable=False)
@@ -51,8 +52,7 @@ class User(db.Model):  #there is a relationhsip between User and Freight : User 
     """
     def __repr__(self):
         return "user : " + str(self.username)
-        #return "user : %s" str(self.username)
-
+        # return "user : %s" str(self.username)
 
 
 class Dimension:
@@ -63,14 +63,13 @@ class Dimension:
         self.depth = depth
 
 
-class Freight(db.Model) :
+class Freight(db.Model):
     """
     later , other classes will inherit from this class
     classes like : grocery , furnitcher , vehicle , etc.
     """
 
-    __tablename__='freights'
-
+    __tablename__ = 'freights'
 
     id = db.Column(db.INTEGER, primary_key=True, nullable=False)
     name = db.Column(db.TEXT)
@@ -83,7 +82,7 @@ class Freight(db.Model) :
     pickup_address = db.relationship('PickupAddress')
     # addresses = db.relationship('Address')
     receiver_name = db.Column(db.TEXT)
-    owner = db.Column(db.INTEGER,db.ForeignKey('users.id'))
+    owner = db.Column(db.INTEGER, db.ForeignKey('users.id'))
     """
     def __init__(self, name, weight,
                  destination, pickup_address, dimension,
@@ -102,16 +101,18 @@ class Freight(db.Model) :
         self.receiver_name = receiver_name
     """
     def __repr__(self):
-        return str(self.__dict__)
+        return "freight: \n owner:" + \
+               str(get_user(user_id=self.owner)) + "name:"+str(self.name)
+
 
 class PickupAddress(db.Model):
 
     __tablename__ = 'pickupAddresses'
-    country=db.Column(db.TEXT)
-    city=db.Column(db.TEXT)
-    rest_of_address=db.Column(db.TEXT)
-    postal_code=db.Column(db.INTEGER)
-    id=db.Column(db.INTEGER,primary_key=True)
+    country = db.Column(db.TEXT)
+    city = db.Column(db.TEXT)
+    rest_of_address = db.Column(db.TEXT)
+    postal_code = db.Column(db.INTEGER)
+    id = db.Column(db.INTEGER, primary_key=True)
     # freights = db.relationship('Freight',backref='address',lazy='dynamic')
     freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
     """
@@ -149,13 +150,13 @@ class PickupAddress(db.Model):
 class DestinationAddress(db.Model):
 
     __tablename__ = 'destinationAddress'
-    country=db.Column(db.TEXT)
-    city=db.Column(db.TEXT)
-    rest_of_address=db.Column(db.TEXT)
-    postal_code=db.Column(db.INTEGER)
-    id=db.Column(db.INTEGER,primary_key=True)
+    country = db.Column(db.TEXT)
+    city = db.Column(db.TEXT)
+    rest_of_address = db.Column(db.TEXT)
+    postal_code = db.Column(db.INTEGER)
+    id = db.Column(db.INTEGER, primary_key=True)
     # freights = db.relationship('Freight',backref='address',lazy='dynamic')
-    freight_id = db.Column(db.INTEGER,db.ForeignKey('freights.id'))
+    freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
     """
     def __init__(self, country, city, rest_of_address, zipcode, freight_id):
         self.country = country
@@ -186,4 +187,3 @@ class DestinationAddress(db.Model):
                                      zipcode=words_of_address[-1]
                                      )
         return address
-
