@@ -9,8 +9,8 @@ import os
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + app.root_path+'\\database\\shipment.db'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, '\\app\\database\\shipment.db')
-
+# SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, '\\app\\database\\shipment.db')
+SQLALCHEMY_DATABASE_URI = 'sqlite:///E:\\flask_example\\move_it\\app\\database\\shipment.db'
 """
 since , the server is intended to be RESTfull , there should not be any session ! hence I'm not setting the secret_key
 """
