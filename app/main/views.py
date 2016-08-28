@@ -22,10 +22,11 @@ def get_user_freights(username):
     freights = Freight.query.filter_by(owner=user_id).all()
     return jsonify({'freights': freights})
 
-@main.route('/shipment/freights')
+@main.route('/shipment/freights', )
 def get_freights():
     freights = Freight.query.all()
-    return jsonify({'freights': freights})
+    freights_list = [fr.get_dict() for fr in freights]
+    return jsonify({"freights": freights_list})
 
 @main.route('/shipment/<string:username>/freights', methods=['POST'])
 def create_freight(username):
