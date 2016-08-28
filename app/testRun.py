@@ -1,6 +1,6 @@
 __author__ = 'shahryar_slg'
 from app import models
-from app.views import db
+from app.main.views import db
 
 
 def main():

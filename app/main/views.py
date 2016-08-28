@@ -3,15 +3,16 @@
 from flask import render_template, request, make_response, jsonify
 from flask import abort
 
-from app import models
-from app.models import Freight, User, DestinationAddress, PickupAddress
-from forms import SignupForm
-from app import app
+# from app import app
 from app import db
 
+from ..models import Freight, User, DestinationAddress, PickupAddress
+from . import main
+from .forms import SignupForm
 
 
-@app.route('/shipment/<string:username>/freights', methods=['GET'])
+
+@main.route('/shipment/<string:username>/freights', methods=['GET'])
 def get_freights(username):
     """
     this will return the freights made by user!
@@ -22,7 +23,7 @@ def get_freights(username):
     return jsonify({'freights': freights})
 
 
-@app.route('/shipment/<string:username>/freights', methods=['POST'])
+@main.route('/shipment/<string:username>/freights', methods=['POST'])
 def create_freight(username):
 
     destination_dict = request.json['destination']
@@ -61,7 +62,7 @@ def create_freight(username):
     db.session.commit()
 
 
-@app.route('/signup', methods=['POST', 'GET'])
+@main.route('/signup', methods=['POST', 'GET'])
 def sign_up():
     form = SignupForm()
     if request.method == 'GET':
@@ -85,28 +86,20 @@ def sign_up():
             abort(400)
 
 
-@app.route('/post', methods=['POST'])
-def post():
-    if request.json:
-        print "request.json"
-        print request.json['title']
-    return "finished"
-
-
-@app.route('/author')
+@main.route('/author')
 def see_author():
     return render_template('aboutAuthor.html')
 
 
-@app.route('/')
+@main.route('/')
 def hello_world():
     return 'main_page'
 
 
-@app.errorhandler(404)
+@main.errorhandler(404)
 def not_found():
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#    app.run()
