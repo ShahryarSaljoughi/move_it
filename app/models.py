@@ -98,6 +98,11 @@ class Freight(db.Model):
         return "freight: \n owner: " + \
                str(User.get_user(user_id=self.owner)) + "name:"+str(self.name)
 
+    def get_dict(self):
+        dictionary = self.__dict__
+        dictionary.pop('_sa_instance_state')
+        return dictionary
+
 
 class PickupAddress(db.Model):
 
