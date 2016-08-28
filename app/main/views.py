@@ -54,10 +54,10 @@ def create_freight(username):
                       weight=request.json['weight']
                       )
 
-    freight.destination.append[destination]
-    freight.pickup_address.append[pickup_address]
+    freight.destination.append(destination)
+    freight.pickup_address.append(pickup_address)
 
-    user = Freight.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first()
     user.freights.append(freight)
 
     db.session.add(destination)
@@ -66,6 +66,8 @@ def create_freight(username):
     db.session.add(user)
 
     db.session.commit()
+
+    return "%s" % str(freight)
 
 
 @main.route('/signup', methods=['POST', 'GET'])
