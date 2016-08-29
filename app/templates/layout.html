@@ -49,11 +49,16 @@ article {
             <h3>can be easier than what you think :)</h3>
         </header>
         <nav>
-              <ul>
+
+       {% block side_items  %}
+       {% endblock %}
+       <!--
+            <ul>
                 <li><a href="#">no item!</a></li>
                 <li><a href="#">no item!</a></li>
                 <li><a href="#">no item!</a></li>
               </ul>
+        -->
         </nav>
         <article>
             {% block content %}
