@@ -13,7 +13,7 @@ app.config.from_object('config')
 
 
 db = SQLAlchemy(app)
-# app.secret_key = "development-key"
+app.secret_key = "development-key"
 
 #import blueprints
 from .main import main as main_blue_print
