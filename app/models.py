@@ -1,6 +1,6 @@
 __author__ = 'shahryar_slg'
 
-
+from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 
 
@@ -29,11 +29,9 @@ class User(db.Model):  # there is a relationship between User and Freight : User
     email = db.Column(db.TEXT, unique=True,
                       nullable=False)
     username = db.Column(db.TEXT, unique=True)
-    password = db.Column(db.TEXT, nullable=False)
-    # role = db.Column(db.ForeignKey('role.seq'))
+    # password = db.Column(db.TEXT, nullable=False)
     phonenumber = db.Column(db.INTEGER)
     id = db.Column(db.INTEGER, primary_key=True)
-    # freights = db.relationship('Freight', backref='users', lazy='dynamic')
     freights = db.relationship('Freight',
                                backref=db.backref('freights'))
 
@@ -41,6 +39,11 @@ class User(db.Model):  # there is a relationship between User and Freight : User
     role = db.relationship(role, backref=db.backref('users',
                                                     uselist=True,
                                                     cascade='delete,all'))
+    password_hash = db.Column(db.TEXT, nullable=False)
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     @staticmethod
     def get_user(user_id=None, username=None, email=None):
