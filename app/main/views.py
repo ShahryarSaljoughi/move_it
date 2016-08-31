@@ -101,7 +101,7 @@ def see_author():
 
 @main.route('/')
 def hello_world():
-    return 'main_page'
+    return render_template('main_page.html')
 
 
 @main.errorhandler(404)
