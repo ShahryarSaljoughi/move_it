@@ -11,7 +11,6 @@ from . import main
 from .forms import SignupForm
 
 
-
 @main.route('/shipment/<string:username>/freights', methods=['GET'])
 def get_user_freights(username):
     """
@@ -23,11 +22,13 @@ def get_user_freights(username):
     freights_list = [fr.get_dict() for fr in freights]
     return jsonify({'freights': freights_list})
 
+
 @main.route('/shipment/freights', methods=['GET'])
 def get_freights():
     freights = Freight.query.all()
     freights_list = [fr.get_dict() for fr in freights]
     return jsonify({"freights": freights_list})
+
 
 @main.route('/shipment/<string:username>/freights', methods=['POST'])
 def create_freight(username):
@@ -82,8 +83,8 @@ def sign_up():
                             email=request.json['email'],
                             phonenumber=request.json['phonenumber'],
                             role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
-                            password=request.json['password']
                             )
+            new_user.set_password(request.json['password'])
             db.session.add(new_user)
             db.session.commit()
             return "success :) %r created" % new_user
@@ -105,8 +106,6 @@ def hello_world():
 @main.errorhandler(404)
 def not_found():
     return make_response(jsonify({'error': 'Not found'}), 404)
-
-
 
 
 # if __name__ == '__main__':

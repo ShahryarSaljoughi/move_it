@@ -34,14 +34,15 @@ class User(db.Model):  # there is a relationship between User and Freight : User
     id = db.Column(db.INTEGER, primary_key=True)
     freights = db.relationship('Freight',
                                backref=db.backref('freights'))
-
     role_id = db.Column(db.INTEGER, db.ForeignKey('role.seq'))
     role = db.relationship(role, backref=db.backref('users',
                                                     uselist=True,
                                                     cascade='delete,all'))
     password_hash = db.Column(db.TEXT, nullable=False)
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
+
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
@@ -95,6 +96,7 @@ class Freight(db.Model):
     pickup_address = db.relationship('PickupAddress')
     # addresses = db.relationship('Address')
     receiver_name = db.Column(db.TEXT)
+    receiver_phonenumber = db.Column(db.INTEGER, nullable=False)
     owner = db.Column(db.INTEGER, db.ForeignKey('users.id'))
 
     def __repr__(self):

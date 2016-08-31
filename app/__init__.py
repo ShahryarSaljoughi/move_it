@@ -12,9 +12,15 @@ app.config.from_object('config')
 # app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
 
 
+# note that by moving the next code to the line after registering the blueprint ,
+# we will get an error , because db is needed in the main package
 db = SQLAlchemy(app)
-app.secret_key = "development-key"
 
-#import blueprints
+# import blueprints
 from .main import main as main_blue_print
 app.register_blueprint(main_blue_print)
+
+
+db.create_all()
+app.secret_key = "secret-key!"
+
