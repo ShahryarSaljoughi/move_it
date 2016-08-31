@@ -23,7 +23,7 @@ def get_user_freights(username):
     freights_list = [fr.get_dict() for fr in freights]
     return jsonify({'freights': freights_list})
 
-@main.route('/shipment/freights', )
+@main.route('/shipment/freights', methods=['GET'])
 def get_freights():
     freights = Freight.query.all()
     freights_list = [fr.get_dict() for fr in freights]
@@ -72,13 +72,11 @@ def create_freight(username):
 
 @main.route('/signup', methods=['POST', 'GET'])
 def sign_up():
-    form = SignupForm()
     if request.method == 'GET':
+        form = SignupForm()
         return render_template('signup.html', form=form)
 
     elif request.method == 'POST':
-        print "request is post"
-
         if request.json:
             new_user = User(username=request.json['username'],
                             email=request.json['email'],
@@ -93,12 +91,12 @@ def sign_up():
             print "is about to return 400"
             abort(400)
 
-
+# the below method is just for fun and can be deleted:
 @main.route('/author')
 def see_author():
     return render_template('aboutAuthor.html')
 
-
+# the below method is just for fun and can be deleted:
 @main.route('/')
 def hello_world():
     return render_template('main_page.html')
@@ -107,6 +105,8 @@ def hello_world():
 @main.errorhandler(404)
 def not_found():
     return make_response(jsonify({'error': 'Not found'}), 404)
+
+
 
 
 # if __name__ == '__main__':
