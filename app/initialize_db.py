@@ -5,9 +5,6 @@ from app.models import role
 from app import db
 
 
-customer = role(title='customer')
-courier = role(title='courier')
-
 def init_db():
     """
     this function is responsible for initializing
@@ -15,9 +12,10 @@ def init_db():
     :return: nothing!
     """
 
+    customer = role(title='customer')
+    courier = role(title='courier')
+
     #fedding database the roles :
     db.session.add(customer)
     db.session.add(courier)
-    db.session.commit()
-
     db.session.commit()
