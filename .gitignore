@@ -1,3 +1,7 @@
 *.pyc
 trash/
 .idea/
+/app/database/shipment.db
+.idea/dataSources.ids
+.idea/dataSources.ids
+*.db
