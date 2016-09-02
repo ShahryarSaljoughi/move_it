@@ -24,7 +24,7 @@ class User(db.Model):  # there is a relationship between User and Freight : User
     """
     tip : you SHOULD provide each object of this class with a role_id yourself ! :
                 1 corresponds with : customer
-                1 corresponds with : courier
+                2 corresponds with : courier
     """
     __tablename__ = 'users'
 
