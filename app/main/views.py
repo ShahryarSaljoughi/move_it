@@ -1,17 +1,37 @@
-
-
-from flask import render_template, request, make_response, jsonify
+from flask import render_template, request, make_response, jsonify, g
 from flask import abort
-
+from flask_httpauth import HTTPBasicAuth
 # from app import app
 from app import db
-
 from ..models import Freight, User, DestinationAddress, PickupAddress
 from . import main
 from .forms import SignupForm
 
+auth = HTTPBasicAuth()
+
+
+
+
+@main.route('/token')
+@auth.login_required
+def get_auth_token():
+    token = g.user.generate_auth_token()
+    return jsonify({'token':token.decode('ascii')})
+
+
+@auth.verify_password
+def verify_password(username_or_token, password):
+    user = User.verify_auth_token(username_or_token)
+    if not user:
+        user = User.get_user(username=username_or_token)
+        if not user or not user.verify_password(password):
+            return False
+    g.user = user
+    return True
+
 
 @main.route('/shipment/<string:username>/freights', methods=['GET'])
+@auth.login_required
 def get_user_freights(username):
     """
     this will return the freights made by user!
@@ -52,7 +72,9 @@ def create_freight():
                       width=request.json['width'],
                       depth=request.json['depth'],
                       receiver_name=request.json['receiver_name'],
-                      weight=request.json['weight']
+                      receiver_phonenumber=request.json['receiver_phonenumber'],
+                      weight=request.json['weight'],
+                      description=request.json['description']
                       )
 
     freight.destination.append(destination)
