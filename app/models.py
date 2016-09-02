@@ -98,6 +98,7 @@ class Freight(db.Model):
     receiver_name = db.Column(db.TEXT)
     receiver_phonenumber = db.Column(db.INTEGER, nullable=False)
     owner = db.Column(db.INTEGER, db.ForeignKey('users.id'))
+    description = db.Column(db.TEXT)
 
     def __repr__(self):
         return "freight: \n owner: " + \
