@@ -30,8 +30,8 @@ def get_freights():
     return jsonify({"freights": freights_list})
 
 
-@main.route('/shipment/<string:username>/freights', methods=['POST'])
-def create_freight(username):
+@main.route('/shipment/freights', methods=['POST'])
+def create_freight():
 
     destination_dict = request.json['destination']
     destination = DestinationAddress(country=destination_dict['country'],
@@ -58,7 +58,7 @@ def create_freight(username):
     freight.destination.append(destination)
     freight.pickup_address.append(pickup_address)
 
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=request.json['username']).first()
     user.freights.append(freight)
 
     db.session.add(destination)
