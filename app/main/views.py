@@ -30,6 +30,22 @@ def verify_password(username_or_token, password):
     return True
 
 
+@main.route('shipment/freights', methods=['DELETE'])
+@auth.login_required
+def delete_freight():
+    freight_id = request.json['freight_id']
+    freight = Freight.query.filter_by(id=freight_id).first()
+    if freight is None:
+        return jsonify({"failure": "freight not found"})
+    user = g.user
+    if user.id != freight.owner:
+        return jsonify({"status": "failure",
+                        "message": "you cannot delete freights ordered by others"}
+                       )
+    db.session.delete(freight)
+    db.session.commit()
+    return jsonify({"status": "success"})
+
 @main.route('/shipment/<string:username>/freights', methods=['GET'])
 @auth.login_required
 def get_user_freights(username):
