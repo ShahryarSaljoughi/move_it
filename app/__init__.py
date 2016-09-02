@@ -7,11 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config.from_object('config')
 
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + app.root_path+'\\database\\shipment.db'
-# app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
-
-
 # note that by moving the next code to the line after registering the blueprint ,
 # we will get an error , because db is needed in the main package
 db = SQLAlchemy(app)
@@ -19,9 +14,9 @@ db = SQLAlchemy(app)
 # import blueprints
 from .main import main as main_blue_print
 app.register_blueprint(main_blue_print)
-
-
 db.create_all()
+from . import initialize_db
+initialize_db.init_db()
 # app.secret_key = "secret-key!"
 app.config['secret_key'] = "scared rabbits fly"
 
