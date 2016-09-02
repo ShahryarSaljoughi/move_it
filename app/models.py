@@ -1,8 +1,10 @@
 __author__ = 'shahryar_slg'
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db
+from itsdangerous import TimedJSONWebSignatureSerializer as jsonSerializer, SignatureExpired, BadSignature
 
+from . import db
+from . import app
 
 class role(db.Model):
 
@@ -63,6 +65,21 @@ class User(db.Model):  # there is a relationship between User and Freight : User
             raise Exception("takes exactly one argument , which can be email or username or user_id)")
         return user
 
+    def generate_auth_token(self, expiration=600):
+        serializer = jsonSerializer(app.config['secret_key'], expires_in=expiration)
+        return serializer.dumps({'id': self.id})
+
+    @staticmethod
+    def verify_auth_token(token):
+        serializer = jsonSerializer(secret_key=app.config['secret_key'])
+        try:
+            data = serializer.loads(token)
+        except SignatureExpired:
+            return None     # valid token but expired
+        except BadSignature:
+            return None     # invalid token
+        user = User.get_user(user_id=data['id'])
+        return user
 
     def __repr__(self):
         return "user : " + str(self.username)
@@ -98,6 +115,7 @@ class Freight(db.Model):
     receiver_name = db.Column(db.TEXT)
     receiver_phonenumber = db.Column(db.INTEGER, nullable=False)
     owner = db.Column(db.INTEGER, db.ForeignKey('users.id'))
+    description = db.Column(db.TEXT)
 
     def __repr__(self):
         return "freight: \n owner: " + \

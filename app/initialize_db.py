@@ -21,6 +21,3 @@ def init_db():
     db.session.commit()
 
     db.session.commit()
-
-def testy():
-    pass
