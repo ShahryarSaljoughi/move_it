@@ -22,5 +22,6 @@ app.register_blueprint(main_blue_print)
 
 
 db.create_all()
-app.secret_key = "secret-key!"
+# app.secret_key = "secret-key!"
+app.config['secret_key'] = "scared rabbits fly"
 
