@@ -21,10 +21,20 @@ def get_auth_token():
 
 @auth.verify_password
 def verify_password(username_or_token, password):
+    # if token is passed , next line will assign the user
     user = User.verify_auth_token(username_or_token)
     if not user:
+        # if username is passed , next line will assign the user
         user = User.get_user(username=username_or_token)
-        if not user or not user.verify_password(password):
+        if not user:
+            # if email is passed , next line will assign the user
+            user = User.get_user(email=username_or_token)
+            if not user:
+                # if user_id is passed , next line will assign the user
+                user = User.get_user(user_id=username_or_token)
+                if not user:
+                    return False
+        if not user.verify_password(password):
             return False
     g.user = user
     return True
