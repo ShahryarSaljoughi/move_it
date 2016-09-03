@@ -52,7 +52,7 @@ class User(db.Model):  # there is a relationship between User and Freight : User
     def get_user(user_id=None, username=None, email=None):
         """
         :raises: exception if no argument is passed!
-        :param: user_id or username
+        :param: user_id or username or email
         :return: User object
         """
         if user_id is not None:
