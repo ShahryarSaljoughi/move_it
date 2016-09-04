@@ -118,8 +118,8 @@ class Freight(db.Model):
     description = db.Column(db.TEXT)
 
     def __repr__(self):
-        return "freight: \n owner: " + \
-               str(User.get_user(user_id=self.owner)) + "name:"+str(self.name)
+        return "freight: owner : " + \
+               str(User.get_user(user_id=self.owner)) + " name:"+str(self.name)
 
     def get_dict(self):
         dictionary = self.__dict__
