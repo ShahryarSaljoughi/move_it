@@ -57,6 +57,43 @@ def delete_freight():
     db.session.commit()
     return jsonify({"status": "success"})
 
+
+@main.route('/shipment/freights', methods=['PUT'])
+@auth.login_required
+def update_freight():
+    user = g.user
+
+    if 'freight_id' not in request.json:
+        return jsonify({
+            'status': "failure",
+            'message': "no freight id in request"
+        })
+
+    freight_id = request.json['freight_id']
+    freight = Freight.query.filter_by(id=freight_id).first()
+
+    if not freight:
+        return jsonify({
+            "status": "failure",
+            "message": "freight not found"
+        })
+    if user.id != freight.owner:
+        return jsonify({
+            "status": "failure",
+            "message": "you cannot edit freights ordered by others"}
+            )
+
+    new_data = request.json['new_data']
+    keys = new_data.keys()
+    for key in keys:
+        exec("freight.{0} = new_data['{0}']".format(key))
+        db.session.commit()
+    return jsonify({
+        "status": "success",
+        "message": "fields "+" , ".join(keys) + " are updated"
+    })
+
+
 @main.route('/shipment/<string:username>/freights', methods=['GET'])
 @auth.login_required
 def get_user_freights(username):
@@ -141,10 +178,12 @@ def sign_up():
             print "is about to return 400"
             abort(400)
 
+
 # the below method is just for fun and can be deleted:
 @main.route('/author')
 def see_author():
     return render_template('aboutAuthor.html')
+
 
 # the below method is just for fun and can be deleted:
 @main.route('/')
