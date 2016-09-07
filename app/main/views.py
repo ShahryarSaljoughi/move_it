@@ -1,6 +1,8 @@
-from flask import render_template, request, make_response, jsonify, g
+from flask import render_template, request, make_response, jsonify, g, session
 from flask import abort
 from flask_httpauth import HTTPBasicAuth
+from random import randint
+import methods
 # from app import app
 from app import db
 from ..models import Freight, User, DestinationAddress, PickupAddress
@@ -36,7 +38,7 @@ def verify_password(username_or_token, password):
                     return False
         if not user.verify_password(password):
             return False
-    g.user = u
+    g.user = user
     return True
 
 
@@ -173,12 +175,48 @@ def sign_up():
                             role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
                             )
             new_user.set_password(request.json['password'])
-            db.session.add(new_user)
-            db.session.commit()
-            return "success :) %r created" % new_user
+
+            code = randint(100000, 999999)
+            session['inactive_account'] = {'user': new_user, 'code': code}
+            response = methods.send_signup_code(new_user.phonenumber, code=code)
+
+            if response.status_code == 200:
+                return jsonify({
+                    'status': "success",
+                    'message': "a six-digit code in sent to your phone . enter the code to confirm the phone number"
+                })
+            else:
+                return jsonify({
+                    'status': "failure",
+                    'message': "we got problems sending code: '{}' \n try again later".format(response.text)
+                })
+
         else:
-            print "is about to return 400"
             abort(400)
+
+
+@main.route('/confirm_phonenumber', methods=['POST'])
+def confirm_phonenumber():
+
+    if 'code' not in request.json:
+        return jsonify({
+            'status': "failure",
+            'message': "the key ,'code', must be sent"
+        })
+    elif 'inactive_account' not in session:
+        return jsonify({
+            'status': "failure",
+            'message': "no phone number is pending to be confirmed!"
+        })
+    elif session['inactive_account']['code'] != request.json['code']:
+        return jsonify({
+            'status': "failure",
+            'message': "code does not match"
+        })
+
+    new_user = session['inactive_account']['user']
+    db.session.add(new_user)
+    db.session.commit()
 
 
 # the below method is just for fun and can be deleted:
