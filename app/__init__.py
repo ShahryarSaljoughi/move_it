@@ -18,5 +18,5 @@ db.create_all()
 from . import initialize_db
 initialize_db.init_db()
 # app.secret_key = "secret-key!"
-app.config['secret_key'] = "scared rabbits fly"
+# app.config['secret_key'] = "scared rabbits fly"
 
