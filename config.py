@@ -21,5 +21,5 @@ THREADS_PER_PAGE = 2
 since , the server is intended to be RESTfull , there should not be any session ! hence I'm not setting the secret_key
 """
 # secret_key = "secret-key!"
-
+SECRET_KEY = "scared rabbits fly"
 
