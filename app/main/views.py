@@ -175,15 +175,24 @@ def sign_up():
                             role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
                             )
             new_user.set_password(request.json['password'])
-
             code = randint(100000, 999999)
-            session['inactive_account'] = {'user': new_user, 'code': code}
-            response = methods.send_signup_code(new_user.phonenumber, code=code)
+            response = methods.send_signup_code(phonenumber=request.json['phonenumber'], code=code)
+
+            session['inactive_account'] = \
+                {
+                    'user':
+                    {
+                        'data': new_user.get_dict(),  # email, phone , role_id, username
+                        'password': request.json['password']
+                    },
+                    'code': code
+                }
+            print 'session is', session
 
             if response.status_code == 200:
                 return jsonify({
                     'status': "success",
-                    'message': "a six-digit code in sent to your phone . enter the code to confirm the phone number"
+                    'message': "a six-digit code is sent to your phone . enter the code to confirm the phone number"
                 })
             else:
                 return jsonify({
@@ -214,10 +223,21 @@ def confirm_phonenumber():
             'message': "code does not match"
         })
 
-    new_user = session['inactive_account']['user']
+    new_user = User(username=session['inactive_account']['user']['data']['username'],
+                    email=session['inactive_account']['user']['data']['email'],
+                    phonenumber=session['inactive_account']['user']['data']['phonenumber'],
+                    role_id=session['inactive_account']['user']['data']['role_id'],
+                    )
+    new_user.set_password(session['inactive_account']['user']['password'])
     db.session.add(new_user)
     db.session.commit()
 
+    session.pop('inactive_account')
+
+    return jsonify({
+        'status': "success",
+        'message': "{} was successfully signed up".format(new_user)
+    })
 
 # the below method is just for fun and can be deleted:
 @main.route('/author')
