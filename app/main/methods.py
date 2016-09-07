@@ -8,9 +8,14 @@ def send_signup_code(phonenumber, code):
         'user': "09127401672",
         'pass': "amin1672",
         'lineNo': "30004554551672",
-        'to': str(phonenumber),
-        'text': "your code is : {0} \n Respectfully, \n Shipment Team".format(str(code))
+        'to': phonenumber,
+        'text': "your sign up code is : {0} \n\n Respectfully, \n Shipment Team".format(str(code))
     }
-    response = requests.post('http://ip.sms.ir/SendMessage.ashx', params=params)
-
+    print params
+    response = requests.post(url='http://ip.sms.ir/SendMessage.ashx', params=params)
+    print response.text
     return response
+
+# just to test if the snippet works:
+if __name__ == '__main__':
+    send_signup_code("09127401672", code=123456)
