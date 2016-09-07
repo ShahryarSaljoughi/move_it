@@ -85,6 +85,12 @@ class User(db.Model):  # there is a relationship between User and Freight : User
         return "user : " + str(self.username)
         # return "user : %s" str(self.username)
 
+    def get_dict(self):
+        dictionary = self.__dict__
+        dictionary.pop('password_hash')
+        dictionary.pop('_sa_instance_state')
+        return dictionary
+
 
 class Dimension:
 
