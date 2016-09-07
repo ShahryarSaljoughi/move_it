@@ -1,7 +1,7 @@
 __author__ = 'shahryar_slg'
 
 from app.models import role
-#from app.main.views import db
+# from app.main.views import db
 from app import db
 
 
