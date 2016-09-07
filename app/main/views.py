@@ -36,9 +36,11 @@ def verify_password(username_or_token, password):
                     return False
         if not user.verify_password(password):
             return False
-    g.user = user
+    g.user = u
     return True
 
+
+# @main.route('/')
 
 @main.route('/shipment/freights', methods=['DELETE'])
 @auth.login_required
