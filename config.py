@@ -17,9 +17,15 @@ PORT = 9000
 HOST = '0.0.0.0'
 THREADS_PER_PAGE = 2
 
-"""
-since , the server is intended to be RESTfull , there should not be any session ! hence I'm not setting the secret_key
-"""
-# secret_key = "secret-key!"
 SECRET_KEY = "scared rabbits fly"
 
+# flask_mail configuration:
+
+MAIL_SERVER = 'smtp.googlemail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+ADMINS = ['s.shahryar75@gmail.com']
+MAIL_USERNAME = 's.shahryar75'
+MAIL_PASSWORD = 'meajcveaxrnvwvhy'
+MAIL_DEFAULT_SENDER = ('SHIPMENT TEAM', 's.shahryar75@gmail.com')
