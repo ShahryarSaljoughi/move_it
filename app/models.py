@@ -31,7 +31,8 @@ class User(db.Model):  # there is a relationship between User and Freight : User
     email = db.Column(db.TEXT, unique=True,
                       nullable=False)
     username = db.Column(db.TEXT, unique=True)
-    # password = db.Column(db.TEXT, nullable=False)
+    # email_confirmation_token = db.Column(db.TEXT)
+    email_confirmed = db.Column(db.BOOLEAN, default=False)
     phonenumber = db.Column(db.INTEGER)
     id = db.Column(db.INTEGER, primary_key=True)
     freights = db.relationship('Freight',
@@ -80,6 +81,25 @@ class User(db.Model):  # there is a relationship between User and Freight : User
             return None     # invalid token
         user = User.get_user(user_id=data['id'])
         return user
+
+    def generate_email_confirmation_token(self, expiration=86400):  # token is valid for 24 hours .
+        serializer = jsonSerializer(app.config['SECRET_KEY'], expires_in=expiration)
+        return serializer.dumps({'confirm': self.username})
+
+    @staticmethod
+    def confirm_email_token(token):
+        serializer = jsonSerializer(app.config['SECRET_KEY'])
+        try:
+            data = serializer.loads(token)
+        except SignatureExpired:
+            return None
+        except BadSignature:
+            return None
+        print "data is :", data
+        username = data['confirm']
+        user = User.query.filter_by(username=username).first()
+        return user
+
 
     def __repr__(self):
         return "user : " + str(self.username)
