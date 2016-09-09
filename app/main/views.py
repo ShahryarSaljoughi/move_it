@@ -12,6 +12,16 @@ from .forms import SignupForm
 auth = HTTPBasicAuth()
 
 
+@main.route('/email_confirmation/<string:token>')
+def confirm_email(token):
+    user = User.confirm_email_token(token)
+    if user is None:
+        print "user is None"
+        abort(400)
+    else:
+        user.email_confirmed = True
+        db.session.commit()
+        return jsonify({'status': 'success', 'message': "your email is successfully confirmed"})
 
 
 @main.route('/token')
@@ -175,9 +185,15 @@ def sign_up():
                             role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
                             )
             new_user.set_password(request.json['password'])
-            code = randint(100000, 999999)
-            response = methods.send_signup_code(phonenumber=request.json['phonenumber'], code=code)
 
+            new_user.email_confirmed = False
+            methods.send_confirmation_email(email=new_user.email,
+                                            name=new_user.username,
+                                            token=new_user.generate_email_confirmation_token()
+                                            )
+
+            code = randint(100000, 999999)  # six digits
+            response = methods.send_signup_code(phonenumber=request.json['phonenumber'], code=code)
             session['inactive_account'] = \
                 {
                     'user':
@@ -187,7 +203,6 @@ def sign_up():
                     },
                     'code': code
                 }
-            print 'session is', session
 
             if response.status_code == 200:
                 return jsonify({
