@@ -1,6 +1,10 @@
 __author__ = 'shahryar_slg'
 
 import requests
+from flask_mail import Mail, Message
+from app import app
+
+mail = Mail(app)
 
 
 def send_signup_code(phonenumber, code):
@@ -15,6 +19,15 @@ def send_signup_code(phonenumber, code):
     response = requests.post(url='http://ip.sms.ir/SendMessage.ashx', params=params)
     print response.text
     return response
+
+
+def send_confirmation_email(email, name, token):
+    msg = Message(subject='SHIPMENT-confirm your email',
+                  recipients=[email])
+    url = 'http://localhost:5000/email_confirmation/'+str(token)
+    msg.body = "{}".format(url)
+    mail.send(msg)
+
 
 # just to test if the snippet works:
 if __name__ == '__main__':
