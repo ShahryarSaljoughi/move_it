@@ -29,7 +29,7 @@ class User(db.Model):  # there is a relationship between User and Freight : User
     __tablename__ = 'users'
 
     email = db.Column(db.TEXT, unique=True,
-                      nullable=False)
+                      nullable=True)
     username = db.Column(db.TEXT, unique=True)
     first_name = db.Column(db.TEXT)
     last_name = db.Column(db.TEXT)
