@@ -31,7 +31,10 @@ class User(db.Model):  # there is a relationship between User and Freight : User
     email = db.Column(db.TEXT, unique=True,
                       nullable=False)
     username = db.Column(db.TEXT, unique=True)
-    # email_confirmation_token = db.Column(db.TEXT)
+    first_name = db.Column(db.TEXT)
+    last_name = db.Column(db.TEXT)
+    # isActive = db.Column(db.BOOLEAN, default=False) it will turn into a method
+    phonenumber_confirmed = db.Column(db.BOOLEAN, default=False)
     email_confirmed = db.Column(db.BOOLEAN, default=False)
     phonenumber = db.Column(db.INTEGER)
     id = db.Column(db.INTEGER, primary_key=True)
@@ -48,6 +51,9 @@ class User(db.Model):  # there is a relationship between User and Freight : User
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def is_active(self):
+        return self.email_confirmed or self.phonenumber_confirmed
 
     @staticmethod
     def get_user(user_id=None, username=None, email=None):
