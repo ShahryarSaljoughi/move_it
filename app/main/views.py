@@ -172,7 +172,7 @@ def create_freight():
     return "%s" % str(freight)
 
 
-@main.route('/signup/using_phonenumber')
+@main.route('/signup/using_phonenumber', methods=['POST'])
 def signup_using_phonenumber():
     if not request.json:
         return jsonify({
@@ -257,31 +257,27 @@ def confirm_phonenumber():
 
 @main.route('/signup/using_email', methods=['POST'])
 def signup_using_email():
-        if request.json:
-            new_user = User(username=request.json['username'],
-                            email=request.json['email'],
-                            role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
-                            first_name=request.json['first_name'],
-                            last_name=request.json['last_name']
-                            )
-            new_user.set_password(request.json['password'])
-            new_user.email_confirmed = False
-            db.session.add(new_user)
-            db.session.commit()
-            methods.send_confirmation_email(email=new_user.email,
-                                            name=new_user.username,
-                                            token=new_user.generate_email_confirmation_token()
-                                            )
-            return jsonify({
-                'status': 'success',
-                'message': "an email containing an activation link is sent to your email address ."
-                           " make sure to confirm your email within the next 24 hours"
-            })
-        else:
-            return jsonify({
-                'status': 'failure',
-                'message': "no json received"
-            }), 400
+    print "sign up email is running"
+
+    new_user = User(username=request.json['username'],
+                    email=request.json['email'],
+                    role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
+                    first_name=request.json['first_name'],
+                    last_name=request.json['last_name']
+                    )
+    new_user.set_password(request.json['password'])
+    new_user.email_confirmed = False
+    db.session.add(new_user)
+    db.session.commit()
+    methods.send_confirmation_email(email=new_user.email,
+                                    name=new_user.username,
+                                    token=new_user.generate_email_confirmation_token()
+                                    )
+    return jsonify({
+        'status': 'success',
+        'message': "an email containing an activation link is sent to your email address ."
+                   " make sure to confirm your email within the next 24 hours"
+    })
 
 
 # the below method is just for fun and can be deleted:
