@@ -20,6 +20,7 @@ def confirm_email(token):
         abort(400)
     else:
         user.email_confirmed = True
+        user.isActive = True
         db.session.commit()
         return jsonify({'status': 'success', 'message': "your email is successfully confirmed"})
 
@@ -171,53 +172,50 @@ def create_freight():
     return "%s" % str(freight)
 
 
-@main.route('/signup', methods=['POST', 'GET'])
-def sign_up():
-    if request.method == 'GET':
-        form = SignupForm()
-        return render_template('signup.html', form=form)
+@main.route('/signup/using_phonenumber')
+def signup_using_phonenumber():
+    if not request.json:
+        return jsonify({
+            'status': 'failure',
+            'message': "no json received"
+        }), 400
 
-    elif request.method == 'POST':
-        if request.json:
-            new_user = User(username=request.json['username'],
-                            email=request.json['email'],
-                            phonenumber=request.json['phonenumber'],
-                            role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
-                            )
-            new_user.set_password(request.json['password'])
+    new_user = User(username=request.json['username'],
+                    phonenumber=request.json['phonenumber'],
+                    role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
+                    first_name=request.json['first_name'],
+                    last_name=request.json['last_name']
+                    )
+    new_user.set_password(request.json['password'])
+    new_user.phonenumber_confirmed = False
+    # db.session.add(new_user)
+    # db.session.commit()
+    code = randint(100000, 999999)  # six digits
+    response = methods.send_signup_code(phonenumber=request.json['phonenumber'], code=code)
 
-            new_user.email_confirmed = False
-            methods.send_confirmation_email(email=new_user.email,
-                                            name=new_user.username,
-                                            token=new_user.generate_email_confirmation_token()
-                                            )
-
-            code = randint(100000, 999999)  # six digits
-            response = methods.send_signup_code(phonenumber=request.json['phonenumber'], code=code)
-            session['inactive_account'] = \
+    session['inactive_account'] = \
+        {
+            'user':
                 {
-                    'user':
-                    {
-                        'data': new_user.get_dict(),  # email, phone , role_id, username
-                        'password': request.json['password']
-                    },
-                    'code': code
-                }
+                    'data': new_user.get_dict(),  # email, phone , role_id, username
+                    'password': request.json['password']
+                },
+            'code': code
+        }
 
-            if response.status_code == 200:
-                return jsonify({
-                    'status': "success",
-                    'message': "a six-digit code is sent to your phone . enter the code to confirm the phone number"
-                })
-            else:
-                return jsonify({
-                    'status': "failure",
-                    'message': "we got problems sending code: '{}' \n try again later".format(response.text)
-                })
-
-        else:
-            abort(400)
-
+    if response.status_code == 200:
+        return jsonify({
+            'status': "success",
+            'message': "a six-digit code is sent to your phone . enter the code within the next 10 mins"
+                       " to confirm the phone number"
+                       " and complete your registration"
+        })
+    else:
+        return jsonify({
+            'status': "failure",
+            'message': "we got problems sending code: '{}' \n"
+                       " try confirming your phone number later".format(response.text)
+        })
 
 @main.route('/confirm_phonenumber', methods=['POST'])
 def confirm_phonenumber():
@@ -239,11 +237,13 @@ def confirm_phonenumber():
         })
 
     new_user = User(username=session['inactive_account']['user']['data']['username'],
-                    email=session['inactive_account']['user']['data']['email'],
                     phonenumber=session['inactive_account']['user']['data']['phonenumber'],
                     role_id=session['inactive_account']['user']['data']['role_id'],
+                    first_name=session['inactive_account']['user']['data']['first_name'],
+                    last_name=session['inactive_account']['user']['data']['last_name']
                     )
     new_user.set_password(session['inactive_account']['user']['password'])
+    new_user.phonenumber_confirmed = True
     db.session.add(new_user)
     db.session.commit()
 
@@ -253,6 +253,36 @@ def confirm_phonenumber():
         'status': "success",
         'message': "{} was successfully signed up".format(new_user)
     })
+
+
+@main.route('/signup/using_email', methods=['POST'])
+def signup_using_email():
+        if request.json:
+            new_user = User(username=request.json['username'],
+                            email=request.json['email'],
+                            role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
+                            first_name=request.json['first_name'],
+                            last_name=request.json['last_name']
+                            )
+            new_user.set_password(request.json['password'])
+            new_user.email_confirmed = False
+            db.session.add(new_user)
+            db.session.commit()
+            methods.send_confirmation_email(email=new_user.email,
+                                            name=new_user.username,
+                                            token=new_user.generate_email_confirmation_token()
+                                            )
+            return jsonify({
+                'status': 'success',
+                'message': "an email containing an activation link is sent to your email address ."
+                           " make sure to confirm your email within the next 24 hours"
+            })
+        else:
+            return jsonify({
+                'status': 'failure',
+                'message': "no json received"
+            }), 400
+
 
 # the below method is just for fun and can be deleted:
 @main.route('/author')
