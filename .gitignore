@@ -3,3 +3,6 @@ trash/*
 .idea/*
 /app/database/shipment.db
 
+/api/
+/db_create.py
+/app/templates/error.html
