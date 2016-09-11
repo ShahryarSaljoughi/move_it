@@ -98,7 +98,7 @@ class User(db.Model):  # there is a relationship between User and Freight : User
         try:
             data = serializer.loads(token)
         except SignatureExpired:
-            return None
+            return "expired"
         except BadSignature:
             return None
         print "data is :", data
