@@ -24,7 +24,8 @@ def send_signup_code(phonenumber, code):
 def send_confirmation_email(email, name, token):
     msg = Message(subject='SHIPMENT-confirm your email',
                   recipients=[email])
-    url = 'http://localhost:5000/email_confirmation/'+str(token)
+    # url = 'http://localhost:5000/email_confirmation/'+str(token)
+    url = 'http://192.99.103.124:9000/email_confirmation/'+str(token)
     msg.body = "{}".format(url)
     mail.send(msg)
 
