@@ -13,6 +13,7 @@ db = SQLAlchemy(app)
 
 # import blueprints
 from .main import main as main_blue_print
+from app.models import *
 app.register_blueprint(main_blue_print)
 db.create_all()
 from . import initialize_db
