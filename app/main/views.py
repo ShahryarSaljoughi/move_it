@@ -18,6 +18,11 @@ def confirm_email(token):
     if user is None:
         print "user is None"
         abort(400)
+    if user == "expired":
+        return jsonify({
+            'status': "failure",
+            'message': "token is expired"
+        })
     else:
         user.email_confirmed = True
         user.isActive = True
@@ -193,7 +198,7 @@ def signup_using_phonenumber():
     code = randint(100000, 999999)  # six digits
     response = methods.send_signup_code(phonenumber=request.json['phonenumber'], code=code)
 
-    session['inactive_account'] = \
+    session['inactive_account_phone'] = \
         {
             'user':
                 {
@@ -225,29 +230,29 @@ def confirm_phonenumber():
             'status': "failure",
             'message': "the key ,'code', must be sent"
         })
-    elif 'inactive_account' not in session:
+    elif 'inactive_account_phone' not in session:
         return jsonify({
             'status': "failure",
             'message': "no phone number is pending to be confirmed!"
         })
-    elif session['inactive_account']['code'] != request.json['code']:
+    elif session['inactive_account_phone']['code'] != request.json['code']:
         return jsonify({
             'status': "failure",
             'message': "code does not match"
         })
 
-    new_user = User(username=session['inactive_account']['user']['data']['username'],
-                    phonenumber=session['inactive_account']['user']['data']['phonenumber'],
-                    role_id=session['inactive_account']['user']['data']['role_id'],
-                    first_name=session['inactive_account']['user']['data']['first_name'],
-                    last_name=session['inactive_account']['user']['data']['last_name']
+    new_user = User(username=session['inactive_account_phone']['user']['data']['username'],
+                    phonenumber=session['inactive_account_phone']['user']['data']['phonenumber'],
+                    role_id=session['inactive_account_phone']['user']['data']['role_id'],
+                    first_name=session['inactive_account_phone']['user']['data']['first_name'],
+                    last_name=session['inactive_account_phone']['user']['data']['last_name']
                     )
-    new_user.set_password(session['inactive_account']['user']['password'])
+    new_user.set_password(session['inactive_account_phone']['user']['password'])
     new_user.phonenumber_confirmed = True
     db.session.add(new_user)
     db.session.commit()
 
-    session.pop('inactive_account')
+    session.pop('inactive_account_phone')
 
     return jsonify({
         'status': "success",
@@ -257,8 +262,6 @@ def confirm_phonenumber():
 
 @main.route('/signup/using_email', methods=['POST'])
 def signup_using_email():
-    print "sign up email is running"
-
     new_user = User(username=request.json['username'],
                     email=request.json['email'],
                     role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
