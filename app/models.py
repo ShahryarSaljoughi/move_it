@@ -33,7 +33,6 @@ class User(db.Model):  # there is a relationship between User and Freight : User
     username = db.Column(db.TEXT, unique=True)
     first_name = db.Column(db.TEXT)
     last_name = db.Column(db.TEXT)
-    # isActive = db.Column(db.BOOLEAN, default=False) it will turn into a method
     phonenumber_confirmed = db.Column(db.BOOLEAN, default=False)
     email_confirmed = db.Column(db.BOOLEAN, default=False)
     phonenumber = db.Column(db.INTEGER)
@@ -73,12 +72,12 @@ class User(db.Model):  # there is a relationship between User and Freight : User
         return user
 
     def generate_auth_token(self, expiration=600):
-        serializer = jsonSerializer(app.config['secret_key'], expires_in=expiration)
+        serializer = jsonSerializer(app.config['SECRET_KEY'], expires_in=expiration)
         return serializer.dumps({'id': self.id})
 
     @staticmethod
     def verify_auth_token(token):
-        serializer = jsonSerializer(secret_key=app.config['secret_key'])
+        serializer = jsonSerializer(secret_key=app.config['SECRET_KEY'])
         try:
             data = serializer.loads(token)
         except SignatureExpired:
