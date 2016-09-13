@@ -12,29 +12,12 @@ from .forms import SignupForm
 auth = HTTPBasicAuth()
 
 
-@main.route('/email_confirmation/<string:token>')
-def confirm_email(token):
-    user = User.confirm_email_token(token)
-    if user is None:
-        print "user is None"
-        abort(400)
-    if user == "expired":
-        return jsonify({
-            'status': "failure",
-            'message': "token is expired"
-        })
-    else:
-        user.email_confirmed = True
-        user.isActive = True
-        db.session.commit()
-        return jsonify({'status': 'success', 'message': "your email is successfully confirmed"})
-
-
 @main.route('/token')
 @auth.login_required
 def get_auth_token():
     token = g.user.generate_auth_token()
-    return jsonify({'token':token.decode('ascii')})
+    return jsonify({'token': token.decode('ascii')})
+    # I don't know what decode really does ! it makes to difference as I tested !
 
 
 @auth.verify_password
@@ -58,9 +41,8 @@ def verify_password(username_or_token, password):
     return True
 
 
-# @main.route('/')
-
-@main.route('/shipment/freights', methods=['DELETE'])
+# CRUD operations
+@main.route('/freights', methods=['DELETE'])
 @auth.login_required
 def delete_freight():
     freight_id = request.json['freight_id']
@@ -78,7 +60,7 @@ def delete_freight():
     return jsonify({"status": "success"})
 
 
-@main.route('/shipment/freights', methods=['PUT'])
+@main.route('/freights', methods=['PUT'])
 @auth.login_required
 def update_freight():
     user = g.user
@@ -114,7 +96,7 @@ def update_freight():
     })
 
 
-@main.route('/shipment/<string:username>/freights', methods=['GET'])
+@main.route('/<string:username>/freights', methods=['GET'])
 @auth.login_required
 def get_user_freights(username):
     """
@@ -127,14 +109,15 @@ def get_user_freights(username):
     return jsonify({'freights': freights_list})
 
 
-@main.route('/shipment/freights', methods=['GET'])
+@main.route('/freights', methods=['GET'])
 def get_freights():
     freights = Freight.query.all()
     freights_list = [fr.get_dict() for fr in freights]
     return jsonify({"freights": freights_list})
 
 
-@main.route('/shipment/freights', methods=['POST'])
+@main.route('/freights', methods=['POST'])
+@auth.login_required
 def create_freight():
 
     destination_dict = request.json['destination']
@@ -177,6 +160,7 @@ def create_freight():
     return "%s" % str(freight)
 
 
+# REGISTRATION:
 @main.route('/signup/using_phonenumber', methods=['POST'])
 def signup_using_phonenumber():
     if not request.json:
@@ -193,8 +177,7 @@ def signup_using_phonenumber():
                     )
     new_user.set_password(request.json['password'])
     new_user.phonenumber_confirmed = False
-    # db.session.add(new_user)
-    # db.session.commit()
+
     code = randint(100000, 999999)  # six digits
     response = methods.send_signup_code(phonenumber=request.json['phonenumber'], code=code)
 
@@ -281,6 +264,24 @@ def signup_using_email():
         'message': "an email containing an activation link is sent to your email address ."
                    " make sure to confirm your email within the next 24 hours"
     })
+
+
+@main.route('/email_confirmation/<string:token>')
+def confirm_email(token):
+    user = User.confirm_email_token(token)
+    if user is None:
+        print "user is None"
+        abort(400)
+    if user == "expired":
+        return jsonify({
+            'status': "failure",
+            'message': "token is expired"
+        })
+    else:
+        user.email_confirmed = True
+        user.isActive = True
+        db.session.commit()
+        return jsonify({'status': 'success', 'message': "your email is successfully confirmed"})
 
 
 # the below method is just for fun and can be deleted:
