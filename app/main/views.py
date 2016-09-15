@@ -1,11 +1,14 @@
+import os
 from flask import render_template, request, make_response, jsonify, g, session
 from flask import abort
 from flask_httpauth import HTTPBasicAuth
 from random import randint
 import methods
+from werkzeug.utils import secure_filename
 # from app import app
 from app import db
-from ..models import Freight, User, DestinationAddress, PickupAddress
+from app import app
+from ..models import Freight, User, DestinationAddress, PickupAddress, FreightPicture
 from . import main
 from .forms import SignupForm
 
@@ -147,7 +150,8 @@ def create_freight():
     freight.destination.append(destination)
     freight.pickup_address.append(pickup_address)
 
-    user = User.query.filter_by(username=request.json['username']).first()
+    # user = User.query.filter_by(username=request.json['username']).first()
+    user = g.user
     user.freights.append(freight)
 
     db.session.add(destination)
@@ -283,6 +287,45 @@ def confirm_email(token):
         db.session.commit()
         return jsonify({'status': 'success', 'message': "your email is successfully confirmed"})
 
+
+def allowed_picture(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in app.config['ALLOWED_PICTURE_EXTENSIONS']
+
+
+@main.route('/upload/freight/picture', methods=['POST'])
+@auth.login_required
+def upload_freight_picture():
+
+    freight = Freight.query.filter_by(id=request.form['freight_id']).first()
+
+    if freight is None:
+        return jsonify({'status': 'failure', 'message': 'there is no freight with that id!'})
+
+    if freight.owner != g.user.id:
+        return jsonify({'status': 'failure', 'message': 'you can not append picture to this freight'})
+
+    if 'file' not in request.files:
+        return jsonify({"status": "failure", "message": "no file part!"})
+
+    pic_file = request.files['file']
+
+    if pic_file.filename == '':
+        return jsonify({'status': 'failure', 'message': 'no file selected!'})
+
+    if pic_file and allowed_picture(pic_file.filename):
+        filename = secure_filename(pic_file.filename)
+        pic_path = os.path.join(app.config['FREIGHT_PICTURES_DIR'], filename)
+        pic_file.save(pic_path)
+        picture = FreightPicture(filename=filename,
+                                 path=pic_path,
+                                 )
+        freight.pictures.append(picture)
+        db.session.add(picture)
+        db.session.commit()
+        return jsonify({'status': 'success', 'message': 'done'})
+
+    return jsonify({'status': 'failure', 'message': 'file is not allowed'})
 
 # the below method is just for fun and can be deleted:
 @main.route('/author')
