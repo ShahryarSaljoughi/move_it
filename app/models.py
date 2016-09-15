@@ -147,6 +147,7 @@ class Freight(db.Model):
     receiver_phonenumber = db.Column(db.INTEGER, nullable=False)
     owner = db.Column(db.INTEGER, db.ForeignKey('users.id'))
     description = db.Column(db.TEXT)
+    pictures = db.relationship('FreightPicture')
 
     def __repr__(self):
         return "freight: owner : " + \
@@ -226,3 +227,11 @@ class DestinationAddress(db.Model):
                                      zipcode=words_of_address[-1]
                                      )
         return address
+
+
+class FreightPicture(db.Model):
+    __tablename__ = 'freight_pictures'
+    filename = db.Column(db.TEXT, nullable=False)
+    path = db.Column(db.TEXT, nullable=False)
+    freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
+    id = db.Column(db.INTEGER, primary_key=True)
