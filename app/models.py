@@ -3,9 +3,13 @@ __author__ = 'shahryar_slg'
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as jsonSerializer, SignatureExpired, BadSignature
 from datetime import datetime
+from flask_admin.contrib.sqla import ModelView
+
 
 from . import db
 from . import app
+from . import admin
+
 
 class role(db.Model):
 
@@ -238,3 +242,9 @@ class FreightPicture(db.Model):
     freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
     id = db.Column(db.INTEGER, primary_key=True)
     created = db.Column(db.DateTime, default=datetime.utcnow())
+
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Freight, db.session))
+admin.add_view(ModelView(DestinationAddress, db.session))
+admin.add_view(ModelView(PickupAddress, db.session))
+admin.add_view(ModelView(FreightPicture, db.session))
