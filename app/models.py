@@ -3,9 +3,12 @@ __author__ = 'shahryar_slg'
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as jsonSerializer, SignatureExpired, BadSignature
 from datetime import datetime
-
+from pytz import timezone
 from . import db
 from . import app
+
+tehran = timezone('Asia/Tehran')
+
 
 class role(db.Model):
 
@@ -149,7 +152,7 @@ class Freight(db.Model):
     owner = db.Column(db.INTEGER, db.ForeignKey('users.id'))
     description = db.Column(db.TEXT)
     pictures = db.relationship('FreightPicture')
-    creation_data = db.Column(db.DateTime, default=datetime.utcnow())
+    creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
 
     def __repr__(self):
         return "freight: owner : " + \
@@ -237,4 +240,4 @@ class FreightPicture(db.Model):
     path = db.Column(db.TEXT, nullable=False)
     freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
     id = db.Column(db.INTEGER, primary_key=True)
-    created = db.Column(db.DateTime, default=datetime.utcnow())
+    created = db.Column(db.DateTime, default=datetime.now(tehran))
