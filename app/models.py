@@ -155,6 +155,9 @@ class Freight(db.Model):
     pictures = db.relationship('FreightPicture')
     creation_data = db.Column(db.DateTime, default=datetime.utcnow())
 
+    # overwriting ModelView :
+    column_searchable_list = ['id', 'owner', 'creation_data', 'description', 'receiver_name']
+
     def __repr__(self):
         return "freight: owner : " + \
                str(User.get_user(user_id=self.owner)) + " name:"+str(self.name)
