@@ -1,1 +1,5 @@
-__author__ = 'panizava'
+__author__ = 'shahryar_saljoughi'
+
+from flask_httpauth import HTTPBasicAuth
+
+auth = HTTPBasicAuth()
