@@ -17,7 +17,8 @@ def send_signup_code(phonenumber, code):
     }
     print params
     response = requests.post(url='http://ip.sms.ir/SendMessage.ashx', params=params)
-    print response.text
+    # print response.text  # this single line is a BUG do you believe it ???
+    #                        since the response.text can't be decoded on my vps
     return response
 
 
