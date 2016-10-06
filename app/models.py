@@ -4,8 +4,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as jsonSerializer, SignatureExpired, BadSignature
 from datetime import datetime
 from pytz import timezone
+from flask_admin.contrib.sqla import ModelView
+
 from . import db
 from . import app
+from . import admin
+
 
 tehran = timezone('Asia/Tehran')
 
@@ -154,6 +158,9 @@ class Freight(db.Model):
     pictures = db.relationship('FreightPicture')
     creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
 
+    # overwriting ModelView :
+    column_searchable_list = ['id', 'owner', 'creation_data', 'description', 'receiver_name']
+
     def __repr__(self):
         return "freight: owner : " + \
                str(User.get_user(user_id=self.owner)) + " name:"+str(self.name)
@@ -241,3 +248,10 @@ class FreightPicture(db.Model):
     freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
     id = db.Column(db.INTEGER, primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tehran))
+
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Freight, db.session))
+admin.add_view(ModelView(DestinationAddress, db.session))
+admin.add_view(ModelView(PickupAddress, db.session))
+admin.add_view(ModelView(FreightPicture, db.session))
+
