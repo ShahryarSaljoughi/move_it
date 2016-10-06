@@ -8,9 +8,9 @@ from werkzeug.utils import secure_filename
 # from app import app
 from app import db
 from app import app
-from ..models import Freight, User, DestinationAddress, PickupAddress, FreightPicture
-from . import main
-from .forms import SignupForm
+from app.models import Freight, User, DestinationAddress, PickupAddress, FreightPicture
+from app.main import main
+from app.main.forms import SignupForm
 
 auth = HTTPBasicAuth()
 
