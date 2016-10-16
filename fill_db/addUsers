@@ -1,0 +1,39 @@
+from random import randint
+from requests import post
+from app.models import User
+from random import choice
+first_names = ['pegah', 'ali', 'asqar', 'hossein', 'siamak', 'shahryar', 'hamid', 'sadeq', 'esmaeel',
+               'zifat', 'marjan', 'alireza', 'hadi', 'mohsen', 'amirhossein', 'farzam', 'farhad',
+               'shaqayeq', 'negar', 'shadi', 'shahab', 'kimia', 'kiarash', 'arash', 'arad', 'ANTESKA']
+last_names = ['saljoughi', 'mortazavi', 'ghasemi', 'rad', 'manesh', 'asayesh', 'namazi', 'niazi', 'montakhabi',
+              'poor', 'saljoughian', 'qaznavi']
+phone_numbers = ['09127401672', '09127402433', '09122419815', '09121410477', '09142850025', '09128417268']
+passwords = "I need a hi_tech laptop!! 4G ram,"
+
+rand = randint(0, 7)
+
+# add ten users:
+for i in range(100):
+
+    first_name = choice(first_names)
+    last_name = choice(last_names)
+    phone_number = choice(phone_numbers)
+
+    user = User(
+        first_name=first_name,
+        last_name=last_name,
+        username="{}_{}{}".format(first_name, last_name,i),
+        role_id=randint(1, 2),
+        email="{}.{}{}@{}.com".format(first_name,
+                                      last_name+str(i),
+                                      randint(1340, 1380),
+                                      choice(["gmail", "yahoo"])),
+    )
+
+    user.set_password("light nights")
+
+    from app import db
+    db.session.add(user)
+    db.session.commit()
+
+

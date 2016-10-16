@@ -27,4 +27,3 @@ app.register_blueprint(main_blue_print)
 db.create_all()
 from . import initialize_db
 initialize_db.init_db()
-
