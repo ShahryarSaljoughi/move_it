@@ -12,7 +12,8 @@ tehran = timezone('Asia/Tehran')
 
 
 def search_by_date(records, start, end):
-    records = records.filter(Freight.creation_data > start).filter(Freight.creation_data < end)
+    records = records.filter(Freight.creation_data >= start).filter(Freight.creation_data <= end).all()
+    return records
 
 
 # currently I'm just gonna implement searching by date. later other features will be added.
@@ -91,9 +92,9 @@ def search_freights():
                 if "end" in dates and "minute" in dates['end'] else 59
             )
 
-            search_by_date(result, start, end)
+            result = search_by_date(result, start, end)
     print result
-    return jsonify({'status': "success", "result": result.all()}), 200
+    return jsonify({'status': "success", "result": [freight.default(freight) for freight in result]}), 200
 
 
 
