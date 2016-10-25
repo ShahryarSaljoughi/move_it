@@ -195,8 +195,8 @@ class Freight(db.Model, json.JSONEncoder):
                 'width': obj.width,
                 'height': obj.height,
                 'depth': obj.depth,
-                'destination': DestinationAddress.default(obj.destination),
-                'pickup_address': PickupAddress.default(obj.pickup_address),
+                'destination': obj.destination[0].default(obj.destination[0]),
+                'pickup_address': obj.pickup_address[0].default(obj.pickup_address[0]),
                 'receiver_name': obj.receiver_name,
             }
         else:
