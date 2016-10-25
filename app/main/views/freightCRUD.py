@@ -126,7 +126,11 @@ def create_freight():
 
     db.session.commit()
 
-    return "%s" % str(freight)
+    # return "%s" % str(freight)
+    return jsonify({
+        'status': "success",
+        'message': " freight created",
+        'freight_info':freight.default(freight)})   # todo : default should be static! or whar ever! it's not nice now!
 
 
 def allowed_picture(filename):
