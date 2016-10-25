@@ -126,7 +126,10 @@ def create_freight():
 
     db.session.commit()
 
-    return "%s" % str(freight)
+    return jsonify({
+        'status': "success",
+        'message': " freight created",
+        'freight_info': freight.default(freight)})
 
 
 def allowed_picture(filename):
