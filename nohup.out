@@ -1,0 +1,500 @@
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+Traceback (most recent call last):
+  File "run.py", line 3, in <module>
+    from app import app
+  File "/root/move_it/app/__init__.py", line 24, in <module>
+    from .main import main as main_blue_print
+  File "/root/move_it/app/main/__init__.py", line 8, in <module>
+    from . import views
+  File "/root/move_it/app/main/views.py", line 11, in <module>
+    from ..models import Freight, User, DestinationAddress, PickupAddress, FreightPicture
+  File "/root/move_it/app/models.py", line 6, in <module>
+    from pytz import timezone
+ImportError: No module named pytz
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+ * Restarting with stat
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Debugger is active!
+ * Debugger pin code: 166-222-627
+46.224.139.74 - - [06/Oct/2016 21:31:55] "GET / HTTP/1.1" 200 -
+46.224.139.74 - - [06/Oct/2016 21:31:55] "GET / HTTP/1.1" 200 -
+194.225.232.77 - - [06/Oct/2016 22:22:10] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [06/Oct/2016 23:19:42] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [06/Oct/2016 23:23:00] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+46.224.139.74 - - [06/Oct/2016 23:27:20] "GET / HTTP/1.1" 200 -
+46.224.139.74 - - [06/Oct/2016 23:27:20] "GET /static/pic1.jpg HTTP/1.1" 304 -
+46.224.139.74 - - [06/Oct/2016 23:27:23] "GET /author HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 00:38:08] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 00:53:18] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 00:55:55] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 01:01:55] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 01:03:51] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 01:17:35] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 01:35:57] "GET /admin HTTP/1.1" 301 -
+66.249.93.9 - - [07/Oct/2016 01:35:57] "GET /admin/ HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 01:35:58] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap.min.css?v=3.3.5 HTTP/1.1" 200 -
+66.249.93.9 - - [07/Oct/2016 01:35:58] "GET /admin/static/admin/css/bootstrap3/admin.css?v=1.1.1 HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 01:35:58] "GET /admin/static/vendor/jquery.min.js?v=2.1.4 HTTP/1.1" 304 -
+66.249.93.5 - - [07/Oct/2016 01:35:58] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap-theme.min.css?v=3.3.5 HTTP/1.1" 200 -
+66.249.93.5 - - [07/Oct/2016 01:35:58] "GET /admin/static/bootstrap/bootstrap3/js/bootstrap.min.js?v=3.3.5 HTTP/1.1" 304 -
+66.249.93.9 - - [07/Oct/2016 01:35:58] "GET /admin/static/vendor/moment.min.js?v=2.9.0 HTTP/1.1" 304 -
+66.249.93.7 - - [07/Oct/2016 01:35:58] "GET /admin/static/vendor/select2/select2.min.js?v=3.5.2 HTTP/1.1" 304 -
+66.249.93.9 - - [07/Oct/2016 01:36:02] "GET /admin/user/ HTTP/1.1" 200 -
+66.249.93.9 - - [07/Oct/2016 01:36:02] "GET /admin/static/vendor/select2/select2.css?v=3.5.2 HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 01:36:02] "GET /admin/static/vendor/select2/select2-bootstrap3.css?v=1.4.6 HTTP/1.1" 200 -
+66.249.93.9 - - [07/Oct/2016 01:36:02] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css?v=1.3.22 HTTP/1.1" 200 -
+66.249.93.5 - - [07/Oct/2016 01:36:02] "GET /admin/static/admin/js/filters.js?v=1.0.0 HTTP/1.1" 304 -
+66.249.93.5 - - [07/Oct/2016 01:36:02] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker.js?v=1.3.22 HTTP/1.1" 304 -
+66.249.93.7 - - [07/Oct/2016 01:36:02] "GET /admin/static/admin/js/form.js?v=1.0.1 HTTP/1.1" 304 -
+66.249.93.7 - - [07/Oct/2016 01:36:02] "GET /admin/static/admin/js/actions.js?v=1.0.0 HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 01:36:02] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 01:36:03] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 01:37:14] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 01:39:20] "GET /admin/freight/ HTTP/1.1" 200 -
+66.249.93.9 - - [07/Oct/2016 01:39:21] "GET /admin/pickupaddress/ HTTP/1.1" 200 -
+66.249.93.5 - - [07/Oct/2016 01:39:26] "GET /admin/ HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 01:39:30] "GET /admin/user/ HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 01:39:36] "GET /admin/freight/ HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 01:39:48] "GET /admin/freight/new/?url=%2Fadmin%2Ffreight%2F HTTP/1.1" 200 -
+66.249.93.5 - - [07/Oct/2016 01:39:48] "GET /admin/static/vendor/select2/select2.png HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 01:47:35] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 01:50:18] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 01:58:29] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 15:31:42] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 15:32:06] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 15:34:59] "GET /admin/ HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 15:34:59] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap-theme.min.css?v=3.3.5 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:34:59] "GET /admin/static/admin/css/bootstrap3/admin.css?v=1.1.1 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:34:59] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap.min.css?v=3.3.5 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:34:59] "GET /admin/static/vendor/jquery.min.js?v=2.1.4 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:34:59] "GET /admin/static/vendor/select2/select2.min.js?v=3.5.2 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:34:59] "GET /admin/static/bootstrap/bootstrap3/js/bootstrap.min.js?v=3.3.5 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:34:59] "GET /admin/static/vendor/moment.min.js?v=2.9.0 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:35:02] "GET /admin/ HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 15:35:04] "GET /admin/user/ HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 15:35:05] "GET /admin/static/vendor/select2/select2-bootstrap3.css?v=1.4.6 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:35:05] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css?v=1.3.22 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:35:05] "GET /admin/static/admin/js/filters.js?v=1.0.0 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:35:05] "GET /admin/static/vendor/select2/select2.css?v=3.5.2 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:35:05] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker.js?v=1.3.22 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:35:05] "GET /admin/static/admin/js/form.js?v=1.0.1 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:35:05] "GET /admin/static/admin/js/actions.js?v=1.0.0 HTTP/1.1" 304 -
+194.225.232.96 - - [07/Oct/2016 15:35:06] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 15:38:46] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 15:46:29] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 15:46:57] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 18:10:56] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 18:11:30] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 18:11:54] "POST /confirm_phonenumber HTTP/1.1" 200 -
+46.224.139.74 - - [07/Oct/2016 18:18:20] "GET / HTTP/1.1" 200 -
+46.224.139.74 - - [07/Oct/2016 18:18:21] "GET /static/pic1.jpg HTTP/1.1" 304 -
+46.224.139.74 - - [07/Oct/2016 18:18:21] "GET /favicon.ico HTTP/1.1" 404 -
+46.224.139.74 - - [07/Oct/2016 18:18:25] "GET /author HTTP/1.1" 200 -
+46.224.139.74 - - [07/Oct/2016 18:20:19] "GET /author HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 18:40:38] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 18:41:09] "POST /signup/using_phonenumber HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2000, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1991, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1567, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/move_it/app/main/views.py", line 176, in signup_using_phonenumber
+    new_user = User(username=request.json['username'],
+KeyError: 'username'
+194.225.232.96 - - [07/Oct/2016 18:43:50] "POST /signup/using_phonenumber HTTP/1.1" 400 -
+194.225.232.96 - - [07/Oct/2016 18:44:20] "POST /confirm_phonenumber HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2000, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1991, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1567, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/move_it/app/main/views.py", line 215, in confirm_phonenumber
+    if 'code' not in request.json:
+TypeError: argument of type 'NoneType' is not iterable
+194.225.232.96 - - [07/Oct/2016 18:44:58] "POST /confirm_phonenumber HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2000, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1991, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1567, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/move_it/app/main/views.py", line 215, in confirm_phonenumber
+    if 'code' not in request.json:
+TypeError: argument of type 'NoneType' is not iterable
+194.225.232.96 - - [07/Oct/2016 18:52:37] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 18:53:14] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 18:55:13] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 18:55:46] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 19:03:06] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 19:03:42] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 19:04:23] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 19:14:41] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 19:15:03] "POST /confirm_phonenumber HTTP/1.1" 200 -
+66.249.93.7 - - [07/Oct/2016 19:23:35] "GET /admin/ HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 19:23:37] "GET /admin/user/ HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 19:24:05] "POST /admin/user/delete/ HTTP/1.1" 302 -
+194.225.232.96 - - [07/Oct/2016 19:24:05] "GET /admin/user/ HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 19:24:12] "GET /admin/user/new/?url=%2Fadmin%2Fuser%2F HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 19:24:12] "GET /admin/static/vendor/select2/select2.png HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 23:01:04] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.96 - - [07/Oct/2016 23:01:41] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 23:33:05] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+{'to': u'09363473245', 'text': 'your sign up code is : 544891 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09363473245', 'text': 'your sign up code is : 161311 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 260047 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 424393 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 956275 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 364973 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 349026 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 749167 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 863730 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 945905 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 677084 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 655666 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 871676 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 924557 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 206370 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 963984 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09363473245', 'text': 'your sign up code is : 197162 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09363473245', 'text': 'your sign up code is : 915281 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09363473245', 'text': 'your sign up code is : 529487 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 791597 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 546674 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09363473245', 'text': 'your sign up code is : 734528 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09363473245', 'text': 'your sign up code is : 397344 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'amin1672'}
+{'to': u'09330407152', 'text': 'your sign up code is : 662741 \n\n Respectfully, \n Shipment Team', 'lineNo': '30004554551672', 'user': '09127401672', 'pass': 'ami194.225.232.77 - - [07/Oct/2016 23:35:47] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 23:37:13] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 23:37:57] "POST /confirm_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 23:56:46] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [07/Oct/2016 23:57:19] "POST /confirm_phonenumber HTTP/1.1" 200 -
+93.174.93.136 - - [07/Oct/2016 23:57:33] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+194.225.232.77 - - [08/Oct/2016 00:05:36] "POST /signup/using_email HTTP/1.1" 400 -
+194.225.232.77 - - [08/Oct/2016 00:33:46] "POST /signup/using_phonenumber HTTP/1.1" 200 -
+194.225.232.77 - - [08/Oct/2016 00:34:51] "POST /confirm_phonenumber HTTP/1.1" 200 -
+94.102.49.174 - - [08/Oct/2016 08:52:50] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+93.174.93.136 - - [09/Oct/2016 04:31:13] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+94.102.49.174 - - [10/Oct/2016 01:13:22] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+93.174.93.136 - - [10/Oct/2016 09:03:07] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+46.224.119.7 - - [10/Oct/2016 15:59:38] "GET / HTTP/1.1" 200 -
+46.224.119.7 - - [10/Oct/2016 15:59:38] "GET /static/pic1.jpg HTTP/1.1" 304 -
+46.224.119.7 - - [10/Oct/2016 15:59:42] "GET /author HTTP/1.1" 200 -
+46.224.119.7 - - [11/Oct/2016 08:27:01] "GET /author HTTP/1.1" 200 -
+66.249.93.7 - - [11/Oct/2016 09:45:14] "GET / HTTP/1.1" 200 -
+66.249.93.5 - - [11/Oct/2016 09:45:14] "GET /favicon.ico HTTP/1.1" 404 -
+43.241.222.224 - - [11/Oct/2016 11:38:05] "GET http://www.baidu.com/favicon.ico HTTP/1.1" 404 -
+93.174.93.136 - - [11/Oct/2016 13:34:54] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+94.102.49.174 - - [11/Oct/2016 17:33:01] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+180.150.179.202 - - [12/Oct/2016 09:46:16] "GET http://www.baidu.com/favicon.ico HTTP/1.1" 404 -
+66.249.93.5 - - [12/Oct/2016 16:40:17] "GET / HTTP/1.1" 200 -
+66.249.93.9 - - [12/Oct/2016 16:40:18] "GET /favicon.ico HTTP/1.1" 404 -
+93.174.93.136 - - [12/Oct/2016 18:04:36] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+103.37.149.232 - - [13/Oct/2016 05:27:56] "GET http://www.baidu.com/favicon.ico HTTP/1.1" 404 -
+62.244.196.50 - - [13/Oct/2016 05:28:46] "GET / HTTP/1.0" 200 -
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/threading.py", line 801, in __bootstrap_inner
+    self.run()
+  File "/usr/lib/python2.7/threading.py", line 754, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 659, in inner
+    srv.serve_forever()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 499, in serve_forever
+    HTTPServer.serve_forever(self)
+  File "/usr/lib/python2.7/SocketServer.py", line 233, in serve_forever
+    self._handle_request_noblock()
+  File "/usr/lib/python2.7/SocketServer.py", line 292, in _handle_request_noblock
+    self.handle_error(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 290, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 318, in process_request
+    self.finish_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 331, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python2.7/SocketServer.py", line 652, in __init__
+    self.handle()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 216, in handle
+    rv = BaseHTTPRequestHandler.handle(self)
+  File "/usr/lib/python2.7/BaseHTTPServer.py", line 340, in handle
+    self.handle_one_request()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 247, in handle_one_request
+    self.raw_requestline = self.rfile.readline()
+IOError: [Errno 104] Connection reset by peer
+
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+ * Restarting with stat
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Debugger is active!
+ * Debugger pin code: 166-222-627
+178.62.85.75 - - [13/Oct/2016 23:06:55] "GET /author HTTP/1.1" 200 -
+178.62.85.75 - - [13/Oct/2016 23:06:59] "GET /author HTTP/1.1" 200 -
+178.62.85.75 - - [13/Oct/2016 23:07:02] "GET / HTTP/1.1" 200 -
+178.62.85.75 - - [13/Oct/2016 23:20:57] "GET / HTTP/1.1" 200 -
+66.249.93.9 - - [14/Oct/2016 08:37:01] "GET / HTTP/1.1" 200 -
+66.249.93.9 - - [14/Oct/2016 08:37:01] "GET /favicon.ico HTTP/1.1" 404 -
+46.101.89.227 - - [14/Oct/2016 13:11:17] "GET / HTTP/1.1" 200 -
+46.101.89.227 - - [14/Oct/2016 13:11:17] "GET /static/pic1.jpg HTTP/1.1" 304 -
+46.101.89.227 - - [14/Oct/2016 13:11:19] "GET /author HTTP/1.1" 200 -
+66.249.93.5 - - [14/Oct/2016 16:40:33] "GET /favicon.ico HTTP/1.1" 404 -
+93.174.93.136 - - [15/Oct/2016 03:06:02] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+123.49.33.239 - - [15/Oct/2016 08:55:26] "GET / HTTP/1.0" 200 -
+220.227.158.224 - - [15/Oct/2016 10:28:12] "GET / HTTP/1.0" 200 -
+66.249.93.9 - - [16/Oct/2016 00:26:20] "GET / HTTP/1.1" 200 -
+66.249.93.5 - - [16/Oct/2016 00:26:20] "GET /favicon.ico HTTP/1.1" 404 -
+94.102.49.174 - - [16/Oct/2016 01:50:05] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+62.244.196.50 - - [16/Oct/2016 03:17:36] "GET / HTTP/1.0" 200 -
+93.174.93.136 - - [16/Oct/2016 07:35:52] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+66.249.93.5 - - [16/Oct/2016 08:33:53] "GET /favicon.ico HTTP/1.1" 404 -
+200.198.121.123 - - [16/Oct/2016 23:08:03] "GET / HTTP/1.0" 200 -
+93.174.93.136 - - [17/Oct/2016 12:01:10] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+80.82.65.212 - - [17/Oct/2016 12:19:47] "GET / HTTP/1.1" 200 -
+94.102.49.174 - - [17/Oct/2016 18:02:35] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+123.59.42.149 - - [18/Oct/2016 04:44:09] "GET http://www.baidu.com/favicon.ico HTTP/1.1" 404 -
+93.174.93.136 - - [18/Oct/2016 16:25:33] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+66.249.93.7 - - [19/Oct/2016 07:54:31] "GET / HTTP/1.1" 200 -
+66.249.93.9 - - [19/Oct/2016 07:54:31] "GET /favicon.ico HTTP/1.1" 404 -
+94.102.49.174 - - [19/Oct/2016 10:16:46] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+93.174.93.136 - - [19/Oct/2016 20:54:40] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+66.249.93.134 - - [20/Oct/2016 00:09:38] "GET / HTTP/1.1" 200 -
+66.249.93.134 - - [20/Oct/2016 00:09:38] "GET /favicon.ico HTTP/1.1" 404 -
+66.249.93.136 - - [20/Oct/2016 08:12:53] "GET / HTTP/1.1" 200 -
+66.249.93.136 - - [20/Oct/2016 08:12:53] "GET /favicon.ico HTTP/1.1" 404 -
+190.148.100.187 - - [20/Oct/2016 08:37:33] "GET / HTTP/1.0" 200 -
+220.227.158.224 - - [20/Oct/2016 16:55:35] "GET / HTTP/1.0" 200 -
+66.249.93.136 - - [21/Oct/2016 00:18:48] "GET / HTTP/1.1" 200 -
+66.249.93.136 - - [21/Oct/2016 00:18:48] "GET /static/pic1.jpg HTTP/1.1" 200 -
+66.249.93.136 - - [21/Oct/2016 00:18:48] "GET /favicon.ico HTTP/1.1" 404 -
+93.174.93.136 - - [21/Oct/2016 01:21:52] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+194.225.232.244 - - [21/Oct/2016 01:45:12] "POST /signup/using_email HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:45:55] "GET /admin HTTP/1.1" 301 -
+66.249.93.134 - - [21/Oct/2016 01:45:56] "GET /admin/ HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 01:45:56] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap.min.css?v=3.3.5 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:45:56] "GET /admin/static/vendor/jquery.min.js?v=2.1.4 HTTP/1.1" 200 -
+66.249.93.136 - - [21/Oct/2016 01:45:56] "GET /admin/static/bootstrap/bootstrap3/js/bootstrap.min.js?v=3.3.5 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:45:56] "GET /admin/static/admin/css/bootstrap3/admin.css?v=1.1.1 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:45:56] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap-theme.min.css?v=3.3.5 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:45:56] "GET /admin/static/vendor/moment.min.js?v=2.9.0 HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 01:45:56] "GET /admin/static/vendor/select2/select2.min.js?v=3.5.2 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:46:00] "GET /admin/user/ HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 01:46:00] "GET /admin/static/vendor/select2/select2-bootstrap3.css?v=1.4.6 HTTP/1.1" 200 -
+66.249.93.136 - - [21/Oct/2016 01:46:00] "GET /admin/static/vendor/select2/select2.css?v=3.5.2 HTTP/1.1" 200 -
+66.249.93.136 - - [21/Oct/2016 01:46:00] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css?v=1.3.22 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:46:00] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker.js?v=1.3.22 HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 01:46:00] "GET /admin/static/admin/js/filters.js?v=1.0.0 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:46:00] "GET /admin/static/admin/js/form.js?v=1.0.1 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:46:00] "GET /admin/static/admin/js/actions.js?v=1.0.0 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:46:01] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+194.225.232.150 - - [21/Oct/2016 01:46:01] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+66.249.93.136 - - [21/Oct/2016 01:48:49] "GET /email_confirmation/eyJhbGciOiJIUzI1NiIsImV4cCI6MTQ3NzA5MzUwOSwiaWF0IjoxNDc3MDA3MTA5fQ.eyJjb25maXJtIjoiaGFkaXNoIn0.WNg5ViywLnDCDJe6OuAuTmCXPPZdwolnSxsmoO-D5zg HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 01:48:56] "GET /admin/user/ HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 01:48:57] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 304 -
+194.225.232.244 - - [21/Oct/2016 01:49:45] "POST /freights HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 01:51:22] "GET /admin/freight/ HTTP/1.1" 200 -
+94.102.49.174 - - [21/Oct/2016 02:32:49] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+66.249.93.136 - - [21/Oct/2016 09:45:29] "GET / HTTP/1.1" 200 -
+66.249.93.136 - - [21/Oct/2016 09:45:29] "GET /favicon.ico HTTP/1.1" 404 -
+103.37.150.227 - - [21/Oct/2016 10:37:57] "GET http://www.baidu.com/favicon.ico HTTP/1.1" 404 -
+66.249.93.134 - - [21/Oct/2016 16:39:53] "GET /admin HTTP/1.1" 301 -
+66.249.93.136 - - [21/Oct/2016 16:39:53] "GET /admin/ HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 16:39:53] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap-theme.min.css?v=3.3.5 HTTP/1.1" 304 -
+66.249.93.132 - - [21/Oct/2016 16:39:53] "GET /admin/static/admin/css/bootstrap3/admin.css?v=1.1.1 HTTP/1.1" 304 -
+66.249.93.134 - - [21/Oct/2016 16:39:53] "GET /admin/static/vendor/moment.min.js?v=2.9.0 HTTP/1.1" 304 -
+66.249.93.136 - - [21/Oct/2016 16:39:53] "GET /admin/static/bootstrap/bootstrap3/js/bootstrap.min.js?v=3.3.5 HTTP/1.1" 304 -
+66.249.93.134 - - [21/Oct/2016 16:39:53] "GET /admin/static/vendor/jquery.min.js?v=2.1.4 HTTP/1.1" 304 -
+66.249.93.134 - - [21/Oct/2016 16:39:53] "GET /admin/static/vendor/select2/select2.min.js?v=3.5.2 HTTP/1.1" 304 -
+66.249.93.132 - - [21/Oct/2016 16:39:54] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap.min.css?v=3.3.5 HTTP/1.1" 304 -
+66.249.93.132 - - [21/Oct/2016 16:39:55] "GET /favicon.ico HTTP/1.1" 404 -
+66.249.93.136 - - [21/Oct/2016 16:39:57] "GET /admin/user/ HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 16:39:57] "GET /admin/static/admin/js/filters.js?v=1.0.0 HTTP/1.1" 304 -
+66.249.93.134 - - [21/Oct/2016 16:39:57] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css?v=1.3.22 HTTP/1.1" 304 -
+66.249.93.136 - - [21/Oct/2016 16:39:57] "GET /admin/static/vendor/select2/select2-bootstrap3.css?v=1.4.6 HTTP/1.1" 304 -
+66.249.93.136 - - [21/Oct/2016 16:39:57] "GET /admin/static/vendor/select2/select2.css?v=3.5.2 HTTP/1.1" 304 -
+66.249.93.134 - - [21/Oct/2016 16:39:57] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker.js?v=1.3.22 HTTP/1.1" 304 -
+66.249.93.132 - - [21/Oct/2016 16:39:57] "GET /admin/static/admin/js/form.js?v=1.0.1 HTTP/1.1" 304 -
+66.249.93.132 - - [21/Oct/2016 16:39:58] "GET /admin/static/admin/js/actions.js?v=1.0.0 HTTP/1.1" 304 -
+66.249.93.134 - - [21/Oct/2016 16:39:58] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+194.225.232.150 - - [21/Oct/2016 16:39:58] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 16:40:27] "GET /admin/freight/ HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 16:40:56] "GET /admin/freight/?sort=7 HTTP/1.1" 200 -
+66.249.93.136 - - [21/Oct/2016 16:40:59] "GET /admin/freight/?sort=7&desc=1 HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 16:41:00] "GET /admin/freight/?sort=6 HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 16:41:11] "GET /admin/freight/new/?url=%2Fadmin%2Ffreight%2F%3Fsort%3D6 HTTP/1.1" 200 -
+66.249.93.132 - - [21/Oct/2016 16:41:11] "GET /admin/static/vendor/select2/select2.png HTTP/1.1" 200 -
+66.249.93.136 - - [21/Oct/2016 16:41:42] "GET /admin/static/vendor/select2/select2-spinner.gif HTTP/1.1" 200 -
+66.249.93.134 - - [21/Oct/2016 21:06:10] "GET /favicon.ico HTTP/1.1" 404 -
+93.174.93.136 - - [22/Oct/2016 05:50:57] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+66.249.93.132 - - [22/Oct/2016 10:55:27] "GET / HTTP/1.1" 200 -
+66.249.93.132 - - [22/Oct/2016 10:55:27] "GET /favicon.ico HTTP/1.1" 404 -
+178.62.34.82 - - [22/Oct/2016 14:04:47] "GET / HTTP/1.1" 200 -
+178.62.34.82 - - [22/Oct/2016 14:04:47] "GET /static/pic1.jpg HTTP/1.1" 200 -
+178.62.34.82 - - [22/Oct/2016 14:04:47] "GET /favicon.ico HTTP/1.1" 404 -
+178.62.34.82 - - [22/Oct/2016 14:04:55] "GET /author HTTP/1.1" 200 -
+190.148.100.187 - - [22/Oct/2016 16:10:11] "GET / HTTP/1.0" 200 -
+94.102.49.174 - - [22/Oct/2016 18:50:47] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+220.227.158.224 - - [22/Oct/2016 22:36:11] "GET / HTTP/1.0" 200 -
+66.249.93.132 - - [23/Oct/2016 01:37:18] "GET / HTTP/1.1" 200 -
+66.249.93.136 - - [23/Oct/2016 01:37:18] "GET /favicon.ico HTTP/1.1" 404 -
+46.101.16.232 - - [23/Oct/2016 07:08:18] "GET / HTTP/1.1" 200 -
+46.101.16.232 - - [23/Oct/2016 07:08:18] "GET /static/pic1.jpg HTTP/1.1" 200 -
+46.101.16.232 - - [23/Oct/2016 07:08:19] "GET /favicon.ico HTTP/1.1" 404 -
+46.101.16.232 - - [23/Oct/2016 07:08:32] "GET / HTTP/1.1" 200 -
+46.101.16.232 - - [23/Oct/2016 07:08:35] "GET /author HTTP/1.1" 200 -
+46.101.16.232 - - [23/Oct/2016 07:08:36] "GET /signup HTTP/1.1" 404 -
+93.174.93.136 - - [23/Oct/2016 10:15:47] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+103.37.144.252 - - [23/Oct/2016 17:16:26] "GET http://www.baidu.com/favicon.ico HTTP/1.1" 404 -
+123.49.33.239 - - [23/Oct/2016 17:28:58] "GET / HTTP/1.0" 200 -
+94.102.49.174 - - [24/Oct/2016 11:06:34] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+93.174.93.136 - - [24/Oct/2016 14:41:14] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+66.249.93.218 - - [24/Oct/2016 22:00:31] "GET / HTTP/1.1" 200 -
+66.249.93.218 - - [24/Oct/2016 22:00:31] "GET /favicon.ico HTTP/1.1" 404 -
+123.59.66.152 - - [25/Oct/2016 06:15:25] "GET http://www.baidu.com/favicon.ico HTTP/1.1" 404 -
+66.249.93.1 - - [25/Oct/2016 10:42:52] "GET / HTTP/1.1" 200 -
+66.249.93.3 - - [25/Oct/2016 10:42:52] "GET /favicon.ico HTTP/1.1" 404 -
+ * Detected change in '/root/move_it/app/main/__init__.py', reloading
+data is : {u'confirm': u'hadish'}
+ * Restarting with stat
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+ * Restarting with stat
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Debugger is active!
+ * Debugger pin code: 166-222-627
+46.101.16.229 - - [25/Oct/2016 11:02:28] "GET / HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:02:28] "GET /static/pic1.jpg HTTP/1.1" 304 -
+46.101.16.229 - - [25/Oct/2016 11:02:31] "GET /favicon.ico HTTP/1.1" 404 -
+46.101.16.229 - - [25/Oct/2016 11:02:33] "GET /author HTTP/1.1" 200 -
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+ * Restarting with stat
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Debugger is active!
+ * Debugger pin code: 166-222-627
+46.101.16.229 - - [25/Oct/2016 11:16:14] "GET / HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:16:22] "GET /author HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:20:11] "GET /author HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:23:44] "GET /admin HTTP/1.1" 301 -
+46.101.16.229 - - [25/Oct/2016 11:23:45] "GET /admin/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:23:47] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap.min.css?v=3.3.5 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:23:47] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap-theme.min.css?v=3.3.5 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:23:47] "GET /admin/static/admin/css/bootstrap3/admin.css?v=1.1.1 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:23:48] "GET /admin/static/vendor/jquery.min.js?v=2.1.4 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:23:48] "GET /admin/static/bootstrap/bootstrap3/js/bootstrap.min.js?v=3.3.5 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:23:48] "GET /admin/static/vendor/moment.min.js?v=2.9.0 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:23:49] "GET /admin/static/vendor/select2/select2.min.js?v=3.5.2 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:23:49] "GET / HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:09] "GET /admin/freight/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:10] "GET /admin/static/vendor/select2/select2.css?v=3.5.2 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:10] "GET /admin/static/vendor/select2/select2-bootstrap3.css?v=1.4.6 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:10] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css?v=1.3.22 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:10] "GET /admin/static/admin/js/filters.js?v=1.0.0 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:11] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker.js?v=1.3.22 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:11] "GET /admin/static/admin/js/form.js?v=1.0.1 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:12] "GET /admin/static/admin/js/actions.js?v=1.0.0 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:13] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:28] "GET /admin/user/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:49] "GET /admin/destinationaddress/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:52] "GET /admin/pickupaddress/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:54] "GET /admin/pickupaddress/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:24:59] "GET /admin/freightpicture/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:25:03] "GET /admin/user/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:25:53] "POST /freights HTTP/1.1" 404 -
+46.101.16.229 - - [25/Oct/2016 11:28:06] "GET /admin/user/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:28:13] "GET /admin/freight/ HTTP/1.1" 200 -
+46.101.16.229 - - [25/Oct/2016 11:28:51] "POST /freights HTTP/1.1" 404 -
+46.101.16.229 - - [25/Oct/2016 11:28:57] "GET /freights HTTP/1.1" 404 -
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+ * Restarting with stat
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Debugger is active!
+ * Debugger pin code: 166-222-627
+94.102.49.174 - - [26/Oct/2016 03:24:36] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+62.244.196.50 - - [26/Oct/2016 05:03:42] "GET / HTTP/1.0" 200 -
+66.249.93.7 - - [26/Oct/2016 10:22:20] "GET / HTTP/1.1" 200 -
+66.249.93.9 - - [26/Oct/2016 10:22:20] "GET /favicon.ico HTTP/1.1" 404 -
+5.114.165.14 - - [26/Oct/2016 22:39:00] "POST /signup/using_email HTTP/1.1" 500 -
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/threading.py", line 801, in __bootstrap_inner
+    self.run()
+  File "/usr/lib/python2.7/threading.py", line 754, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 659, in inner
+    srv.serve_forever()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 499, in serve_forever
+    HTTPServer.serve_forever(self)
+  File "/usr/lib/python2.7/SocketServer.py", line 233, in serve_forever
+    self._handle_request_noblock()
+  File "/usr/lib/python2.7/SocketServer.py", line 292, in _handle_request_noblock
+    self.handle_error(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 290, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 318, in process_request
+    self.finish_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 331, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python2.7/SocketServer.py", line 652, in __init__
+    self.handle()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 216, in handle
+    rv = BaseHTTPRequestHandler.handle(self)
+  File "/usr/lib/python2.7/BaseHTTPServer.py", line 340, in handle
+    self.handle_one_request()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 251, in handle_one_request
+    return self.run_wsgi()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 193, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 184, in execute
+    write(data)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 165, in write
+    self.wfile.write(data)
+IOError: [Errno 104] Connection reset by peer
+
