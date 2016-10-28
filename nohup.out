@@ -498,3 +498,87 @@ Traceback (most recent call last):
     self.wfile.write(data)
 IOError: [Errno 104] Connection reset by peer
 
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+Traceback (most recent call last):
+  File "run.py", line 8, in <module>
+    app.run(host='0.0.0.0', port=9000, debug=True)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 843, in run
+    run_simple(host, port, self, **options)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 677, in run_simple
+    s.bind((hostname, port))
+  File "/usr/lib/python2.7/socket.py", line 228, in meth
+    return getattr(self._sock,name)(*args)
+socket.error: [Errno 98] Address already in use
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+ * Restarting with stat
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Debugger is active!
+ * Debugger pin code: 166-222-627
+178.62.92.29 - - [27/Oct/2016 08:41:50] "GET / HTTP/1.1" 200 -
+178.62.92.29 - - [27/Oct/2016 08:41:52] "GET /signup HTTP/1.1" 404 -
+178.62.92.29 - - [27/Oct/2016 08:41:55] "GET /author HTTP/1.1" 200 -
+94.102.49.174 - - [27/Oct/2016 19:42:10] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+5.114.79.171 - - [27/Oct/2016 22:30:02] "GET /admin HTTP/1.1" 301 -
+5.114.79.171 - - [27/Oct/2016 22:30:02] "GET /admin/ HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:03] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap.min.css?v=3.3.5 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:03] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap-theme.min.css?v=3.3.5 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:03] "GET /admin/static/admin/css/bootstrap3/admin.css?v=1.1.1 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:03] "GET /admin/static/vendor/jquery.min.js?v=2.1.4 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:04] "GET /admin/static/bootstrap/bootstrap3/js/bootstrap.min.js?v=3.3.5 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:04] "GET /admin/static/vendor/moment.min.js?v=2.9.0 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:04] "GET /admin/static/vendor/select2/select2.min.js?v=3.5.2 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:05] "GET /favicon.ico HTTP/1.1" 404 -
+5.114.79.171 - - [27/Oct/2016 22:30:13] "GET /admin/user/ HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:14] "GET /admin/static/vendor/select2/select2.css?v=3.5.2 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:14] "GET /admin/static/vendor/select2/select2-bootstrap3.css?v=1.4.6 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:14] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css?v=1.3.22 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:14] "GET /admin/static/admin/js/filters.js?v=1.0.0 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:14] "GET /admin/static/vendor/bootstrap-daterangepicker/daterangepicker.js?v=1.3.22 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:14] "GET /admin/static/admin/js/form.js?v=1.0.1 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:15] "GET /admin/static/admin/js/actions.js?v=1.0.0 HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:15] "GET /admin/static/bootstrap/bootstrap3/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+194.225.232.234 - - [27/Oct/2016 22:30:16] "GET /admin HTTP/1.1" 301 -
+194.225.232.234 - - [27/Oct/2016 22:30:29] "GET /admin/ HTTP/1.1" 200 -
+5.114.79.171 - - [27/Oct/2016 22:30:30] "POST /admin/user/delete/ HTTP/1.1" 302 -
+5.114.79.171 - - [27/Oct/2016 22:30:31] "GET /admin/user/ HTTP/1.1" 200 -
+194.225.232.234 - - [27/Oct/2016 22:30:34] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap.min.css?v=3.3.5 HTTP/1.1" 200 -
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/threading.py", line 801, in __bootstrap_inner
+    self.run()
+  File "/usr/lib/python2.7/threading.py", line 754, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 659, in inner
+    srv.serve_forever()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 499, in serve_forever
+    HTTPServer.serve_forever(self)
+  File "/usr/lib/python2.7/SocketServer.py", line 233, in serve_forever
+    self._handle_request_noblock()
+  File "/usr/lib/python2.7/SocketServer.py", line 292, in _handle_request_noblock
+    self.handle_error(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 290, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 318, in process_request
+    self.finish_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 331, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python2.7/SocketServer.py", line 652, in __init__
+    self.handle()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 216, in handle
+    rv = BaseHTTPRequestHandler.handle(self)
+  File "/usr/lib/python2.7/BaseHTTPServer.py", line 340, in handle
+    self.handle_one_request()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 251, in handle_one_request
+    return self.run_wsgi()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 193, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 184, in execute
+    write(data)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 165, in write
+    self.wfile.write(data)
+IOError: [Errno 32] Broken pipe
+
