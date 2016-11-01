@@ -582,3 +582,85 @@ Traceback (most recent call last):
     self.wfile.write(data)
 IOError: [Errno 32] Broken pipe
 
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+ * Restarting with stat
+/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py:800: UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+  warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+ * Debugger is active!
+ * Debugger pin code: 166-222-627
+178.62.6.233 - - [28/Oct/2016 11:06:51] "GET / HTTP/1.1" 200 -
+178.62.6.233 - - [28/Oct/2016 11:06:52] "GET /static/pic1.jpg HTTP/1.1" 304 -
+178.62.6.233 - - [28/Oct/2016 11:06:53] "GET /favicon.ico HTTP/1.1" 404 -
+220.227.158.224 - - [28/Oct/2016 11:10:30] "GET / HTTP/1.0" 200 -
+194.225.232.234 - - [28/Oct/2016 11:52:41] "GET /admin/ HTTP/1.1" 200 -
+194.225.232.234 - - [28/Oct/2016 11:52:41] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap.min.css?v=3.3.5 HTTP/1.1" 200 -
+194.225.232.234 - - [28/Oct/2016 11:52:41] "GET /admin/static/bootstrap/bootstrap3/css/bootstrap-theme.min.css?v=3.3.5 HTTP/1.1" 200 -
+194.225.232.234 - - [28/Oct/2016 11:52:41] "GET /admin/static/admin/css/bootstrap3/admin.css?v=1.1.1 HTTP/1.1" 200 -
+194.225.232.234 - - [28/Oct/2016 11:52:42] "GET /admin/static/vendor/jquery.min.js?v=2.1.4 HTTP/1.1" 200 -
+194.225.232.234 - - [28/Oct/2016 11:52:42] "GET /admin/static/bootstrap/bootstrap3/js/bootstrap.min.js?v=3.3.5 HTTP/1.1" 200 -
+194.225.232.234 - - [28/Oct/2016 11:52:42] "GET /admin/static/vendor/moment.min.js?v=2.9.0 HTTP/1.1" 200 -
+194.225.232.234 - - [28/Oct/2016 11:52:42] "GET /admin/static/vendor/select2/select2.min.js?v=3.5.2 HTTP/1.1" 200 -
+194.225.232.234 - - [28/Oct/2016 11:52:43] "GET /favicon.ico HTTP/1.1" 404 -
+194.225.232.234 - - [28/Oct/2016 11:54:58] "POST /signup/using_email HTTP/1.1" 200 -
+66.249.93.5 - - [28/Oct/2016 16:23:56] "GET / HTTP/1.1" 200 -
+66.249.93.7 - - [28/Oct/2016 16:23:56] "GET /favicon.ico HTTP/1.1" 404 -
+93.174.93.136 - - [28/Oct/2016 19:54:57] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+62.244.196.50 - - [29/Oct/2016 07:56:57] "GET / HTTP/1.0" 200 -
+66.249.93.9 - - [29/Oct/2016 08:39:38] "GET / HTTP/1.1" 200 -
+66.249.93.9 - - [29/Oct/2016 08:39:38] "GET /favicon.ico HTTP/1.1" 404 -
+94.102.49.174 - - [29/Oct/2016 11:54:36] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+93.174.93.136 - - [30/Oct/2016 00:17:35] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+178.62.113.166 - - [30/Oct/2016 07:41:20] "GET / HTTP/1.1" 200 -
+178.62.113.166 - - [30/Oct/2016 07:41:21] "GET /static/pic1.jpg HTTP/1.1" 304 -
+178.62.113.166 - - [30/Oct/2016 07:41:21] "GET /favicon.ico HTTP/1.1" 404 -
+178.62.113.166 - - [30/Oct/2016 07:41:24] "GET /author HTTP/1.1" 200 -
+66.249.93.7 - - [30/Oct/2016 08:11:17] "GET / HTTP/1.1" 200 -
+66.249.93.5 - - [30/Oct/2016 08:11:17] "GET /favicon.ico HTTP/1.1" 404 -
+103.37.151.59 - - [31/Oct/2016 00:46:11] "GET http://www.baidu.com/favicon.ico HTTP/1.1" 404 -
+94.102.49.174 - - [31/Oct/2016 03:04:11] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+93.174.93.136 - - [31/Oct/2016 03:36:53] "GET http://www.baidu.com/cache/global/img/gs.gif HTTP/1.1" 404 -
+66.249.93.7 - - [31/Oct/2016 07:40:46] "GET / HTTP/1.1" 200 -
+66.249.93.7 - - [31/Oct/2016 07:40:46] "GET /favicon.ico HTTP/1.1" 404 -
+178.62.43.135 - - [31/Oct/2016 08:56:26] "GET / HTTP/1.1" 200 -
+178.62.43.135 - - [31/Oct/2016 08:56:26] "GET /static/pic1.jpg HTTP/1.1" 304 -
+178.62.43.135 - - [31/Oct/2016 08:56:29] "GET /favicon.ico HTTP/1.1" 404 -
+220.227.158.224 - - [31/Oct/2016 13:29:33] "GET / HTTP/1.0" 200 -
+194.225.232.109 - - [31/Oct/2016 19:40:37] "POST /signup/using_email HTTP/1.1" 500 -
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/threading.py", line 801, in __bootstrap_inner
+    self.run()
+  File "/usr/lib/python2.7/threading.py", line 754, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 659, in inner
+    srv.serve_forever()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 499, in serve_forever
+    HTTPServer.serve_forever(self)
+  File "/usr/lib/python2.7/SocketServer.py", line 233, in serve_forever
+    self._handle_request_noblock()
+  File "/usr/lib/python2.7/SocketServer.py", line 292, in _handle_request_noblock
+    self.handle_error(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 290, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 318, in process_request
+    self.finish_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 331, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python2.7/SocketServer.py", line 652, in __init__
+    self.handle()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 216, in handle
+    rv = BaseHTTPRequestHandler.handle(self)
+  File "/usr/lib/python2.7/BaseHTTPServer.py", line 340, in handle
+    self.handle_one_request()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 251, in handle_one_request
+    return self.run_wsgi()
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 193, in run_wsgi
+    execute(self.server.app)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 184, in execute
+    write(data)
+  File "/usr/local/lib/python2.7/dist-packages/werkzeug/serving.py", line 165, in write
+    self.wfile.write(data)
+IOError: [Errno 104] Connection reset by peer
+
