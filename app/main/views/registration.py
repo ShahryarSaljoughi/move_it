@@ -161,4 +161,3 @@ def confirm_email(token):
 @main.route("/verify_credentials")
 def verify_credentials(username, password):
     return jsonify(verify_password(username, password))
-    
