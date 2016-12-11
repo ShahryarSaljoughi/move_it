@@ -335,3 +335,19 @@ admin.add_view(ModelView(DestinationAddress, db.session))
 admin.add_view(ModelView(PickupAddress, db.session))
 admin.add_view(ModelView(FreightPicture, db.session))
 
+
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Freight)or\
+                isinstance(obj, User) or\
+                isinstance(obj, role) or\
+                isinstance(obj, DestinationAddress) or \
+                isinstance(obj, PickupAddress):
+
+            return obj.json_form()
+
+        else:
+            return json.JSONEncoder.default(self, obj)
+
+
+app.json_encoder = MyEncoder
