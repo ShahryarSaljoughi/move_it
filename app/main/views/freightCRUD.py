@@ -109,7 +109,8 @@ def create_freight():
                       receiver_name=request.json['receiver_name'],
                       receiver_phonenumber=request.json['receiver_phonenumber'],
                       weight=request.json['weight'],
-                      description=request.json['description']
+                      description=request.json['description'],
+                      price=request.json['price']
                       )
 
     freight.destination.append(destination)
