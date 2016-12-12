@@ -82,7 +82,8 @@ def get_user_freights(username):
 @main.route('/freights', methods=['GET'])
 def get_freights():
     freights = Freight.query.all()
-    freights_list = [fr.get_dict() for fr in freights]
+    # freights_list = [fr.get_dict() for fr in freights]
+    freights_list = [fr for fr in freights]
     return jsonify({"freights": freights_list})
 
 @main.route('/freights', methods=['POST'])
@@ -130,7 +131,7 @@ def create_freight():
     return jsonify({
         'status': "success",
         'message': " freight created",
-        'freight_info': freight.default(freight)})
+        'freight_info': freight})
 
 
 def allowed_picture(filename):
