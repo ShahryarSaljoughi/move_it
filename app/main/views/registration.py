@@ -9,6 +9,7 @@ from app import db
 import methods
 
 
+
 @main.route('/token')
 @auth.login_required
 def get_auth_token():
@@ -157,3 +158,6 @@ def confirm_email(token):
         db.session.commit()
         return jsonify({'status': 'success', 'message': "your email is successfully confirmed"})
 
+@main.route("/verify_credentials")
+def verify_credentials(username, password):
+    return jsonify(verify_password(username, password))

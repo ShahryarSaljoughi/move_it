@@ -34,6 +34,7 @@ def delete_freight():
 def update_freight():
     user = g.user
 
+    # ####### is request  healthy? #########################################################
     if 'freight_id' not in request.json:
         return jsonify({
             'status': "failure",
@@ -53,12 +54,20 @@ def update_freight():
             "status": "failure",
             "message": "you cannot edit freights ordered by others"}
             )
+    # #####################################################################################
 
     new_data = request.json['new_data']
     keys = new_data.keys()
+
+    # ###### core of updating data : ######################################################
     for key in keys:
-        exec("freight.{0} = new_data['{0}']".format(key))
+        if key != "destination" and key != "pickup_address":
+            exec("freight.{0} = new_data['{0}']".format(key))
+        elif key in ["destination", "pickup_address"]:  # key is either destination or pickup_address
+            for field in request.json['new_data'][key]:
+                exec("freight.{0}[0].{1} = new_data['{0}']['{1}']".format(key, field))
         db.session.commit()
+
     return jsonify({
         "status": "success",
         "message": "fields "+" , ".join(keys) + " are updated"
@@ -74,14 +83,16 @@ def get_user_freights(username):
     """
     user_id = User.query.filter_by(username=username).first().id
     freights = Freight.query.filter_by(owner=user_id).all()
-    freights_list = [fr.get_dict() for fr in freights]
+    # freights_list = [fr.get_dict() for fr in freights]
+    freights_list = [fr for fr in freights]
     return jsonify({'freights': freights_list})
 
 
 @main.route('/freights', methods=['GET'])
 def get_freights():
     freights = Freight.query.all()
-    freights_list = [fr.get_dict() for fr in freights]
+    # freights_list = [fr.get_dict() for fr in freights]
+    freights_list = [fr for fr in freights]
     return jsonify({"freights": freights_list})
 
 @main.route('/freights', methods=['POST'])
@@ -130,7 +141,7 @@ def create_freight():
     return jsonify({
         'status': "success",
         'message': " freight created",
-        'freight_info': freight.default(freight)})
+        'freight_info': freight})
 
 
 def allowed_picture(filename):

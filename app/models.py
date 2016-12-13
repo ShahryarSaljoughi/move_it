@@ -28,12 +28,11 @@ class role(db.Model, json.JSONEncoder):
     def __init__(self, title):
         self.title = title
 
-    def default(self, o):
-        if isinstance(o, role):
-            return {
-                '__type__': 'role',
-                'title': o.title
-            }
+    def json_form(self):
+        return {
+            '__type__': 'role',
+            'title': self.title
+        }
 
 
 class User(db.Model, json.JSONEncoder):  # there is a relationship between User and Freight : User is parent , Freight is child
@@ -132,15 +131,15 @@ class User(db.Model, json.JSONEncoder):  # there is a relationship between User 
         dictionary.pop('_sa_instance_state')
         return dictionary
 
-    def default(self, obj):
-        if isinstance(obj, User):
-            return {
-                'first_name': obj.first_name,
-                'last_name': obj.last_name,
-                'email': obj.email,
-                'phonenumber': obj.phonenumber,
-                'username': obj.username
-            }
+    def json_form(self):
+        return {
+            '__type__': 'User',
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'phonenumber': self.phonenumber,
+            'username': self.username
+        }
 
 
 class Dimension:
@@ -180,28 +179,24 @@ class Freight(db.Model, json.JSONEncoder):
     column_searchable_list = ['id', 'owner', 'creation_data', 'description', 'receiver_name']
 
     # this class is json serializable:
-    def default(self, obj):
+    def json_form(self):
 
-        if isinstance(obj, Freight):
-            # todo: what about pictures?
-            return {
-                '__type__': "Freight",
-                'name': obj.name,
-                'price': obj.price,
-                'creation_date': obj.creation_data,
-                'description': obj.description,
-                'id': obj.id,
-                'weight': obj.weight,
-                'width': obj.width,
-                'height': obj.height,
-                'depth': obj.depth,
-                'destination': obj.destination[0].default(obj.destination[0]),
-                'pickup_address': obj.pickup_address[0].default(obj.pickup_address[0]),
-                'receiver_name': obj.receiver_name,
-            }
-        else:
-
-            return json.JSONEncoder.default(self, obj)
+        # todo: what about pictures?
+        return {
+            '__type__': "Freight",
+            'name': self.name,
+            'price': self.price,
+            'creation_date': self.creation_data,
+            'description': self.description,
+            'id': self.id,
+            'weight': self.weight,
+            'width': self.width,
+            'height': self.height,
+            'depth': self.depth,
+            'destination': self.destination[0],
+            'pickup_address': self.pickup_address[0],
+            'receiver_name': self.receiver_name,
+        }
 
     def __repr__(self):
         return "freight: owner : " + \
@@ -224,18 +219,15 @@ class PickupAddress(db.Model, json.JSONEncoder):
     # freights = db.relationship('Freight',backref='address',lazy='dynamic')
     freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
 
-    def default(self, obj):
-        if isinstance(obj, PickupAddress):
-            return {
-                '__type__': 'PickupAddress',
-                'country': obj.country,
-                'city': obj.city,
-                'rest_of_address': obj.rest_of_address,
-                'postal_code': obj.postal_code,
-                'id': obj.id
-            }
-        else:
-            return json.JSONEncoder(self, obj)
+    def json_form(self):
+        return {
+            '__type__': 'PickupAddress',
+            'country': self.country,
+            'city': self.city,
+            'rest_of_address': self.rest_of_address,
+            'postal_code': self.postal_code,
+            'id': self.id
+        }
 
     def __repr__(self):
         address_string = ' '.join([self.country,
@@ -272,19 +264,15 @@ class DestinationAddress(db.Model, json.JSONEncoder):
     # freights = db.relationship('Freight',backref='address',lazy='dynamic')
     freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
 
-    def default(self, obj):
-        if isinstance(obj, DestinationAddress):
-            return {
-                '__type__': 'DestinationAddress',
-                'country': obj.country,
-                'city': obj.city,
-                'rest_of_address': obj.rest_of_address,
-                'postal_code': obj.postal_code,
-                'id': obj.id
-            }
-        else:
-            return json.JSONEncoder(self, obj)
-
+    def json_form(self):
+        return {
+            '__type__': 'DestinationAddress',
+            'country': self.country,
+            'city': self.city,
+            'rest_of_address': self.rest_of_address,
+            'postal_code': self.postal_code,
+            'id': self.id
+        }
 
     def __repr__(self):
         address_string = ' '.join([self.country,
@@ -318,16 +306,15 @@ class FreightPicture(db.Model, json.JSONEncoder):
     id = db.Column(db.INTEGER, primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tehran))
 
-    def default(self, obj):
-        if isinstance(obj, FreightPicture):
-            return {
-                '__type__': 'FreightPicture',
-                'filename': obj.filename,
-                'path': obj.path,
-                'id': obj.id,
-                'created': obj.created,
-                'freight_id': obj.freight_id
-            }
+    def json_form(self):
+        return {
+            '__type__': 'FreightPicture',
+            'filename': self.filename,
+            'path': self.path,
+            'id': self.id,
+            'created': self.created,
+            'freight_id': self.freight_id
+        }
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Freight, db.session))
@@ -335,3 +322,19 @@ admin.add_view(ModelView(DestinationAddress, db.session))
 admin.add_view(ModelView(PickupAddress, db.session))
 admin.add_view(ModelView(FreightPicture, db.session))
 
+
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Freight)or\
+                isinstance(obj, User) or\
+                isinstance(obj, role) or\
+                isinstance(obj, DestinationAddress) or \
+                isinstance(obj, PickupAddress):
+
+            return obj.json_form()
+
+        else:
+            return json.JSONEncoder.default(self, obj)
+
+
+app.json_encoder = MyEncoder
