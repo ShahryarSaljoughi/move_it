@@ -34,6 +34,7 @@ def delete_freight():
 def update_freight():
     user = g.user
 
+    # ####### is request  healthy? #########################################################
     if 'freight_id' not in request.json:
         return jsonify({
             'status': "failure",
@@ -53,12 +54,20 @@ def update_freight():
             "status": "failure",
             "message": "you cannot edit freights ordered by others"}
             )
+    # #####################################################################################
 
     new_data = request.json['new_data']
     keys = new_data.keys()
+
+    # ###### core of updating data : ######################################################
     for key in keys:
-        exec("freight.{0} = new_data['{0}']".format(key))
+        if key != "destination" and key != "pickup_address":
+            exec("freight.{0} = new_data['{0}']".format(key))
+        elif key in ["destination", "pickup_address"]:  # key is either destination or pickup_address
+            for field in request.json['new_data'][key]:
+                exec("freight.{0}[0].{1} = new_data['{0}']['{1}']".format(key, field))
         db.session.commit()
+
     return jsonify({
         "status": "success",
         "message": "fields "+" , ".join(keys) + " are updated"
