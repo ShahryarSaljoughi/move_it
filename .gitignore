@@ -6,3 +6,4 @@ trash/*
 /api/
 
 /app/templates/error.html
+/media/
