@@ -158,6 +158,18 @@ def confirm_email(token):
         db.session.commit()
         return jsonify({'status': 'success', 'message': "your email is successfully confirmed"})
 
-@main.route("/verify_credentials")
-def verify_credentials(username, password):
+@main.route("/verify_credentials", methods=['POST'])
+def verify_credentials():
+    if not request.json:
+        return jsonify(status="bad request"), 400
+
+    if 'username' not in request.json.keys()\
+        or 'password' not in request.json.keys()\
+        or not request.json['username']\
+            or not request.json['password']:
+        return jsonify(status="bad request, username and password should be provided"), 400
+
+    username = request.json['username']
+    password = request.json['password']
+
     return jsonify(verify_password(username, password))
