@@ -32,7 +32,7 @@ MAIL_PASSWORD = 'meajcveaxrnvwvhy'
 MAIL_DEFAULT_SENDER = ('SHIPMENT TEAM', 's.shahryar75@gmail.com')
 
 # image uploading configuration
-FREIGHT_PICTURES_DIR = BASE_DIR + "\\media\\freight_pictures"
+FREIGHT_PICTURES_DIR = BASE_DIR + "/media/freight_pictures"
 ALLOWED_PICTURE_EXTENSIONS = ['jpg', 'jpeg', 'png']
 
 MIGRATIONS_DIR = BASE_DIR + '\\app\\database\\migrations'  # os.path.join(BASE_DIR, '\\app\\database\\migrations')
