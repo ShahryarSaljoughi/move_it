@@ -181,8 +181,8 @@ class Freight(db.Model, json.JSONEncoder):
     # this class is json serializable:
     def json_form(self):
 
-        # todo: what about pictures?
-        return {
+        # following lines avoid 500 status code , in the case there is no destination or pickup_address
+        info = {
             '__type__': "Freight",
             'name': self.name,
             'price': self.price,
@@ -193,10 +193,22 @@ class Freight(db.Model, json.JSONEncoder):
             'width': self.width,
             'height': self.height,
             'depth': self.depth,
-            'destination': self.destination[0],
-            'pickup_address': self.pickup_address[0],
+            # 'destination': self.destination[0],
+            # 'pickup_address': self.pickup_address[0],
             'receiver_name': self.receiver_name,
         }
+        try:
+            info["destination"] = self.destination[0]
+        except IndexError:
+            pass
+        try:
+            info["pickup_address"] = self.pickup_address[0]
+        except IndexError:
+            pass
+
+        # todo: what about pictures?
+        return info
+
 
     def __repr__(self):
         return "freight: owner : " + \
