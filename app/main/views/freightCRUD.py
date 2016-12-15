@@ -1,6 +1,6 @@
 __author__ = 'shahryar_saljoughi'
 
-from flask import request, g, jsonify, abort
+from flask import request, g, jsonify, abort, json
 import os
 from werkzeug.utils import secure_filename
 
@@ -9,6 +9,7 @@ from . import auth
 from app.main import main
 from app import db
 from app import app
+
 
 # CRUD OPERATIONS
 @main.route('/freights', methods=['DELETE'])
@@ -94,9 +95,19 @@ def get_user_freights(username):
 @auth.login_required
 def get_freights():
     freights = Freight.query.all()
-    # freights_list = [fr.get_dict() for fr in freights]
     freights_list = [fr for fr in freights]
-    return jsonify({"freights": freights_list})
+
+    # I want the result to be in dictionary form!
+    result_str = json.dumps({'freights': freights_list})
+    result_dict = json.loads(result_str)
+
+    if g.user is None:
+        for freight in result_dict['freights']:
+            freight.pop('receiver_name')
+            freight.pop('price')
+
+    return jsonify(result_dict)
+
 
 @main.route('/freights', methods=['POST'])
 @auth.login_required
