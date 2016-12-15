@@ -20,6 +20,9 @@ def get_auth_token():
 @auth.verify_password
 def verify_password(username_or_token, password):
     # if token is passed , next line will assign the user
+    if username_or_token == '' and password == '':
+        g.user = None
+        return True
     user = User.verify_auth_token(username_or_token)
     if not user:
         # if username is passed , next line will assign the user
