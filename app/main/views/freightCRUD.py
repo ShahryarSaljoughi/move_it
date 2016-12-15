@@ -1,6 +1,6 @@
 __author__ = 'shahryar_saljoughi'
 
-from flask import request, g, jsonify
+from flask import request, g, jsonify, abort
 import os
 from werkzeug.utils import secure_filename
 
@@ -14,6 +14,8 @@ from app import app
 @main.route('/freights', methods=['DELETE'])
 @auth.login_required
 def delete_freight():
+    if g.user is None:
+        abort(401)
     freight_id = request.json['freight_id']
     freight = Freight.query.filter_by(id=freight_id).first()
     user = g.user
@@ -89,6 +91,7 @@ def get_user_freights(username):
 
 
 @main.route('/freights', methods=['GET'])
+@auth.login_required
 def get_freights():
     freights = Freight.query.all()
     # freights_list = [fr.get_dict() for fr in freights]
@@ -99,6 +102,8 @@ def get_freights():
 @auth.login_required
 def create_freight():
 
+    if g.user is None:
+        abort(401)
     destination_dict = request.json['destination']
     destination = DestinationAddress(country=destination_dict['country'],
                                      city=destination_dict['city'],
@@ -153,6 +158,8 @@ def allowed_picture(filename):
 @auth.login_required
 def upload_freight_picture():
 
+    if g.user is None:
+        abort(401)
     freight = Freight.query.filter_by(id=request.form['freight_id']).first()
 
     if freight is None:
