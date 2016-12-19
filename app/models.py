@@ -328,6 +328,12 @@ class FreightPicture(db.Model, json.JSONEncoder):
             'freight_id': self.freight_id
         }
 
+
+class Tender(db.Model):
+    __tablename_ = 'tenders'
+    id = db.Column(db.INTEGER, primary_key=True)
+    freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
+
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Freight, db.session))
 admin.add_view(ModelView(DestinationAddress, db.session))
