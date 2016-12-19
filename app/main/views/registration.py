@@ -2,13 +2,16 @@ __author__ = 'shahryar_saljoughi'
 
 from . import auth
 from app.main import main
-from flask import jsonify, g, session, request, abort
+from flask import jsonify, g, session, request, abort, url_for
 from random import randint
 from app.models import User
 from app import db
 import methods
 
-
+# this list contains the view functions that show fewer information if the user is not logged in:
+protected_urls_supporting_None_user = [
+    ('http://localhost:5000/freights', 'GET')  # url_for() can be used instead
+]
 
 @main.route('/token')
 @auth.login_required
@@ -17,10 +20,13 @@ def get_auth_token():
     return jsonify({'token': token.decode('ascii')})
     # I don't know what decode really does ! it makes no difference as I tested !
 
+
 @auth.verify_password
 def verify_password(username_or_token, password):
     # if token is passed , next line will assign the user
     if username_or_token == '' and password == '':
+        # and (request.url, request.method) in protected_urls_supporting_None_user --> this is a good idea too
+        #  ! so that i won't need to abort(401) in view functions !
         g.user = None
         return True
     user = User.verify_auth_token(username_or_token)
