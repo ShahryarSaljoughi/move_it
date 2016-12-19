@@ -11,11 +11,11 @@ def init_db():
     the lookup tables in the database
     :return: nothing!
     """
+    if len(role.query.all()) == 0:
+        customer = role(title='customer')
+        courier = role(title='courier')
 
-    customer = role(title='customer')
-    courier = role(title='courier')
-
-    #fedding database the roles :
-    db.session.add(customer)
-    db.session.add(courier)
-    db.session.commit()
+        # fedding database the roles :
+        db.session.add(customer)
+        db.session.add(courier)
+        db.session.commit()
