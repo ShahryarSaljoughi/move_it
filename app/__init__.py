@@ -1,5 +1,3 @@
-__author__ = 'shahryar_slg'
-
 from flask_admin import Admin
 from flask import Flask
 # import os
@@ -28,3 +26,4 @@ db.create_all()
 from . import initialize_db
 initialize_db.init_db()
 
+__author__ = 'shahryar_slg'
