@@ -370,6 +370,8 @@ admin.add_view(ModelView(Freight, db.session))
 admin.add_view(ModelView(DestinationAddress, db.session))
 admin.add_view(ModelView(PickupAddress, db.session))
 admin.add_view(ModelView(FreightPicture, db.session))
+admin.add_view(ModelView(Tender, db.session))
+
 
 
 class MyEncoder(json.JSONEncoder):
