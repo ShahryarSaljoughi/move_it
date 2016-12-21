@@ -373,7 +373,6 @@ admin.add_view(ModelView(FreightPicture, db.session))
 admin.add_view(ModelView(Tender, db.session))
 
 
-
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Freight)or\
