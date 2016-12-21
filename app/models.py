@@ -379,7 +379,8 @@ class MyEncoder(json.JSONEncoder):
                 isinstance(obj, User) or\
                 isinstance(obj, role) or\
                 isinstance(obj, DestinationAddress) or \
-                isinstance(obj, PickupAddress):
+                isinstance(obj, PickupAddress) or \
+                isinstance(obj, Tender):
 
             return obj.json_form()
 
