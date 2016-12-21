@@ -1,4 +1,3 @@
-__author__ = 'shahryar_saljoughi'
 
 from . import auth
 from app.main import main
@@ -8,10 +7,13 @@ from app.models import User
 from app import db
 import methods
 
+__author__ = 'shahryar_saljoughi'
+
 # this list contains the view functions that show fewer information if the user is not logged in:
 protected_urls_supporting_None_user = [
     ('http://localhost:5000/freights', 'GET')  # url_for() can be used instead
 ]
+
 
 @main.route('/token')
 @auth.login_required
@@ -24,9 +26,11 @@ def get_auth_token():
 @auth.verify_password
 def verify_password(username_or_token, password):
     # if token is passed , next line will assign the user
-    if username_or_token == '' and password == '':
+    # if username_or_token == '' and password == '':
         # and (request.url, request.method) in protected_urls_supporting_None_user --> this is a good idea too
         #  ! so that i won't need to abort(401) in view functions !
+    if username_or_token == '' and password == '' and\
+            (request.url, request.method) in protected_urls_supporting_None_user:
         g.user = None
         return True
     user = User.verify_auth_token(username_or_token)
@@ -45,6 +49,7 @@ def verify_password(username_or_token, password):
             return False
     g.user = user
     return True
+
 
 # REGISTRATION:
 @main.route('/signup/using_phonenumber', methods=['POST'])
@@ -150,6 +155,7 @@ def signup_using_email():
                    " make sure to confirm your email within the next 24 hours"
     })
 
+
 @main.route('/email_confirmation/<string:token>')
 def confirm_email(token):
     user = User.confirm_email_token(token)
@@ -166,6 +172,7 @@ def confirm_email(token):
         user.isActive = True
         db.session.commit()
         return jsonify({'status': 'success', 'message': "your email is successfully confirmed"})
+
 
 @main.route("/verify_credentials", methods=['POST'])
 def verify_credentials():
