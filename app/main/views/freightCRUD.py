@@ -1,4 +1,3 @@
-__author__ = 'shahryar_saljoughi'
 
 from flask import request, g, jsonify, abort, json
 import os
@@ -10,13 +9,15 @@ from app.main import main
 from app import db
 from app import app
 
+__author__ = 'shahryar_saljoughi'
+
 
 # CRUD OPERATIONS
 @main.route('/freights', methods=['DELETE'])
 @auth.login_required
 def delete_freight():
-    if g.user is None:
-        abort(401)
+    # if g.user is None:
+    #     abort(401)
     freight_id = request.json['freight_id']
     freight = Freight.query.filter_by(id=freight_id).first()
     user = g.user
@@ -101,6 +102,7 @@ def get_freights():
     result_str = json.dumps({'freights': freights_list})
     result_dict = json.loads(result_str)
 
+    # let's show fewer information if the client is not logged in:
     if g.user is None:
         for freight in result_dict['freights']:
             freight.pop('receiver_name')
@@ -113,8 +115,8 @@ def get_freights():
 @auth.login_required
 def create_freight():
 
-    if g.user is None:
-        abort(401)
+    # if g.user is None:
+    #     abort(401)
     destination_dict = request.json['destination']
     destination = DestinationAddress(country=destination_dict['country'],
                                      city=destination_dict['city'],
@@ -169,8 +171,8 @@ def allowed_picture(filename):
 @auth.login_required
 def upload_freight_picture():
 
-    if g.user is None:
-        abort(401)
+    # if g.user is None:
+    #     abort(401)
     freight = Freight.query.filter_by(id=request.form['freight_id']).first()
 
     if freight is None:
