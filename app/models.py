@@ -332,7 +332,14 @@ class FreightPicture(db.Model, json.JSONEncoder):
 class Tender(db.Model):
     __tablename_ = 'tenders'
     id = db.Column(db.INTEGER, primary_key=True)
+    creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
+    #  there are som One-to-Many relations, (based on:  http://flask-sqlalchemy.pocoo.org/2.1/quickstart)
     freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
+    freight = db.relationship('Freight', backref='tenders')
+
+    courier_id = db.Column(db.INTEGER, db.ForeignKey('users.id'))
+    courier = db.relationship('User', backref='tenders')  # courier = tenderer : the one who asks to do the shipment!
+
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Freight, db.session))
