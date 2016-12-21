@@ -332,14 +332,38 @@ class FreightPicture(db.Model, json.JSONEncoder):
 class Tender(db.Model):
     __tablename_ = 'tenders'
     id = db.Column(db.INTEGER, primary_key=True)
-    creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
-    #  there are som One-to-Many relations, (based on:  http://flask-sqlalchemy.pocoo.org/2.1/quickstart)
+
+    #  there are some One-to-Many relations: (based on:  http://flask-sqlalchemy.pocoo.org/2.1/quickstart)
     freight_id = db.Column(db.INTEGER, db.ForeignKey('freights.id'))
     freight = db.relationship('Freight', backref='tenders')
 
     courier_id = db.Column(db.INTEGER, db.ForeignKey('users.id'))
     courier = db.relationship('User', backref='tenders')  # courier = tenderer : the one who asks to do the shipment!
 
+    # extra information:
+    suggested_price = db.Column(db.REAL)
+    description = db.Column(db.TEXT)
+    creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
+
+    # if approved is True, the courier making this record won the trend
+    # and have to ship the freight!
+    approved = db.Column(db.BOOLEAN, default=False)
+
+    def __init__(self, courier, freight, price, description, creation_date=datetime.now(tehran)):
+        self.courier = courier
+        self.freight = freight
+        self.suggested_price = price
+        self.description = description
+        self.creation_data = creation_date
+
+    def json_form(self):
+        return {
+            '__type__': 'Tender',
+            'freight_id': self.freight_id,
+            'courier_id': self.courier_id,
+            'price': self.suggested_price,
+            'creation_date': self.creation_data
+        }
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Freight, db.session))
