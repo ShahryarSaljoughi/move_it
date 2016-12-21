@@ -1,7 +1,6 @@
-__author__ = 'panizava'
-
 from flask import Blueprint
 
+__author__ = 'shahryar_saljoughi'
 
 main = Blueprint('main', __name__)
 
