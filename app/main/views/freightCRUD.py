@@ -24,7 +24,7 @@ def delete_freight():
     if freight is None:
         return jsonify({"failure": "freight not found"})
 
-    if user.id != freight.owner:
+    if user.id != freight.owner_id:
         return jsonify({"status": "failure",
                         "message": "you cannot delete freights ordered by others"}
                        )
@@ -53,7 +53,7 @@ def update_freight():
             "status": "failure",
             "message": "freight not found"
         })
-    if user.id != freight.owner:
+    if user.id != freight.owner_id:
         return jsonify({
             "status": "failure",
             "message": "you cannot edit freights ordered by others"}
@@ -86,7 +86,7 @@ def get_user_freights(username):
     :return: text/json
     """
     user_id = User.query.filter_by(username=username).first().id
-    freights = Freight.query.filter_by(owner=user_id).all()
+    freights = Freight.query.filter_by(owner_id=user_id).all()
     # freights_list = [fr.get_dict() for fr in freights]
     freights_list = [fr for fr in freights]
     return jsonify({'freights': freights_list})
@@ -178,7 +178,7 @@ def upload_freight_picture():
     if freight is None:
         return jsonify({'status': 'failure', 'message': 'there is no freight with that id!'})
 
-    if freight.owner != g.user.id:
+    if freight.owner_id != g.user.id:
         return jsonify({'status': 'failure', 'message': 'you can not append picture to this freight'})
 
     if 'file' not in request.files:
