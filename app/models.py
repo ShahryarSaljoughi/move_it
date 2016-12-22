@@ -175,6 +175,10 @@ class Freight(db.Model, json.JSONEncoder):
     pictures = db.relationship('FreightPicture')
     creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
 
+    #
+    is_delivered = db.Column(db.BOOLEAN, default=False)
+    is_courier_chosen = db.Column(db.BOOLEAN, default=False)
+
     # overwriting ModelView :
     column_searchable_list = ['id', 'owner', 'creation_data', 'description', 'receiver_name']
 
