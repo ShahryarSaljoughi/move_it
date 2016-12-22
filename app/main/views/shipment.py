@@ -6,7 +6,7 @@ from app.models import Tender, Freight
 __author__ = 'shahryar_saljoughi'
 
 
-@main.route('/apply_freight')
+@main.route('/apply_freight', methods=['POST'])
 @auth.login_required
 def apply_freight():
     """
@@ -51,7 +51,7 @@ def apply_freight():
     return jsonify('successful'), 200
 
 
-@main.route('/approve_courier')
+@main.route('/approve_courier', methods=['POST'])
 @auth.login_required
 def approve_courier():
 
@@ -71,7 +71,7 @@ def approve_courier():
     return jsonify('successful'), 200
 
 
-@main.route('/freight_delivered')
+@main.route('/freight_delivered', methods=['POST'])
 @auth.login_required
 def freight_received():
     # check tender_id is valid
