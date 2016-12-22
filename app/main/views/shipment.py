@@ -12,6 +12,9 @@ def apply_freight():
     """
     this view function makes an apply for a freight !
     """
+    if g.user.role.title != 'courier':
+        return jsonify('only couriers can apply for freights(you are not logged in as a courier!)'), 400
+
     needed_keys = ['freight_id', 'price']
     for key in needed_keys:
         if key not in request.json.keys():
