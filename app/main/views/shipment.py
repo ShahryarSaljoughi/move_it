@@ -17,6 +17,7 @@ def apply_freight():
         if key not in request.json.keys():
             return jsonify('bad request, this key is not received: {}'.format(key)), 400
 
+    #  ##############
     freight_id = request.json['freight_id']
     price = request.json['price']
 
@@ -24,15 +25,37 @@ def apply_freight():
     if not (isinstance(freight_id, int) or isinstance(freight_id, long)) or not isinstance(price, float):
         return jsonify('bad request, type error'), 400
 
+    # check if freight_id is valid:
+    freight = Freight.query.get(freight_id)
+    if freight is None:
+        return jsonify('bad request, freight id does not exist'), 400
+
     if 'description' in request.json.keys():
         description = request.json['description']
     else:
         description = ''
 
     tender = Tender(courier=g.user,
-                    freight=Freight.query.get(freight_id),
+                    freight=freight,
                     price=price,
                     description=description)
 
     db.session.add(tender)
     db.session.commit()
+
+
+@main.route('/approve_courier')
+@auth.login_required
+def approve_courier():
+
+    tender_id = request.json['tender_id']
+
+    if not (isinstance(tender_id, int) or isinstance(tender_id, long)):
+        return jsonify('bad request, tender id should be numeric and integer!'), 400
+
+    tender = Tender.query.get(tender_id)
+    if tender is None:
+        return jsonify('bad request, tender id does not exist!'), 400
+
+    tender.approved = True
+
