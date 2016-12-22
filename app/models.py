@@ -53,7 +53,7 @@ class User(db.Model, json.JSONEncoder):  # there is a relationship between User 
     phonenumber = db.Column(db.INTEGER)
     id = db.Column(db.INTEGER, primary_key=True)
     freights = db.relationship('Freight',
-                               backref=db.backref('freights'))
+                               backref=db.backref('owner'))
     role_id = db.Column(db.INTEGER, db.ForeignKey('role.seq'))
     role = db.relationship(role, backref=db.backref('users',
                                                     uselist=True,
@@ -170,17 +170,16 @@ class Freight(db.Model, json.JSONEncoder):
     # addresses = db.relationship('Address')
     receiver_name = db.Column(db.TEXT)
     receiver_phonenumber = db.Column(db.INTEGER, nullable=False)
-    owner = db.Column(db.INTEGER, db.ForeignKey('users.id'))
+    owner_id = db.Column(db.INTEGER, db.ForeignKey('users.id'))
     description = db.Column(db.TEXT)
     pictures = db.relationship('FreightPicture')
     creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
-
     #
     is_delivered = db.Column(db.BOOLEAN, default=False)
     is_courier_chosen = db.Column(db.BOOLEAN, default=False)
 
     # overwriting ModelView :
-    column_searchable_list = ['id', 'owner', 'creation_data', 'description', 'receiver_name']
+    column_searchable_list = ['id', 'owner_id', 'creation_data', 'description', 'receiver_name']
 
     # this class is json serializable:
     def json_form(self):
@@ -216,7 +215,7 @@ class Freight(db.Model, json.JSONEncoder):
 
     def __repr__(self):
         return "freight: owner : " + \
-               str(User.get_user(user_id=self.owner)) + " name:"+str(self.name)
+               str(User.get_user(user_id=self.owner_id)) + " name:"+str(self.name)
 
     def get_dict(self):
         dictionary = self.__dict__
