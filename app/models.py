@@ -43,8 +43,7 @@ class User(db.Model, json.JSONEncoder):  # there is a relationship between User 
     """
     __tablename__ = 'users'
 
-    email = db.Column(db.TEXT, unique=True,
-                      nullable=True)
+    email = db.Column(db.TEXT, unique=True, nullable=True)
     username = db.Column(db.TEXT, unique=True)
     first_name = db.Column(db.TEXT)
     last_name = db.Column(db.TEXT)
@@ -119,7 +118,6 @@ class User(db.Model, json.JSONEncoder):  # there is a relationship between User 
         username = data['confirm']
         user = User.query.filter_by(username=username).first()
         return user
-
 
     def __repr__(self):
         return "user : " + str(self.username)
@@ -211,7 +209,6 @@ class Freight(db.Model, json.JSONEncoder):
 
         # todo: what about pictures?
         return info
-
 
     def __repr__(self):
         return "freight: owner : " + \
