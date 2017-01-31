@@ -1,4 +1,4 @@
-
+from app.main.appExceptions import MailingError
 from . import auth
 from app.main import main
 from flask import jsonify, g, session, request, abort, url_for
@@ -96,6 +96,7 @@ def signup_using_phonenumber():
                        " try confirming your phone number later".format(response.text)
         })
 
+
 @main.route('/confirm_phonenumber', methods=['POST'])
 def confirm_phonenumber():
 
@@ -133,6 +134,7 @@ def confirm_phonenumber():
         'message': "{} was successfully signed up".format(new_user)
     })
 
+
 @main.route('/signup/using_email', methods=['POST'])
 def signup_using_email():
     new_user = User(username=request.json['username'],
@@ -144,11 +146,19 @@ def signup_using_email():
     new_user.set_password(request.json['password'])
     new_user.email_confirmed = False
     db.session.add(new_user)
-    db.session.commit()
-    methods.send_confirmation_email(email=new_user.email,
-                                    name=new_user.username,
-                                    token=new_user.generate_email_confirmation_token()
-                                    )
+    # db.session.commit()
+
+    try:
+        methods.send_confirmation_email(email=new_user.email,
+                                        name=new_user.username,
+                                        token=new_user.generate_email_confirmation_token()
+                                        )
+    except MailingError:
+        db.session.rollback()
+        raise MailingError(message="something went wrong while sending confirmation link to your mail, try again later")
+    else:
+        db.session.commit()
+
     return jsonify({
         'status': 'success',
         'message': "an email containing an activation link is sent to your email address ."
