@@ -1,6 +1,6 @@
 
 from flask import render_template, make_response, jsonify
-from app.main import main
+from app.main import main, appExceptions
 from flask import request
 from app import app
 from . import auth
@@ -24,6 +24,13 @@ def not_found(exception):
 @app.errorhandler(401)
 def unauthorized_access(error):
     return jsonify("unauthorized access")
+
+
+@app.errorhandler(appExceptions.MailingError)
+def handle_mailing_error(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
 
 
 ####################################
