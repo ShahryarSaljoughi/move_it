@@ -59,3 +59,4 @@ def add_users():
 # add some freights:
 def add_freights():
     for i in range(100):
+        pass
