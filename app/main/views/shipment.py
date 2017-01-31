@@ -71,6 +71,7 @@ def approve_courier():
 
     tender.approved = True
     tender.freight.is_courier_chosen = True
+    db.session.commit()
     return jsonify('successful'), 200
 
 
@@ -89,5 +90,6 @@ def freight_received():
                        'freight can approve that freight is delivered!'), 400
 
     tender.freight.is_delivered = True
+    db.session.commit()
 
     return jsonify('successful'), 200
