@@ -1,8 +1,10 @@
-__author__ = 'shahryar_slg'
 
 import requests
 from flask_mail import Mail, Message
 from app import app
+from app.main.appExceptions import MailingError
+__author__ = 'shahryar_slg'
+
 
 mail = Mail(app)
 
@@ -23,13 +25,18 @@ def send_signup_code(phonenumber, code):
 
 
 def send_confirmation_email(email, name, token):
+    """
+    may raise MailingError
+    """
     msg = Message(subject='SHIPMENT-confirm your email',
                   recipients=[email])
     # url = 'http://localhost:5000/email_confirmation/'+str(token)
     url = 'http://136.243.203.173:9000/email_confirmation/'+str(token)
     msg.body = "{}".format(url)
-    mail.send(msg)
-
+    try:
+        mail.send(msg)
+    except:
+        raise MailingError(message="some thing went wrong while sending you confirmation mail . Try again later")
 
 # just to test if the snippet works:
 if __name__ == '__main__':
