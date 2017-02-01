@@ -361,6 +361,7 @@ class Tender(db.Model):
             '__type__': 'Tender',
             'freight_id': self.freight_id,
             'courier_id': self.courier_id,
+            'courier': self.courier,
             'price': self.suggested_price,
             'creation_date': self.creation_data
         }
