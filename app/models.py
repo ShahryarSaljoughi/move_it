@@ -168,7 +168,7 @@ class Freight(db.Model, json.JSONEncoder):
     # addresses = db.relationship('Address')
     receiver_name = db.Column(db.TEXT)
     receiver_phonenumber = db.Column(db.INTEGER, nullable=False)
-    owner_id = db.Column(db.INTEGER, db.ForeignKey('users.id'))
+    owner_id = db.Column(db.INTEGER, db.ForeignKey('users.id'))                                   # ForeignKey
     description = db.Column(db.TEXT)
     pictures = db.relationship('FreightPicture')
     creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
