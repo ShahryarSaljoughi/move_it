@@ -5,6 +5,7 @@ from app.main.views import auth
 from app.models import Tender, Freight
 __author__ = 'shahryar_saljoughi'
 
+#  CORE  ***************************************************************************************************************
 
 @main.route('/apply_freight', methods=['POST'])
 @auth.login_required
@@ -93,3 +94,16 @@ def freight_received():
     db.session.commit()
 
     return jsonify('successful'), 200
+# END OF CORE **********************************************************************************************************
+
+
+@main.route('/freight_tenders', methods=['POST'])
+def show_tenders():
+    """
+    give the freight_id and see the couriers who have applied for this freight and what price they have suggested
+    :return: tenders
+    """
+    freight = Freight.query.get(request.json['freight_id'])
+    if freight is None:
+        return jsonify("there is no freight with that freight_id")
+    return jsonify(freight.tenders)
