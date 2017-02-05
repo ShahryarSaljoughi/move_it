@@ -16,8 +16,7 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + BASE_DIR + '\\app\\database\\shipment.d
 # SQLALCHEMY_MIGRATE_REPO = os.path.join(BASE_DIR, '\\app\\database\\db_repository')
 
 PORT = 5000
-# HOST = '0.0.0.0'
-HOST = '78.47.195.58'
+HOST = '0.0.0.0'
 THREADS_PER_PAGE = 2
 
 SECRET_KEY = "scared rabbits fly"
