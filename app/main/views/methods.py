@@ -32,7 +32,7 @@ def send_confirmation_email(email, name, token):
                   recipients=[email])
     # url = 'http://localhost:5000/email_confirmation/'+str(token)
     # url = 'http://136.243.203.173:9000/email_confirmation/'+str(token)
-    url = 'http://{}:{}/email_confirmation/{}'.format(app.config['HOST'], app.config['PORT'], str(token))
+    url = 'http://{}:{}/email_confirmation/{}'.format(app.config['VPS'], app.config['PORT'], str(token))
     msg.body = "{}".format(url)
     try:
         mail.send(msg)
