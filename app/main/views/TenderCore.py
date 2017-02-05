@@ -97,6 +97,7 @@ def freight_received():
 # END OF CORE **********************************************************************************************************
 
 
+@auth.login_required
 @main.route('/freight_tenders', methods=['POST'])
 def show_tenders():
     """
