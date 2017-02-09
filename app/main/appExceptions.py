@@ -17,3 +17,27 @@ class MailingError(Exception):
         rv = dict(self.payload or ())
         rv['message'] = self.message
         return rv
+
+
+class ValidationError(Exception):
+    """
+    this exception rill be raised if the json received to server-side is not valid
+    """
+    status_code = 400
+
+    def __init__(self, errors, message='bad request', status_code=None, payload=None):
+        Exception.__init__(self)
+        self.message = message
+        if status_code is not None:
+            self.status_code = status_code
+        self.payload = payload
+        self.errors = errors
+
+    def to_dict(self):
+        rv = dict(self.payload or ())
+        rv['message'] = self.message
+        rv['errors'] = self.errors  # errors is a dict itself!
+        return rv
+
+    # todo: take polymorphism in consideration! there can be a BaseException class
+    # todo: that others inherit! and there can be only one error handler for Base Exception!
