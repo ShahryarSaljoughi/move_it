@@ -3,6 +3,8 @@ from app import db
 from app.main import main
 from app.main.views import auth
 from app.models import Tender, Freight
+from app.main.validation.validators import validate
+from app.main.appExceptions import ValidationError
 __author__ = 'shahryar_saljoughi'
 
 #  CORE  ***************************************************************************************************************
@@ -104,7 +106,11 @@ def show_tenders():
     give the freight_id and see the couriers who have applied for this freight and what price they have suggested
     :return: tenders
     """
+
+    validation_result = validate(request.json)
+    if not validation_result['is_validated']:
+        raise ValidationError(message='bad request', errors=validation_result['errors'])
+
     freight = Freight.query.get(request.json['freight_id'])
-    if freight is None:
-        return jsonify("there is no freight with that freight_id")
+
     return jsonify(freight.tenders)
