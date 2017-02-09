@@ -33,6 +33,13 @@ def handle_mailing_error(error):
     return response
 
 
+@app.errorhandler(appExceptions.ValidationError)
+def handle_validation_error(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
+
+
 ####################################
 # @auth.error_handler
 # def auth_error():
