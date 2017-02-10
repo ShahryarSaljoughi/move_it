@@ -107,7 +107,11 @@ def show_tenders():
     :return: tenders
     """
 
-    validation_result = validate(request.json)
+    validation_result = validate(
+        document=request.json,
+        viewfunction='main.views.TenderCore.show_tender'
+    )
+
     if not validation_result['is_validated']:
         raise ValidationError(message='bad request', errors=validation_result['errors'])
 
