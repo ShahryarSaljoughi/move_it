@@ -6,7 +6,7 @@ from app.models import Freight
 # other validation methods will be called by this function
 def validate(document, viewfunction):
     if viewfunction == 'main.views.TenderCore.show_tender':
-        return validate_show_tender()
+        return validate_show_tender(document)
 
 
 def validate_show_tender(document):
