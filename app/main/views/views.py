@@ -26,14 +26,7 @@ def unauthorized_access(error):
     return jsonify("unauthorized access")
 
 
-@app.errorhandler(appExceptions.MailingError)
-def handle_mailing_error(error):
-    response = jsonify(error.to_dict())
-    response.status_code = error.status_code
-    return response
-
-
-@app.errorhandler(appExceptions.ValidationError)
+@app.errorhandler(appExceptions.AppException)
 def handle_validation_error(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
