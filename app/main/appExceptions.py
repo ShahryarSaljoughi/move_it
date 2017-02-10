@@ -1,6 +1,11 @@
+from abc import ABCMeta, abstractmethod
 
 
-class MailingError(Exception):
+class AppException(Exception):
+    __metaclass__ = ABCMeta
+
+
+class MailingError(AppException):
     """
     this exception is raised in case sending confirmation mail fails
     """
@@ -19,7 +24,7 @@ class MailingError(Exception):
         return rv
 
 
-class ValidationError(Exception):
+class ValidationError(AppException):
     """
     this exception rill be raised if the json received to server-side is not valid
     """
