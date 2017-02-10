@@ -1,3 +1,4 @@
+from flask import g
 from cerberus import Validator
 from app.main.validation import schemas
 from app.models import Freight
@@ -7,6 +8,7 @@ from app.models import Freight
 def validate(document, viewfunction):
     if viewfunction == 'main.views.TenderCore.show_tender':
         return validate_show_tender(document)
+    elif viewfunction == 'main.views.'
 
 
 def validate_show_tender(document):
@@ -32,3 +34,13 @@ def validate_show_tender(document):
     result['errors'] = errors
 
     return result
+
+
+def validate_freight_received(document):
+    """
+    validates data associated with the view function: TenderCore.freight_received
+    :param document: request.json
+    :return: result , result is a dictionary, containing keys 'is_validated' and 'errors'
+    """
+    v = Validator(schema=schemas.freight_received)
+
