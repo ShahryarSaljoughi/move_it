@@ -5,9 +5,12 @@ from app.main.views import auth
 from app.models import Tender, Freight
 from app.main.validation.validators import validate
 from app.main.appExceptions import ValidationError
+
 __author__ = 'shahryar_saljoughi'
 
+
 #  CORE  ***************************************************************************************************************
+
 
 @main.route('/apply_freight', methods=['POST'])
 @auth.login_required
@@ -81,21 +84,18 @@ def approve_courier():
 @main.route('/freight_delivered', methods=['POST'])
 @auth.login_required
 def freight_received():
-    # check tender_id is valid
-    if 'tender_id' not in request.json or \
-            not (isinstance(request.json['tender_id'], int)
-                 or isinstance(request.json['tender_id'], long)):
-        return jsonify('bad request'), 400
+
+    result = validate(request.json, freight_received)
+
+    if result['is_validated']:
+        raise ValidationError(errors=result['errors'], message='bad request')
+
     tender = Tender.query.get(request.json['tender_id'])
-
-    if tender.freight.owner != g.user:
-        return jsonify('access denied! only the owner of the '
-                       'freight can approve that freight is delivered!'), 400
-
     tender.freight.is_delivered = True
     db.session.commit()
 
     return jsonify('successful'), 200
+
 # END OF CORE **********************************************************************************************************
 
 
@@ -109,7 +109,7 @@ def show_tenders():
 
     validation_result = validate(
         document=request.json,
-        viewfunction='main.views.TenderCore.show_tender'
+        viewfunction=show_tenders
     )
 
     if not validation_result['is_validated']:
