@@ -33,15 +33,16 @@ def validate_freight_received(document, result, validator):
     errors = result['errors']
 
     # check if tender exists in database:
-    tender = Tender.query.get(document['tender_id'])  # tender of None
+
     if is_doc_validated:
+        tender = Tender.query.get(document['tender_id'])  # tender of None
         if tender is None:
             assert 'tender_id' not in errors.keys()  # because doc is validated so far!
             errors['tender_id'] = ['tender_id not found!']
             is_doc_validated = False
 
         # only the owner of the freight can approve it's received! Let's check it:
-        if g.user != Tender.query.get(document['tender_id']).freight.owner:
+        elif g.user != Tender.query.get(document['tender_id']).freight.owner:
             errors['access denied'] = 'only the owner of the freight can approve it is delivered'
             is_doc_validated = False
 
@@ -61,7 +62,7 @@ def validate_show_tender(document, result, validator):
     if result['is_validated'] and not Freight.query.get(document['freight_id']):
         assert 'freight_id' not in result['errors'].keys()
         result['errors']['freight_id'] = list()
-        result['errors']['freight_id'].append('freight_id is not found')
+        result['errors']['freight_id'].append('freight not found')
         result['is_validated'] = False
 
 
@@ -74,4 +75,15 @@ def validate_approve_courier(document, result):
     """
 
     if result['is_validated']:
-        pass
+        assert 'tender_id' not in result['errors'].keys()
+        tender = Tender.query.get(document['tender_id'])
+
+        # check ir tender_id is in database:
+        if tender is None:
+            result['errors']['tender_id'] = ['tender not found']
+            result['is_validated'] = False
+
+        # check if the user has permission to approve courier:
+        elif g.user != tender.freight.owner:
+            result['errors']['access denied'] = 'only the owner of the freight' \
+                                                ' has the permission to approve courier'
