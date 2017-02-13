@@ -18,31 +18,17 @@ def apply_freight():
     """
     this view function makes an apply for a freight !
     """
-    if g.user.role.title != 'courier':
-        return jsonify('only couriers can apply for freights(you are not logged in as a courier!)'), 400
-
-    needed_keys = ['freight_id', 'price']
-    for key in needed_keys:
-        if key not in request.json.keys():
-            return jsonify('bad request, this key is not received: {}'.format(key)), 400
-
-    #  ##############
+    validation_result = validate(
+        document=request.json,
+        viewfunction=apply_freight
+    )
+    if not validation_result['is_validated']:
+        raise ValidationError(errors=validation_result['errors'], status_code=400)
 
     freight_id = request.json['freight_id']
     price = request.json['price']
 
-    #  check type accuracy:
-    if not (isinstance(freight_id, int) or isinstance(freight_id, long)) or not isinstance(price, float):
-        return jsonify('bad request, type error'), 400
-
-    # check if freight_id is valid:
     freight = Freight.query.get(freight_id)
-    if freight is None:
-        return jsonify('bad request, freight id does not exist'), 400
-
-    # check if the freight is taken by another courier:
-    if freight.is_courier_chosen:
-        return jsonify('this freight is assigned to another courier.')
 
     if 'description' in request.json.keys():
         description = request.json['description']
