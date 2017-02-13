@@ -7,33 +7,18 @@ from app.models import Freight, Tender
 
 # other validation methods will be called by this function
 def validate(document, viewfunction):
+
     schema = eval('schemas.{}'.format(viewfunction.func_name))
     v = Validator(schema)
+
     result = dict()
     result['is_validated'] = v.validate(document)
-    result['errors'] = v.errors  # result will be modified more as the below specific validators are called! (side effect!)
-    exec('return validate_{}({}, {}, {})'.format(viewfunction.func_name, document, result, v))
+    result['errors'] = dict(v.errors)
+    # result will be modified more
+    # as the below specific validators are called! (side effect!)
 
-
-def validate_show_tender(document, result, validator):
-    """
-    validates data associated with the view function: TenderCore.show_tender
-    :param document: request.json
-    :param result: result is a dict to be modified!
-    :param validator: validator is an instance of cerberus.Validator(schema) with the proper schema!
-    """
-    is_doc_validated = result['is_validated']
-    errors = result['errors']  # so, errors is a dict!
-
-    # check if freight id is in database
-    if is_doc_validated and not Freight.query.get(document['freight_id']):
-        assert 'freight_id' not in errors.keys()
-        errors['freight_id'] = list()
-        errors['freight_id'].append('freight_id does not found')
-        is_doc_validated = False
-
-    result['is_validated'] = is_doc_validated
-    result['errors'] = errors
+    exec('validate_{}({}, {}, {})'.format(viewfunction.func_name, document, result, v))
+    return result
 
 
 def validate_freight_received(document, result, validator):
@@ -60,9 +45,33 @@ def validate_freight_received(document, result, validator):
             errors['access denied'] = 'only the owner of the freight can approve it is delivered'
             is_doc_validated = False
 
-
     result['is_validated'] = is_doc_validated
     result['errors'] = errors
 
 
+def validate_show_tender(document, result, validator):
+    """
+    validates data associated with the view function: TenderCore.show_tender
+    :param document: request.json
+    :param result: result is a dict to be modified!
+    :param validator: validator is an instance of cerberus.Validator(schema) with the proper schema!
+    """
+
+    # check if freight id is in database
+    if result['is_validated'] and not Freight.query.get(document['freight_id']):
+        assert 'freight_id' not in result['errors'].keys()
+        result['errors']['freight_id'] = list()
+        result['errors']['freight_id'].append('freight_id is not found')
+        result['is_validated'] = False
+
+
 def validate_approve_courier(document, result):
+    """
+
+    :param document: received json (that we are trying to validate)
+    :param result: indicating the current state of validation
+    :return: this function is using side effects of dictionaries instead of return!
+    """
+
+    if result['is_validated']:
+        pass
