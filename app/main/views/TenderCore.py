@@ -64,16 +64,11 @@ def apply_freight():
 @auth.login_required
 def approve_courier():
 
+    validation_result = validate(document=request.json, viewfunction=approve_courier)
+    if not validation_result['is_validated']:
+        raise ValidationError(errors=validation_result['errors'], status_code=400)
     tender_id = request.json['tender_id']
-    # check tender_id is valid:
-    if not (isinstance(tender_id, int) or isinstance(tender_id, long)):
-        return jsonify('bad request, tender id should be numeric and integer!'), 400
     tender = Tender.query.get(tender_id)
-    if tender is None:
-        return jsonify('bad request, tender id does not exist!'), 400
-    # check if this is the creator of the freight who is approving a courier for his/her freight:
-    if tender.freight.owner != g.user:
-        return jsonify('access denied! only the owner of the freight can choose who ships the freight!')
 
     tender.approved = True
     tender.freight.is_courier_chosen = True
@@ -87,8 +82,8 @@ def freight_received():
 
     result = validate(request.json, freight_received)
 
-    if result['is_validated']:
-        raise ValidationError(errors=result['errors'], message='bad request')
+    if not result['is_validated']:
+        raise ValidationError(errors=result['errors'], message='bad request', status_code=400)
 
     tender = Tender.query.get(request.json['tender_id'])
     tender.freight.is_delivered = True
@@ -113,7 +108,11 @@ def show_tenders():
     )
 
     if not validation_result['is_validated']:
-        raise ValidationError(message='bad request', errors=validation_result['errors'])
+        raise ValidationError(
+            message='bad request',
+            errors=validation_result['errors'],
+            status_code=400
+        )
 
     freight = Freight.query.get(request.json['freight_id'])
 
