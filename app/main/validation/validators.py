@@ -15,7 +15,7 @@ def validate(document, viewfunction):
     result['is_validated'] = v.validate(document)
     result['errors'] = dict(v.errors)
     # result will be modified more
-    # as the below specific validators are called! (side effect!)
+    # as the below specific validators are called! (side effect are used!)
 
     exec('validate_{}({}, {}, {})'.format(viewfunction.func_name, document, result, v))
     return result
@@ -87,3 +87,18 @@ def validate_approve_courier(document, result):
         elif g.user != tender.freight.owner:
             result['errors']['access denied'] = 'only the owner of the freight' \
                                                 ' has the permission to approve courier'
+
+
+def validate_apply_freight(document, result):
+
+    # check if freight_id is valid
+    if 'freight_id' not in result['errors'].keys():
+        freight = Freight.query.get(document['freight_id'])
+        if freight is None:
+            result['errors']['freight_id'] = ['freight_id not found']
+            result['is_validated'] = False
+
+    if g.user.role.title != 'courier':
+        result['is_validated'] = False
+        result['errors']['access_denied'] = ['only couriers can apply for a freight']
+
