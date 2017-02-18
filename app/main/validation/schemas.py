@@ -1,4 +1,16 @@
 
+
+# custom rule for validators:
+def id_found(field, value, error):
+    try:
+        cls = field[:len(field)-3].title()  # freight_id --> Freight
+        data = eval('{}.query.get({})'.format(cls, field))
+        if data is None:
+            error(field, "{} not found".format(field))
+
+    except:
+        error(field, "{} is not valid".format(field))
+
 # Tender schemas **************************************
 
 show_tenders = {
