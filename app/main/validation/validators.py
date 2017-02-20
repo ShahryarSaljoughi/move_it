@@ -14,10 +14,15 @@ def validate(document, viewfunction):
     result = dict()
     result['is_validated'] = v.validate(document)
     result['errors'] = dict(v.errors)
+
     # result will be modified more
     # as the below specific validators are called! (side effect are used!)
+    try:
+        exec('validate_{}({}, {}, {})'.format(viewfunction.func_name, document, result, v))
+    # maybe there is no specific validate_... method for this view function:
+    except NameError:
+        pass
 
-    exec('validate_{}({}, {}, {})'.format(viewfunction.func_name, document, result, v))
     return result
 
 
@@ -29,26 +34,10 @@ def validate_freight_received(document, result, validator):
     :param validator: an instance of cerberus.Validator . validator.schema is already set.
     """
 
-    is_doc_validated = result['is_validated']
-    errors = result['errors']
-
-    # check if tender exists in database:
-
-    if is_doc_validated:
-        # tender = Tender.query.get(document['tender_id'])  # tender of None
-        # if tender is None:
-        #    assert 'tender_id' not in errors.keys()  # because doc is validated so far!
-        #    errors['tender_id'] = ['tender_id not found!']
-        #    is_doc_validated = False
-        pass
-
-        # only the owner of the freight can approve it's received! Let's check it:
-    elif g.user != Tender.query.get(document['tender_id']).freight.owner:
-        errors['access denied'] = 'only the owner of the freight can approve it is delivered'
-        is_doc_validated = False
-
-    result['is_validated'] = is_doc_validated
-    result['errors'] = errors
+    # only the owner of the freight can approve it's received! Let's check it:
+    if g.user != Tender.query.get(document['tender_id']).freight.owner:
+        result['errors']['access denied'] = 'only the owner of the freight can approve it is delivered'
+        result['is_validated'] = False
 
 
 def validate_show_tender(document, result, validator):
