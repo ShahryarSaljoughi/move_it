@@ -1,3 +1,4 @@
+from app.models import role
 
 
 # custom rule for validators:
@@ -30,6 +31,8 @@ approve_courier = {
 apply_freight = {
     'freight_id': {'type': 'integer', 'required': True, 'min': 1, 'validator': id_found},
     'price': {'type': 'number', 'required': True, 'min': 0},
-    'description': {'type': 'string', 'required': False, 'maxlength': 3500}
+    'description': {'type': 'string', 'required': False, 'maxlength': 3500},
+    'user_type': {'allowed': [role.query.get(2).title],  # user_type : courier
+                  'required': True}
 }
 # End of Tender schemas ********************************
