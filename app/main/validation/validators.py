@@ -47,13 +47,7 @@ def validate_show_tender(document, result, validator):
     :param result: result is a dict to be modified!
     :param validator: validator is an instance of cerberus.Validator(schema) with the proper schema!
     """
-
-    # check if freight id is in database
-    if result['is_validated'] and not Freight.query.get(document['freight_id']):
-        assert 'freight_id' not in result['errors'].keys()
-        result['errors']['freight_id'] = list()
-        result['errors']['freight_id'].append('freight not found')
-        result['is_validated'] = False
+    pass
 
 
 def validate_approve_courier(document, result):
