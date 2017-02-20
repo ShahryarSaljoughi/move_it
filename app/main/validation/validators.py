@@ -35,16 +35,17 @@ def validate_freight_received(document, result, validator):
     # check if tender exists in database:
 
     if is_doc_validated:
-        tender = Tender.query.get(document['tender_id'])  # tender of None
-        if tender is None:
-            assert 'tender_id' not in errors.keys()  # because doc is validated so far!
-            errors['tender_id'] = ['tender_id not found!']
-            is_doc_validated = False
+        # tender = Tender.query.get(document['tender_id'])  # tender of None
+        # if tender is None:
+        #    assert 'tender_id' not in errors.keys()  # because doc is validated so far!
+        #    errors['tender_id'] = ['tender_id not found!']
+        #    is_doc_validated = False
+        pass
 
         # only the owner of the freight can approve it's received! Let's check it:
-        elif g.user != Tender.query.get(document['tender_id']).freight.owner:
-            errors['access denied'] = 'only the owner of the freight can approve it is delivered'
-            is_doc_validated = False
+    elif g.user != Tender.query.get(document['tender_id']).freight.owner:
+        errors['access denied'] = 'only the owner of the freight can approve it is delivered'
+        is_doc_validated = False
 
     result['is_validated'] = is_doc_validated
     result['errors'] = errors
@@ -101,4 +102,3 @@ def validate_apply_freight(document, result):
     if g.user.role.title != 'courier':
         result['is_validated'] = False
         result['errors']['access_denied'] = ['only couriers can apply for a freight']
-
