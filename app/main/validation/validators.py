@@ -68,7 +68,4 @@ def validate_approve_courier(document, result):
 
 
 def validate_apply_freight(document, result):
-
-    if g.user.role.title != role.query.get(2).title:  # if user is not a courier:
-        result['is_validated'] = False
-        result['errors']['access_denied'] = ['only couriers can apply for a freight']
+    pass
