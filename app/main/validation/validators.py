@@ -2,7 +2,7 @@ from flask import g
 from app.main.views import TenderCore
 from cerberus import Validator
 from app.main.validation import schemas
-from app.models import Freight, Tender
+from app.models import Freight, Tender, role
 
 
 # other validation methods will be called by this function
@@ -69,13 +69,6 @@ def validate_approve_courier(document, result):
 
 def validate_apply_freight(document, result):
 
-    # check if freight_id is valid
-    if 'freight_id' not in result['errors'].keys():
-        freight = Freight.query.get(document['freight_id'])
-        if freight is None:
-            result['errors']['freight_id'] = ['freight_id not found']
-            result['is_validated'] = False
-
-    if g.user.role.title != 'courier':
+    if g.user.role.title != role.query.get(2).title:  # if user is not a courier:
         result['is_validated'] = False
         result['errors']['access_denied'] = ['only couriers can apply for a freight']
