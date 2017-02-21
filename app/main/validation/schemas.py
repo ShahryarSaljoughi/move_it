@@ -1,4 +1,5 @@
-from app.models import role
+from flask import g
+from app.models import role, Freight
 
 
 # custom rules for validators:
@@ -20,7 +21,12 @@ def is_courier(field, value, error):
         error(field, "only couriers can use this route!")
 
 
-# Tender schemas **************************************
+def user_is_freight_owner(field, value, error):
+    freight = Freight.query.get(value)
+    if freight.owner.id != g.user:
+        error(field, "Only the owner of the freight has the permission")
+
+# TenderCore schemas **************************************
 
 
 show_tenders = {
@@ -43,4 +49,10 @@ apply_freight = {
                   'required': True,                                # (other roles can be added later)
                   'validator': is_courier}
 }
-# End of Tender schemas ********************************
+# End of TenderCore schemas ********************************
+
+# freightCRUD schemas :     ********************************
+
+delete_freight = {
+    'freight_id': {'type': 'integer', 'required': True, 'min': 1, 'validator': id_found}
+}
