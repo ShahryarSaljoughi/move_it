@@ -172,6 +172,7 @@ class Freight(db.Model, json.JSONEncoder):
     description = db.Column(db.TEXT)
     pictures = db.relationship('FreightPicture')
     creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
+    # freight also has a owner attribute ! (made by backref, see User class)
     #
     is_delivered = db.Column(db.BOOLEAN, default=False)
     is_courier_chosen = db.Column(db.BOOLEAN, default=False)
