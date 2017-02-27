@@ -5,6 +5,10 @@ from app.main.validation import schemas
 from app.models import Freight, Tender, role
 
 
+
+# class MyValidator(Validator):
+
+
 # other validation methods will be called by this function
 def validate(document, viewfunction):
 
