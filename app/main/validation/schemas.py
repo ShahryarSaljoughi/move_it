@@ -1,5 +1,5 @@
-from flask import g
-from app.models import role, Freight
+from flask import g, request
+from app.models import role, Freight, Tender
 
 
 # custom rules for validators:
@@ -21,10 +21,19 @@ def is_courier(field, value, error):
         error(field, "only couriers can use this route!")
 
 
-def user_is_freight_owner(field, value, error):
-    freight = Freight.query.get(value)
+def user_is_freight_owner(field, value, error):  # for checking user's permissions ...
+    assert hasattr(request.json, 'freight_id')
+    freight = Freight.query.get(request.json['freight_id'])
     if freight.owner.id != g.user:
-        error(field, "Only the owner of the freight has the permission")
+        error(field, "Only the owner of the freight is permitted")
+
+
+def user_is_tender_freight_owner(field, value, error):  # for checking user's permissions ...
+
+    assert hasattr(request.json, 'tender_id')
+    tender = Tender.query.get(request.json['tender_id'])
+    if g.user != tender.freight.owner.id:  # g.user = request.json['user_id]
+        error(field, "Only the owner of the freight is permitted")
 
 # TenderCore schemas **************************************
 
