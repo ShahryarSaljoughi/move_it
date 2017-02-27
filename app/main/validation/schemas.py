@@ -22,8 +22,8 @@ def is_courier(field, value, error):
 
 
 def user_is_freight_owner(field, value, error):  # for checking user's permissions ...
-    assert hasattr(request.json, 'freight_id')
-    freight = Freight.query.get(request.json['freight_id'])
+
+    freight = Freight.query.get(value)
     if freight.owner.id != g.user:
         error('other_errors', "Only the owner of the freight is permitted")
 
@@ -36,8 +36,7 @@ def freight_not_taken(field, value, error):
 
 def user_is_tender_freight_owner(field, value, error):  # for checking user's permissions ...
 
-    assert hasattr(request.json, 'tender_id')
-    tender = Tender.query.get(request.json['tender_id'])
+    tender = Tender.query.get(value)
     if g.user != tender.freight.owner.id:  # g.user = request.json['user_id]
         error('other_errors', "Only the owner of the freight is permitted")
 
@@ -48,12 +47,30 @@ show_tenders = {
     'freight_id': {'type': 'integer', 'required': True, 'min': 1, 'validator': id_found}
 }
 
-freight_received = {
-    'tender_id': {'type': 'integer', 'required': True, 'min': 1, 'validator': id_found}
+freight_received = {   # acts like exclusive or :
+    'tender_id': {     # either tender_id or freight_id should exist. (only one of them)
+        'type': 'integer',
+        'required': True,
+        'min': 1,
+        'excludes': 'freight_id',
+        'validator': [user_is_tender_freight_owner, id_found]
+    },
+    'freight_id': {
+        'type': 'integer',
+        'required': True,
+        'min': 1,
+        'validator': [id_found, user_is_freight_owner],
+        'excludes': 'tender_id'
+    }
 }
 
 approve_courier = {
-    'tender_id': {'type': 'integer', 'required': True, 'min': 1, 'validator': id_found}
+    'tender_id': {
+        'type': 'integer',
+        'required': True,
+        'min': 1,
+        'validator': [id_found, user_is_tender_freight_owner]
+    }
 }
 
 apply_freight = {
