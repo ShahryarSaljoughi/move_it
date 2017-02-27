@@ -53,6 +53,7 @@ def approve_courier():
     validation_result = validate(document=request.json, viewfunction=approve_courier)
     if not validation_result['is_validated']:
         raise ValidationError(errors=validation_result['errors'], status_code=400)
+
     tender_id = request.json['tender_id']
     tender = Tender.query.get(tender_id)
 
@@ -71,8 +72,10 @@ def freight_received():
     if not result['is_validated']:
         raise ValidationError(errors=result['errors'], message='bad request', status_code=400)
 
-    tender = Tender.query.get(request.json['tender_id'])
-    tender.freight.is_delivered = True
+    freight = Tender.query.get(request.json['tender_id']).freight \
+        if 'tender_id' in request.json else Freight.query.get(request.json['freight_id'])
+
+    freight.is_delivered = True
     db.session.commit()
 
     return jsonify('successful'), 200
