@@ -113,7 +113,7 @@ update_freight = {
         'min': 1,
         'validator': [id_found, user_is_freight_owner]
     },
-    'new_data':{
+    'new_data': {
         'type': 'dict',
         'schema': {
             'name': {'type': 'string'},
@@ -143,5 +143,41 @@ update_freight = {
                 }
             },
         }
+    }
+}
+
+create_freight = {
+
+    'type': 'dict',
+    'schema': {
+        'name': {'type': 'string', 'required': True},
+        'height': {'type': 'number'},
+        'width': {'type': 'number'},
+        'depth': {'type': 'number'},
+        'receiver_name': {'type': 'string', 'required': True},
+        'receiver_phonenumber': {'validator': is_phonenumber, 'required': True},
+        'weight': {'type': 'number', 'required': True},
+        'description': {'type': 'string', 'maxlength': 4000},
+        'price': {'type': 'number', 'min': 0},
+        'destination': {
+            'type': 'dict',
+            'required': True,
+            'schema': {
+                'country': {'type': 'string', 'required': True},
+                'city': {'type': 'string', 'required': True},
+                'rest_of_address': {'type': 'string', 'required': True},
+                'postal_code': {'type': 'integer', 'required': True}
+            }
+        },
+        'pickup_address': {
+            'type': 'dict',
+            'required': True,
+            'schema': {
+                'country': {'type': 'string', 'required': True},
+                'city': {'type': 'string', 'required': True},
+                'rest_of_address': {'type': 'string', 'required': True},
+                'postal_code': {'type': 'integer', 'required': True}
+            }
+        },
     }
 }
