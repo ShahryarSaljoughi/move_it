@@ -1,4 +1,6 @@
 from flask import g, request
+import phonenumbers
+from phonenumbers import NumberParseException
 from app.models import role, Freight, Tender
 
 
@@ -39,6 +41,16 @@ def user_is_tender_freight_owner(field, value, error):  # for checking user's pe
     tender = Tender.query.get(value)
     if g.user != tender.freight.owner.id:  # g.user = request.json['user_id]
         error('other_errors', "Only the owner of the freight is permitted")
+
+
+def is_phonenumber(field, value, error):
+    try:
+        phonenumber = phonenumbers.parse(number=value, region='IR')
+        if not (phonenumbers.is_valid_number(phonenumber) and phonenumbers.is_possible_number(phonenumber)):
+            error(field, "phone number is not valid")
+    except NumberParseException:
+        error(field, "phone number is not valid")
+
 
 # TenderCore schemas **************************************
 
@@ -91,5 +103,45 @@ delete_freight = {
         'required': True,
         'min': 1,
         'validator': [id_found, user_is_freight_owner]
+    }
+}
+
+update_freight = {
+    'freight_id': {
+        'type': 'integer',
+        'required': True,
+        'min': 1,
+        'validator': [id_found, user_is_freight_owner]
+    },
+    'new_data':{
+        'type': 'dict',
+        'schema': {
+            'name': {'type': 'string'},
+            'height': {'type': 'number'},
+            'width': {'type': 'number'},
+            'depth': {'type': 'number'},
+            'receiver_name': {'type': 'string'},
+            'receiver_phonenumber': {'validator': is_phonenumber},
+            'weight': {'type': 'number'},
+            'description': {'type': 'string', 'maxlength': 4000},
+            'destination': {
+                'type': 'dict',
+                'schema': {
+                    'country': {'type': 'string'},
+                    'city': {'type': 'string'},
+                    'rest_of_address': {'type': 'string'},
+                    'postal_code': {'type': 'integer'}
+                }
+            },
+            'pickup_address': {
+                'type': 'dict',
+                'schema': {
+                    'country': {'type': 'string'},
+                    'city': {'type': 'string'},
+                    'rest_of_address': {'type': 'string'},
+                    'postal_code': {'type': 'integer'}
+                }
+            },
+        }
     }
 }
