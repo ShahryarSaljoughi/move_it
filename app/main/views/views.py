@@ -31,6 +31,8 @@ def modify_json():
             request.json['user_id'] = g.user.id
 
         # a key! , rules , is added to request.json
+        # in fact there is no value for this key!
+        # it is provided only for specifying some rules in schemas.py
         request.json['rules'] = []
 
 
