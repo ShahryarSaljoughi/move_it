@@ -6,6 +6,7 @@ from app import app
 from app.main.views import  registration
 from . import auth
 
+
 @main.route('/author')
 def see_author():
     return render_template('aboutAuthor.html')
@@ -29,8 +30,8 @@ def modify_json():
             request.json['user_type'] = g.user.role.title
             request.json['user_id'] = g.user.id
 
-        # a key! , general errors , is added to request.json
-        request.json['other_errors'] = list()
+        # a key! , rules , is added to request.json
+        request.json['rules'] = []
 
 
 # the below method is just for fun and can be deleted:
