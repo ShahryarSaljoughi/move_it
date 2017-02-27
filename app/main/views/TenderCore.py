@@ -27,7 +27,7 @@ def apply_freight():
     price = request.json['price']
 
     #  check type accuracy:
-    if not (isinstance(freight_id, int) or isinstance(freight_id, long)) or not isinstance(price, float):
+    if not isinstance(freight_id, int) or not isinstance(freight_id, long) or not isinstance(price, float):
         return jsonify('bad request, type error'), 400
 
     # check if freight_id is valid:
