@@ -100,8 +100,14 @@ def get_freights():
 @auth.login_required
 def create_freight():
 
-    # if g.user is None:
-    #     abort(401)
+    validation_result = validate(request.json, create_freight)
+
+    if not validation_result['is_validated']:
+        raise ValidationError(
+            errors=validation_result['errors'],
+            status_code=400
+        )
+
     destination_dict = request.json['destination']
     destination = DestinationAddress(country=destination_dict['country'],
                                      city=destination_dict['city'],
@@ -116,16 +122,17 @@ def create_freight():
                                    postal_code=pickup_address_dict['postal_code']
                                    )
 
-    freight = Freight(name=request.json['name'],
-                      height=request.json['height'],
-                      width=request.json['width'],
-                      depth=request.json['depth'],
-                      receiver_name=request.json['receiver_name'],
-                      receiver_phonenumber=request.json['receiver_phonenumber'],
-                      weight=request.json['weight'],
-                      description=request.json['description'],
-                      price=request.json['price']
-                      )
+    freight = Freight(
+        name=request.json['name'],
+        height=request.json['height'] if 'height' in request.json else None,
+        width=request.json['width'] if 'width' in request.json else None,
+        depth=request.json['depth'] if 'depth' in request.json else None,
+        receiver_name=request.json['receiver_name'],
+        receiver_phonenumber=request.json['receiver_phonenumber'],
+        weight=request.json['weight'],
+        description=request.json['description'] if 'description' in request.json else None,
+        price=request.json['price'] if 'price' in request.json else None
+    )
 
     freight.destination.append(destination)
     freight.pickup_address.append(pickup_address)
