@@ -163,8 +163,6 @@ def allowed_picture(filename):
 @auth.login_required
 def upload_freight_picture():
 
-    # if g.user is None:
-    #     abort(401)
     freight = Freight.query.filter_by(id=request.form['freight_id']).first()
 
     if freight is None:
