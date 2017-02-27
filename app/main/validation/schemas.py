@@ -86,5 +86,10 @@ apply_freight = {
 # freightCRUD schemas :     ********************************
 
 delete_freight = {
-    'freight_id': {'type': 'integer', 'required': True, 'min': 1, 'validator': id_found}
+    'freight_id': {
+        'type': 'integer',
+        'required': True,
+        'min': 1,
+        'validator': [id_found, user_is_freight_owner]
+    }
 }
