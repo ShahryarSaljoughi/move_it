@@ -361,6 +361,7 @@ class Tender(db.Model):
         return {
             '__type__': 'Tender',
             'freight_id': self.freight_id,
+            'tender_id' : self.id
             'courier_id': self.courier_id,
             'courier': self.courier,
             'price': self.suggested_price,
