@@ -6,6 +6,8 @@ from werkzeug.utils import secure_filename
 from app.models import Freight, User, DestinationAddress, PickupAddress, FreightPicture
 from . import auth
 from app.main import main
+from app.main.appExceptions import ValidationError
+from app.main.validation.validators import validate
 from app import db
 from app import app
 
@@ -16,8 +18,17 @@ __author__ = 'shahryar_saljoughi'
 @main.route('/freights', methods=['DELETE'])
 @auth.login_required
 def delete_freight():
-    # if g.user is None:
-    #     abort(401)
+
+    # **** new  *****
+    validation_result = validate(
+        document=request.json,
+        viewfunction=delete_freight
+    )
+
+    if not validation_result['is_validated']:
+        raise ValidationError(errors=validation_result['errors'], status_code=400)
+
+    # ____ new  _____
     freight_id = request.json['freight_id']
     freight = Freight.query.filter_by(id=freight_id).first()
     user = g.user
@@ -28,6 +39,7 @@ def delete_freight():
         return jsonify({"status": "failure",
                         "message": "you cannot delete freights ordered by others"}
                        )
+    fregiht = Freight.query.get(freight_id)
     db.session.delete(freight)
     db.session.commit()
     return jsonify({"status": "success"})
