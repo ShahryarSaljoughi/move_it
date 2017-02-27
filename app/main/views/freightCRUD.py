@@ -36,29 +36,13 @@ def delete_freight():
 @main.route('/freights', methods=['PUT'])
 @auth.login_required
 def update_freight():
-    user = g.user
 
-    # ####### is request  healthy? #########################################################
-    if 'freight_id' not in request.json:
-        return jsonify({
-            'status': "failure",
-            'message': "no freight id in request"
-        })
+    validation_result = validate(request.json, update_freight)
+    if not validation_result['is_validated']:
+        raise ValidationError(errors=validation_result['errors'], status_code=400)
 
     freight_id = request.json['freight_id']
-    freight = Freight.query.filter_by(id=freight_id).first()
-
-    if not freight:
-        return jsonify({
-            "status": "failure",
-            "message": "freight not found"
-        })
-    if user.id != freight.owner_id:
-        return jsonify({
-            "status": "failure",
-            "message": "you cannot edit freights ordered by others"}
-            )
-    # #####################################################################################
+    freight = Freight.query.get(request.json['freight_id'])  # is used in exec command!
 
     new_data = request.json['new_data']
     keys = new_data.keys()
@@ -71,6 +55,7 @@ def update_freight():
             for field in request.json['new_data'][key]:
                 exec("freight.{0}[0].{1} = new_data['{0}']['{1}']".format(key, field))
         db.session.commit()
+    # ############################################
 
     return jsonify({
         "status": "success",
