@@ -59,7 +59,6 @@ def validate_approve_courier(document, result):
     """
 
     if result['is_validated']:
-        assert 'tender_id' not in result['errors'].keys()
         tender = Tender.query.get(document['tender_id'])
         # check if the user has permission to approve courier:
         if g.user != tender.freight.owner:
