@@ -5,7 +5,6 @@ from app.main.validation import schemas
 from app.models import Freight, Tender, role
 
 
-
 # class MyValidator(Validator):
 
 
@@ -61,14 +60,7 @@ def validate_approve_courier(document, result):
     :param result: indicating the current state of validation
     :return: this function is using side effects of dictionaries instead of return!
     """
-
-    if result['is_validated']:
-        tender = Tender.query.get(document['tender_id'])
-        # check if the user has permission to approve courier:
-        if g.user != tender.freight.owner:
-            result['errors']['access denied'] = 'only the owner of the freight' \
-                                                ' has the permission to approve courier'
-
+    pass
 
 def validate_apply_freight(document, result):
     pass
