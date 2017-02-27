@@ -12,7 +12,7 @@ def see_author():
 
 
 @main.before_request
-def add_authorization_to_json():
+def modify_json():
     # I want to add some more information to request.json before it is processed in views
     # these extra information are used in validations!
 
@@ -28,6 +28,9 @@ def add_authorization_to_json():
         if g_has_user:
             request.json['user_type'] = g.user.role.title
             request.json['user_id'] = g.user.id
+
+        # a key! , general errors , is added to request.json
+        request.json['other_errors'] = list()
 
 
 # the below method is just for fun and can be deleted:
