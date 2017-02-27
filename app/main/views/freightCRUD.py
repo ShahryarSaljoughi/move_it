@@ -19,7 +19,6 @@ __author__ = 'shahryar_saljoughi'
 @auth.login_required
 def delete_freight():
 
-    # **** new  *****
     validation_result = validate(
         document=request.json,
         viewfunction=delete_freight
@@ -28,18 +27,7 @@ def delete_freight():
     if not validation_result['is_validated']:
         raise ValidationError(errors=validation_result['errors'], status_code=400)
 
-    # ____ new  _____
-    freight_id = request.json['freight_id']
-    freight = Freight.query.filter_by(id=freight_id).first()
-    user = g.user
-    if freight is None:
-        return jsonify({"failure": "freight not found"})
-
-    if user.id != freight.owner_id:
-        return jsonify({"status": "failure",
-                        "message": "you cannot delete freights ordered by others"}
-                       )
-    fregiht = Freight.query.get(freight_id)
+    freight = Freight.query.get(request.json['freight_id'])
     db.session.delete(freight)
     db.session.commit()
     return jsonify({"status": "success"})
