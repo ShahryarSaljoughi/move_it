@@ -2,7 +2,7 @@ from flask import g, request, session
 import phonenumbers
 from validate_email import validate_email
 from phonenumbers import NumberParseException
-from app.models import role, Freight, Tender
+from app.models import role, Freight, Tender, User
 
 
 # custom validators:
@@ -71,3 +71,14 @@ def is_email_valid(field, value, error):
     if not is_valid:
         error(field, "email is not valid")
 
+
+def is_username_unique(field, value, error):
+    user = User.query.filter_by(username=value).first()
+    if user:
+        error(field, "This username already exists")
+
+
+def is_email_unique(field, value, error):
+    user = User.query.filter_by(email=value).first()
+    if user:
+        error(field, "This username already exists")
