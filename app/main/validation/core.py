@@ -6,6 +6,16 @@ from app.models import Freight, Tender, role
 
 
 # class MyValidator(Validator):
+#
+#     def _validate_unique(self, unique, field, value):
+#         """Test if value (email , username, id etc.) is unique
+#
+#       The rule's arguments are validated against this schema:
+#       {'allowed': ['email', 'username'], 'type': 'string'}
+#       """
+#       # note that other fields, later (as needed), can be added to the list above: [email, username]
+#
+#       pass
 
 
 # other validation methods will be called by this function
