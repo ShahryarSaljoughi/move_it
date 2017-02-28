@@ -1,5 +1,7 @@
-from flask import g, request
+from flask import g, request, session
 import phonenumbers
+from validate_email import validate_email
+
 from phonenumbers import NumberParseException
 from app.models import role, Freight, Tender
 
@@ -180,4 +182,44 @@ create_freight = {
             }
         },
     }
+}
+
+
+def unconfirmed_account_in_session(field, value, error):
+    if 'inactive_account_phone' not in session:
+        error('other_errors', "there is no pending phone number to be confirmed")
+
+
+def is_email_valid(field, value, error):
+    is_valid = validate_email(
+        email=value,
+        check_mx=True,
+        verify=True
+    )
+
+    if not is_valid:
+        error(field, "email is not valid")
+
+# REGISTRATION.PY :
+signup_using_phonenumber = {
+    "username": {'type': 'string', 'required': True},
+    'password': {'type': 'string', 'required': True},
+    'role_od': {'type': 'integer', 'required': True},
+    'first_name': {'type': 'string', 'required': True},
+    'last_name': {'type': 'string', 'required': True},
+    'phonenumber': {'type': 'string', 'validator': is_phonenumber, 'required': True}
+}
+
+confirm_phonenumber = {
+    'code': {'type': 'integer', 'required': True},
+    'rules': {'validator': unconfirmed_account_in_session}
+}
+
+signup_using_email = {
+    "username": {'type': 'string', 'required': True},  # todo : check if it is unique
+    'password': {'type': 'string', 'required': True},
+    'role_od': {'type': 'integer', 'required': True},
+    'first_name': {'type': 'string', 'required': True},
+    'last_name': {'type': 'string', 'required': True},
+    'email': {'required': True, 'validator': is_email_valid}
 }
