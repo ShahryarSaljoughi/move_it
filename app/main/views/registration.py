@@ -1,6 +1,6 @@
 from flask import jsonify, g, session, request, abort, url_for
 from app.main.appExceptions import MailingError, ValidationError
-from app.main.validation.validators import validate
+from app.main.validation.core import validate
 from . import auth
 from app.main import main
 from random import randint

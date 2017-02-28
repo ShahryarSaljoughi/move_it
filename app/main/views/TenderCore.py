@@ -3,7 +3,7 @@ from app import db
 from app.main import main
 from app.main.views import auth
 from app.models import Tender, Freight
-from app.main.validation.validators import validate
+from app.main.validation.core import validate
 from app.main.appExceptions import ValidationError
 
 __author__ = 'shahryar_saljoughi'

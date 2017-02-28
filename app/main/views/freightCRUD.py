@@ -7,7 +7,7 @@ from app.models import Freight, User, DestinationAddress, PickupAddress, Freight
 from . import auth
 from app.main import main
 from app.main.appExceptions import ValidationError
-from app.main.validation.validators import validate
+from app.main.validation.core import validate
 from app import db
 from app import app
 
