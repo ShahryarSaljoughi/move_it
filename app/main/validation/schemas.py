@@ -136,7 +136,7 @@ create_freight = {
 signup_using_phonenumber = {
     "username": {'type': 'string', 'required': True},
     'password': {'type': 'string', 'required': True},
-    'role_od': {'type': 'integer', 'required': True},
+    'role_id': {'type': 'integer', 'required': True},
     'first_name': {'type': 'string', 'required': True},
     'last_name': {'type': 'string', 'required': True},
     'phonenumber': {'type': 'string', 'validator': is_phonenumber, 'required': True}
@@ -148,10 +148,12 @@ confirm_phonenumber = {
 }
 
 signup_using_email = {
-    "username": {'type': 'string', 'required': True},  # todo : check if it is unique
+    'email': {'required': True,
+              'validator': [is_email_valid, is_email_unique]},
+    "username": {'type': 'string', 'required': True,
+                 'validator': is_username_unique},
     'password': {'type': 'string', 'required': True},
-    'role_od': {'type': 'integer', 'required': True},
+    'role_id': {'type': 'integer', 'required': True},
     'first_name': {'type': 'string', 'required': True},
-    'last_name': {'type': 'string', 'required': True},
-    'email': {'required': True, 'validator': is_email_valid}
+    'last_name': {'type': 'string', 'required': True}
 }
