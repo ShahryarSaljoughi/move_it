@@ -157,3 +157,8 @@ signup_using_email = {
     'first_name': {'type': 'string', 'required': True},
     'last_name': {'type': 'string', 'required': True}
 }
+
+verify_credentials = {
+    'username': {'type': 'string', 'required': True},
+    'password': {'type': 'string', 'required': True}
+}
