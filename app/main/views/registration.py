@@ -151,6 +151,21 @@ def confirm_phonenumber():
 
 @main.route('/signup/using_email', methods=['POST'])
 def signup_using_email():
+
+    if not request.json:
+        abort(400)
+
+    validation_result = validate(
+        document=request.json,
+        viewfunction=signup_using_email
+    )
+
+    if not validation_result['is_validated']:
+        raise ValidationError(
+            errors=validation_result['errors'],
+            status_code=400
+        )
+
     new_user = User(username=request.json['username'],
                     email=request.json['email'],
                     role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
@@ -203,13 +218,20 @@ def verify_credentials():
     if not request.json:
         return jsonify(status="bad request"), 400
 
-    if 'username' not in request.json.keys()\
-        or 'password' not in request.json.keys()\
-        or not request.json['username']\
-            or not request.json['password']:
-        return jsonify(status="bad request, username and password should be provided"), 400
+    validation_result = validate(
+        request.json,
+        verify_credentials
+    )
 
-    username = request.json['username']
-    password = request.json['password']
+    if not validation_result['is_validated']:
+        raise ValidationError(
+            errors=validation_result['errors'],
+            status_code=400
+        )
 
-    return jsonify(verify_password(username, password))
+    return jsonify(
+        verify_password(
+            request.json['username'],
+            request.json['password']
+        )
+    )
