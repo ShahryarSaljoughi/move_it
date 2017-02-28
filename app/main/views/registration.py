@@ -1,7 +1,8 @@
-from app.main.appExceptions import MailingError
+from flask import jsonify, g, session, request, abort, url_for
+from app.main.appExceptions import MailingError, ValidationError
+from app.main.validation.validators import validate
 from . import auth
 from app.main import main
-from flask import jsonify, g, session, request, abort, url_for
 from random import randint
 from app.models import User
 from app import db
@@ -60,6 +61,18 @@ def signup_using_phonenumber():
             'message': "no json received"
         }), 400
 
+    validation_result = validate(
+        document=request.json,
+        viewfunction=signup_using_phonenumber
+    )
+
+    if not validation_result['is_validated']:
+        raise ValidationError(
+            errors=validation_result['errors'],
+            message='bad request',
+            status_code=400
+        )
+
     new_user = User(username=request.json['username'],
                     phonenumber=request.json['phonenumber'],
                     role_id=request.json['role_id'] if request.json['role_id'] in [1, 2] else 1,
@@ -90,6 +103,7 @@ def signup_using_phonenumber():
                        " and complete your registration"
         })
     else:
+        session.pop('inactive_account_phone')
         return jsonify({
             'status': "failure",
             'message': "we got problems sending code: '{}' \n"
