@@ -49,7 +49,7 @@ class User(db.Model, json.JSONEncoder):  # there is a relationship between User 
     last_name = db.Column(db.TEXT)
     phonenumber_confirmed = db.Column(db.BOOLEAN, default=False)
     email_confirmed = db.Column(db.BOOLEAN, default=False)
-    phonenumber = db.Column(db.INTEGER)
+    phonenumber = db.Column(db.INTEGER)  # todo : phonenumber must be string
     id = db.Column(db.INTEGER, primary_key=True)
     freights = db.relationship('Freight',
                                backref=db.backref('owner'))
