@@ -1,9 +1,8 @@
 from flask import g
-from app.main.views import TenderCore
 from cerberus import Validator
 from app.main.validation import schemas
 from app.models import Freight, Tender, role
-
+from app.main.views import TenderCore
 
 # class MyValidator(Validator):
 #
@@ -46,12 +45,7 @@ def validate_freight_received(document, result, validator):
     :param result: , result is a dictionary, containing keys: 'is_validated' and 'errors'
     :param validator: an instance of cerberus.Validator . validator.schema is already set.
     """
-
-    # only the owner of the freight can approve it's received! Let's check it:
-    if g.user != Tender.query.get(document['tender_id']).freight.owner:
-        result['errors']['access denied'] = 'only the owner of the freight can approve it is delivered'
-        result['is_validated'] = False
-
+    pass
 
 def validate_show_tender(document, result, validator):
     """
