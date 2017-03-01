@@ -3,7 +3,7 @@ from flask import render_template, make_response, jsonify, g
 from app.main import main, appExceptions
 from flask import request
 from app import app
-from app.main.views import  registration
+from app.main.views import registration
 from . import auth
 
 
