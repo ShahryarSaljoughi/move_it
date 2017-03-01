@@ -2,7 +2,7 @@ from flask import g
 from cerberus import Validator
 from app.main.validation import schemas
 from app.models import Freight, Tender, role
-from app.main.views import TenderCore
+# from app.main.views import TenderCore
 
 # class MyValidator(Validator):
 #
@@ -30,7 +30,8 @@ def validate(document, viewfunction):
     # result will be modified more
     # as the below specific validators are called! (side effect are used!)
     try:
-        exec('validate_{}({}, {}, {})'.format(viewfunction.func_name, document, result, v))
+        exec('validate_{}({}, {}, {})'.format(viewfunction.func_name, 'document', 'result', 'v'))
+
     # maybe there is no specific validate_... method for this view function:
     except NameError:
         pass
