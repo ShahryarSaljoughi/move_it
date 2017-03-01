@@ -137,7 +137,11 @@ create_freight = {
 
 # REGISTRATION.PY :
 signup_using_phonenumber = {
-    "username": {'type': 'string', 'required': True},
+    "username": {
+        'type': 'string',
+        'required': True,
+        'validator': is_username_unique
+    },
     'password': {'type': 'string', 'required': True},
     'role_id': {'type': 'integer', 'required': True},
     'first_name': {'type': 'string', 'required': True},
@@ -152,10 +156,15 @@ confirm_phonenumber = {
 }
 
 signup_using_email = {
-    'email': {'required': True,
-              'validator': [is_email_valid, is_email_unique]},
-    "username": {'type': 'string', 'required': True,
-                 'validator': is_username_unique},
+    'email': {
+        'required': True,
+        'validator': [is_email_valid, is_email_unique]
+    },
+    "username": {
+        'type': 'string',
+        'required': True,
+        'validator': is_username_unique
+    },
     'password': {'type': 'string', 'required': True},
     'role_id': {'type': 'integer', 'required': True},
     'first_name': {'type': 'string', 'required': True},
