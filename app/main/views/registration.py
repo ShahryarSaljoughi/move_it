@@ -114,17 +114,17 @@ def signup_using_phonenumber():
 @main.route('/confirm_phonenumber', methods=['POST'])
 def confirm_phonenumber():
 
-    if 'code' not in request.json:
-        return jsonify({
-            'status': "failure",
-            'message': "the key ,'code', must be sent"
-        })
-    elif 'inactive_account_phone' not in session:
-        return jsonify({
-            'status': "failure",
-            'message': "no phone number is pending to be confirmed!"
-        })
-    elif session['inactive_account_phone']['code'] != request.json['code']:
+    validation_result = validate(
+        document=request.json,
+        viewfunction=confirm_phonenumber
+    )
+    if not validation_result['is_validated']:
+        raise ValidationError(
+            errors=validation_result['errors'],
+            status_code=400
+        )
+
+    if session['inactive_account_phone']['code'] != request.json['code']:
         return jsonify({
             'status': "failure",
             'message': "code does not match"
