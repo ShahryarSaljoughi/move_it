@@ -5,7 +5,8 @@ from app.main.validation.validators import *
 
 
 show_tenders = {
-    'freight_id': {'type': 'integer', 'required': True, 'min': 1, 'validator': id_found}
+    'freight_id': {'type': 'integer', 'required': True, 'min': 1, 'validator': id_found},
+    'rules': {}
 }
 
 freight_received = {   # acts like exclusive or :
@@ -22,7 +23,8 @@ freight_received = {   # acts like exclusive or :
         'min': 1,
         'validator': [id_found, user_is_freight_owner],
         'excludes': 'tender_id'
-    }
+    },
+    'rules': {}
 }
 
 approve_courier = {
@@ -31,7 +33,8 @@ approve_courier = {
         'required': True,
         'min': 1,
         'validator': [id_found, user_is_tender_freight_owner]
-    }
+    },
+    'rules': {}
 }
 
 apply_freight = {
@@ -40,7 +43,8 @@ apply_freight = {
     'description': {'type': 'string', 'required': False, 'maxlength': 4000},
     'user_type': {'allowed': [r.title for r in role.query.all()],  # user_type : [courier, customer]
                   'required': True,                                # (other roles can be added later)
-                  'validator': is_courier}
+                  'validator': is_courier},
+    'rules': {}
 }
 # End of TenderCore schemas ********************************
 
@@ -52,7 +56,8 @@ delete_freight = {
         'required': True,
         'min': 1,
         'validator': [id_found, user_is_freight_owner]
-    }
+    },
+    'rules': {}
 }
 
 update_freight = {
@@ -92,43 +97,41 @@ update_freight = {
                 }
             },
         }
-    }
+    },
+    'rules': {}
 }
 
 create_freight = {
-
-    'type': 'dict',
-    'schema': {
-        'name': {'type': 'string', 'required': True},
-        'height': {'type': 'number'},
-        'width': {'type': 'number'},
-        'depth': {'type': 'number'},
-        'receiver_name': {'type': 'string', 'required': True},
-        'receiver_phonenumber': {'validator': is_phonenumber, 'required': True},
-        'weight': {'type': 'number', 'required': True},
-        'description': {'type': 'string', 'maxlength': 4000},
-        'price': {'type': 'number', 'min': 0},
-        'destination': {
-            'type': 'dict',
-            'required': True,
-            'schema': {
-                'country': {'type': 'string', 'required': True},
-                'city': {'type': 'string', 'required': True},
-                'rest_of_address': {'type': 'string', 'required': True},
-                'postal_code': {'type': 'integer', 'required': True}
-            }
-        },
-        'pickup_address': {
-            'type': 'dict',
-            'required': True,
-            'schema': {
-                'country': {'type': 'string', 'required': True},
-                'city': {'type': 'string', 'required': True},
-                'rest_of_address': {'type': 'string', 'required': True},
-                'postal_code': {'type': 'integer', 'required': True}
-            }
-        },
-    }
+    'name': {'type': 'string', 'required': True},
+    'height': {'type': 'number'},
+    'width': {'type': 'number'},
+    'depth': {'type': 'number'},
+    'receiver_name': {'type': 'string', 'required': True},
+    'receiver_phonenumber': {'validator': is_phonenumber, 'required': True},
+    'weight': {'type': 'number', 'required': True},
+    'description': {'type': 'string', 'maxlength': 4000},
+    'price': {'type': 'number', 'min': 0},
+    'destination': {
+        'type': 'dict',
+        'required': True,
+        'schema': {
+            'country': {'type': 'string', 'required': True},
+            'city': {'type': 'string', 'required': True},
+            'rest_of_address': {'type': 'string', 'required': True},
+            'postal_code': {'type': 'integer', 'required': True}
+        }
+    },
+    'pickup_address': {
+        'type': 'dict',
+        'required': True,
+        'schema': {
+            'country': {'type': 'string', 'required': True},
+            'city': {'type': 'string', 'required': True},
+            'rest_of_address': {'type': 'string', 'required': True},
+            'postal_code': {'type': 'integer', 'required': True}
+        }
+    },
+    'rules': {}
 }
 
 
@@ -139,7 +142,8 @@ signup_using_phonenumber = {
     'role_id': {'type': 'integer', 'required': True},
     'first_name': {'type': 'string', 'required': True},
     'last_name': {'type': 'string', 'required': True},
-    'phonenumber': {'type': 'string', 'validator': is_phonenumber, 'required': True}
+    'phonenumber': {'type': 'string', 'validator': is_phonenumber, 'required': True},
+    'rules': {}
 }
 
 confirm_phonenumber = {
@@ -155,10 +159,12 @@ signup_using_email = {
     'password': {'type': 'string', 'required': True},
     'role_id': {'type': 'integer', 'required': True},
     'first_name': {'type': 'string', 'required': True},
-    'last_name': {'type': 'string', 'required': True}
+    'last_name': {'type': 'string', 'required': True},
+    'rules': {}
 }
 
 verify_credentials = {
     'username': {'type': 'string', 'required': True},
-    'password': {'type': 'string', 'required': True}
+    'password': {'type': 'string', 'required': True},
+    'rules': {}
 }
