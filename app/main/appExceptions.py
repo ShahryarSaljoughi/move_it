@@ -30,11 +30,10 @@ class ValidationError(AppException):
     """
     status_code = 400
 
-    def __init__(self, errors, message='bad request', status_code=None, payload=None):
+    def __init__(self, errors, message='bad request, json validation error occurred', status_code=400, payload=None):
         Exception.__init__(self)
         self.message = message
-        if status_code is not None:
-            self.status_code = status_code
+        self.status_code = status_code
         self.payload = payload
         self.errors = errors
 
@@ -46,3 +45,19 @@ class ValidationError(AppException):
 
     # todo: take polymorphism in consideration! there can be a BaseException class
     # todo: that others inherit! and there can be only one error handler for Base Exception!
+
+
+class NoJSONError(AppException):
+
+    def __init__(self, message='bad request. This api is json based but no json received',
+                 status_code=400, payload=None):
+        Exception.__init__(self)
+        self.message = message
+        self.status_code = status_code
+        self.payload = payload
+        print "no json occurred"
+
+    def to_dict(self):
+        rv = dict(self.payload or ())
+        rv['message'] = self.message
+        return rv
