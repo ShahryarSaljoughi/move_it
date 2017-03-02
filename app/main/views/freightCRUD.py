@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from app.models import Freight, User, DestinationAddress, PickupAddress, FreightPicture
 from . import auth
 from app.main import main
-from app.main.appExceptions import ValidationError
+from app.main.appExceptions import ValidationError, NoJSONError
 from app.main.validation.core import validate
 from app import db
 from app import app
@@ -99,6 +99,8 @@ def get_freights():
 @main.route('/freights', methods=['POST'])
 @auth.login_required
 def create_freight():
+    if not request.json:
+        raise NoJSONError()
 
     validation_result = validate(request.json, create_freight)
 
