@@ -1,5 +1,5 @@
 from flask import jsonify, g, session, request, abort, url_for
-from app.main.appExceptions import MailingError, ValidationError
+from app.main.appExceptions import MailingError, ValidationError, NoJSONError
 from app.main.validation.core import validate
 from . import auth
 from app.main import main
@@ -56,10 +56,7 @@ def verify_password(username_or_token, password):
 @main.route('/signup/using_phonenumber', methods=['POST'])
 def signup_using_phonenumber():
     if not request.json:
-        return jsonify({
-            'status': 'failure',
-            'message': "no json received"
-        }), 400
+        raise NoJSONError()
 
     validation_result = validate(
         document=request.json,
@@ -114,6 +111,9 @@ def signup_using_phonenumber():
 @main.route('/confirm_phonenumber', methods=['POST'])
 def confirm_phonenumber():
 
+    if not request.json:
+        raise NoJSONError()
+
     validation_result = validate(
         document=request.json,
         viewfunction=confirm_phonenumber
@@ -153,7 +153,7 @@ def confirm_phonenumber():
 def signup_using_email():
 
     if not request.json:
-        abort(400)
+        raise NoJSONError()
 
     validation_result = validate(
         document=request.json,
