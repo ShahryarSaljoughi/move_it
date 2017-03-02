@@ -216,7 +216,7 @@ def confirm_email(token):
 @main.route("/verify_credentials", methods=['POST'])
 def verify_credentials():
     if not request.json:
-        return jsonify(status="bad request"), 400
+        raise NoJSONError()
 
     validation_result = validate(
         request.json,
