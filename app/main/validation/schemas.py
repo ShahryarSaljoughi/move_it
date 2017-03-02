@@ -57,7 +57,9 @@ delete_freight = {
         'min': 1,
         'validator': [id_found, user_is_freight_owner]
     },
-    'rules': {}
+    'rules': {},
+    'user_id': {},
+    'user_type': {}
 }
 
 update_freight = {
@@ -131,7 +133,9 @@ create_freight = {
             'postal_code': {'type': 'integer', 'required': True}
         }
     },
-    'rules': {}
+    'rules': {},
+    'user_id': {},
+    'user_type': {}
 }
 
 
