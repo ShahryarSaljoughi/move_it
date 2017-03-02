@@ -28,7 +28,7 @@ def is_courier(field, value, error):
 def user_is_freight_owner(field, value, error):  # for checking user's permissions ...
 
     freight = Freight.query.get(value)
-    if freight.owner.id != g.user:
+    if freight.owner.id != g.user.id:
         error('other_errors', "Only the owner of the freight is permitted")
 
 
