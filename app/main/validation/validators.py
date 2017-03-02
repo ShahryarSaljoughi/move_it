@@ -1,3 +1,4 @@
+from DNS import TimeoutError
 from flask import g, request, session
 import phonenumbers
 from validate_email import validate_email
@@ -62,11 +63,10 @@ def unconfirmed_account_in_session(field, value, error):
 
 
 def is_email_valid(field, value, error):
-    is_valid = validate_email(
-        email=value,
-        check_mx=True,
-        verify=True
-    )
+    try:
+        is_valid = validate_email(email=value)
+    except TimeoutError: # todo : I'm not sure maybe we should tell client sth went wrong!
+        is_valid = False
 
     if not is_valid:
         error(field, "email is not valid")
@@ -81,4 +81,4 @@ def is_username_unique(field, value, error):
 def is_email_unique(field, value, error):
     user = User.query.filter_by(email=value).first()
     if user:
-        error(field, "This username already exists")
+        error(field, "This email address already exists")
