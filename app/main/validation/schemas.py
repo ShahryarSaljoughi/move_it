@@ -100,7 +100,9 @@ update_freight = {
             },
         }
     },
-    'rules': {}
+    'rules': {},
+    'user_id': {},
+    'user_type': {}
 }
 
 create_freight = {
