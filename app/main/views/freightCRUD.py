@@ -62,6 +62,8 @@ def update_freight():
 
     if len(keys) == 0 :
         message = "no field to update"
+    elif len(keys) == 1:
+        message = "field " + " , ".join(keys) + " is updated"
     else:
         message = "fields "+" , ".join(keys) + " are updated"
     return jsonify({
@@ -99,6 +101,7 @@ def get_freights():
         for freight in result_dict['freights']:
             freight.pop('receiver_name')
             freight.pop('price')
+            freight.pop('receiver_phonenumber')
 
     return jsonify(result_dict)
 
