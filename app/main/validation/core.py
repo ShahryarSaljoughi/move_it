@@ -65,7 +65,7 @@ def validate_show_tender(document, result, validator):
     pass
 
 
-def validate_approve_courier(document, result):
+def validate_approve_courier(document, result, validator):
     """
 
     :param document: received json (that we are trying to validate)
