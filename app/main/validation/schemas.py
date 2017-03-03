@@ -81,6 +81,7 @@ update_freight = {
             'receiver_phonenumber': {'validator': is_phonenumber},
             'weight': {'type': 'number'},
             'description': {'type': 'string', 'maxlength': 4000},
+            'price': {'type': 'number', 'min': 0},
             'destination': {
                 'type': 'dict',
                 'schema': {
