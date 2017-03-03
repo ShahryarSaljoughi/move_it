@@ -6,6 +6,8 @@ from werkzeug.utils import secure_filename
 from app.models import Freight, User, DestinationAddress, PickupAddress, FreightPicture
 from . import auth
 from app.main import main
+from app.main.appExceptions import ValidationError, NoJSONError
+from app.main.validation.core import validate
 from app import db
 from app import app
 
@@ -16,18 +18,16 @@ __author__ = 'shahryar_saljoughi'
 @main.route('/freights', methods=['DELETE'])
 @auth.login_required
 def delete_freight():
-    # if g.user is None:
-    #     abort(401)
-    freight_id = request.json['freight_id']
-    freight = Freight.query.filter_by(id=freight_id).first()
-    user = g.user
-    if freight is None:
-        return jsonify({"failure": "freight not found"})
 
-    if user.id != freight.owner_id:
-        return jsonify({"status": "failure",
-                        "message": "you cannot delete freights ordered by others"}
-                       )
+    validation_result = validate(
+        document=request.json,
+        viewfunction=delete_freight
+    )
+
+    if not validation_result['is_validated']:
+        raise ValidationError(errors=validation_result['errors'], status_code=400)
+
+    freight = Freight.query.get(request.json['freight_id'])
     db.session.delete(freight)
     db.session.commit()
     return jsonify({"status": "success"})
@@ -36,29 +36,16 @@ def delete_freight():
 @main.route('/freights', methods=['PUT'])
 @auth.login_required
 def update_freight():
-    user = g.user
 
-    # ####### is request  healthy? #########################################################
-    if 'freight_id' not in request.json:
-        return jsonify({
-            'status': "failure",
-            'message': "no freight id in request"
-        })
+    if not request.json:
+        raise NoJSONError()
+
+    validation_result = validate(request.json, update_freight)
+    if not validation_result['is_validated']:
+        raise ValidationError(errors=validation_result['errors'], status_code=400)
 
     freight_id = request.json['freight_id']
-    freight = Freight.query.filter_by(id=freight_id).first()
-
-    if not freight:
-        return jsonify({
-            "status": "failure",
-            "message": "freight not found"
-        })
-    if user.id != freight.owner_id:
-        return jsonify({
-            "status": "failure",
-            "message": "you cannot edit freights ordered by others"}
-            )
-    # #####################################################################################
+    freight = Freight.query.get(request.json['freight_id'])  # is used in exec command!
 
     new_data = request.json['new_data']
     keys = new_data.keys()
@@ -71,10 +58,17 @@ def update_freight():
             for field in request.json['new_data'][key]:
                 exec("freight.{0}[0].{1} = new_data['{0}']['{1}']".format(key, field))
         db.session.commit()
+    # ############################################
 
+    if len(keys) == 0 :
+        message = "no field to update"
+    elif len(keys) == 1:
+        message = "field " + " , ".join(keys) + " is updated"
+    else:
+        message = "fields "+" , ".join(keys) + " are updated"
     return jsonify({
         "status": "success",
-        "message": "fields "+" , ".join(keys) + " are updated"
+        "message": message
     })
 
 
@@ -107,6 +101,7 @@ def get_freights():
         for freight in result_dict['freights']:
             freight.pop('receiver_name')
             freight.pop('price')
+            freight.pop('receiver_phonenumber')
 
     return jsonify(result_dict)
 
@@ -114,9 +109,17 @@ def get_freights():
 @main.route('/freights', methods=['POST'])
 @auth.login_required
 def create_freight():
+    if not request.json:
+        raise NoJSONError()
 
-    # if g.user is None:
-    #     abort(401)
+    validation_result = validate(request.json, create_freight)
+
+    if not validation_result['is_validated']:
+        raise ValidationError(
+            errors=validation_result['errors'],
+            status_code=400
+        )
+
     destination_dict = request.json['destination']
     destination = DestinationAddress(country=destination_dict['country'],
                                      city=destination_dict['city'],
@@ -131,16 +134,17 @@ def create_freight():
                                    postal_code=pickup_address_dict['postal_code']
                                    )
 
-    freight = Freight(name=request.json['name'],
-                      height=request.json['height'],
-                      width=request.json['width'],
-                      depth=request.json['depth'],
-                      receiver_name=request.json['receiver_name'],
-                      receiver_phonenumber=request.json['receiver_phonenumber'],
-                      weight=request.json['weight'],
-                      description=request.json['description'],
-                      price=request.json['price']
-                      )
+    freight = Freight(
+        name=request.json['name'],
+        height=request.json['height'] if 'height' in request.json else None,
+        width=request.json['width'] if 'width' in request.json else None,
+        depth=request.json['depth'] if 'depth' in request.json else None,
+        receiver_name=request.json['receiver_name'],
+        receiver_phonenumber=request.json['receiver_phonenumber'],
+        weight=request.json['weight'],
+        description=request.json['description'] if 'description' in request.json else None,
+        price=request.json['price'] if 'price' in request.json else None
+    )
 
     freight.destination.append(destination)
     freight.pickup_address.append(pickup_address)
@@ -171,8 +175,6 @@ def allowed_picture(filename):
 @auth.login_required
 def upload_freight_picture():
 
-    # if g.user is None:
-    #     abort(401)
     freight = Freight.query.filter_by(id=request.form['freight_id']).first()
 
     if freight is None:

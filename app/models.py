@@ -49,7 +49,7 @@ class User(db.Model, json.JSONEncoder):  # there is a relationship between User 
     last_name = db.Column(db.TEXT)
     phonenumber_confirmed = db.Column(db.BOOLEAN, default=False)
     email_confirmed = db.Column(db.BOOLEAN, default=False)
-    phonenumber = db.Column(db.INTEGER)
+    phonenumber = db.Column(db.INTEGER)  # todo : phonenumber must be string
     id = db.Column(db.INTEGER, primary_key=True)
     freights = db.relationship('Freight',
                                backref=db.backref('owner'))
@@ -172,6 +172,7 @@ class Freight(db.Model, json.JSONEncoder):
     description = db.Column(db.TEXT)
     pictures = db.relationship('FreightPicture')
     creation_data = db.Column(db.DateTime, default=datetime.now(tehran))
+    # freight also has a owner attribute ! (made by backref, see User class)
     #
     is_delivered = db.Column(db.BOOLEAN, default=False)
     is_courier_chosen = db.Column(db.BOOLEAN, default=False)
