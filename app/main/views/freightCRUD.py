@@ -60,9 +60,13 @@ def update_freight():
         db.session.commit()
     # ############################################
 
+    if len(keys) == 0 :
+        message = "no field to update"
+    else:
+        message = "fields "+" , ".join(keys) + " are updated"
     return jsonify({
         "status": "success",
-        "message": "fields "+" , ".join(keys) + " are updated"
+        "message": message
     })
 
 
