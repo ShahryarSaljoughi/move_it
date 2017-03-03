@@ -38,6 +38,12 @@ def validate(document, viewfunction):
 
     return result
 
+"""
+the following functions will be omitted soon!
+Once upon a time!! they performed a lot of validation tasks, but now
+these tasks are done by schemas! and custom validators defined there.
+"""
+
 
 def validate_freight_received(document, result, validator):
     """
@@ -47,6 +53,7 @@ def validate_freight_received(document, result, validator):
     :param validator: an instance of cerberus.Validator . validator.schema is already set.
     """
     pass
+
 
 def validate_show_tender(document, result, validator):
     """
@@ -67,5 +74,6 @@ def validate_approve_courier(document, result):
     """
     pass
 
-def validate_apply_freight(document, result):
+
+def validate_apply_freight(document, result, validator):
     pass
