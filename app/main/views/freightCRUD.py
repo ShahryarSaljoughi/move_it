@@ -37,6 +37,9 @@ def delete_freight():
 @auth.login_required
 def update_freight():
 
+    if not request.json:
+        raise NoJSONError()
+
     validation_result = validate(request.json, update_freight)
     if not validation_result['is_validated']:
         raise ValidationError(errors=validation_result['errors'], status_code=400)
