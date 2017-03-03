@@ -42,7 +42,7 @@ def freight_not_taken(field, value, error):
 def user_is_tender_freight_owner(field, value, error):  # for checking user's permissions ...
 
     tender = Tender.query.get(value)
-    if g.user != tender.freight.owner.id:  # g.user = request.json['user_id]
+    if g.user.id != tender.freight.owner.id:  # g.user = request.json['user_id]
         error('other_errors', "Only the owner of the freight is permitted")
 
 
