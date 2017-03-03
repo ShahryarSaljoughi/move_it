@@ -6,7 +6,9 @@ from app.main.validation.validators import *
 
 show_tenders = {
     'freight_id': {'type': 'integer', 'required': True, 'min': 1, 'validator': id_found},
-    'rules': {}
+    'rules': {},
+    'user_id': {},
+    'user_type': {}
 }
 
 freight_received = {   # acts like exclusive or :
@@ -24,7 +26,9 @@ freight_received = {   # acts like exclusive or :
         'validator': [id_found, user_is_freight_owner],
         'excludes': 'tender_id'
     },
-    'rules': {}
+    'rules': {},
+    'user_id': {},
+    'user_type': {}
 }
 
 approve_courier = {
@@ -34,7 +38,9 @@ approve_courier = {
         'min': 1,
         'validator': [id_found, user_is_tender_freight_owner]
     },
-    'rules': {}
+    'rules': {},
+    'user_id': {},
+    'user_type': {}
 }
 
 apply_freight = {
@@ -44,7 +50,8 @@ apply_freight = {
     'user_type': {'allowed': [r.title for r in role.query.all()],  # user_type : [courier, customer]
                   'required': True,                                # (other roles can be added later)
                   'validator': is_courier},
-    'rules': {}
+    'rules': {},
+    'user_id': {},
 }
 # End of TenderCore schemas ********************************
 
