@@ -71,6 +71,7 @@ update_freight = {
     },
     'new_data': {
         'type': 'dict',
+        'required': True,
         'schema': {
             'name': {'type': 'string'},
             'height': {'type': 'number'},
