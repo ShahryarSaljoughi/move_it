@@ -34,8 +34,9 @@ def user_is_freight_owner(field, value, error):  # for checking user's permissio
 
 def freight_not_taken(field, value, error):
     freight = Freight.query.get(value)
-    if freight.is_courier_chosen:
-        error('other_errors', "this freight is already assigned to another courier")
+    if freight is not None:
+        if freight.is_courier_chosen:
+            error('other_errors', "this freight is already assigned to another courier")
 
 
 def user_is_tender_freight_owner(field, value, error):  # for checking user's permissions ...
