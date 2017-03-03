@@ -4,7 +4,7 @@ from app.main import main
 from app.main.views import auth
 from app.models import Tender, Freight
 from app.main.validation.core import validate
-from app.main.appExceptions import ValidationError
+from app.main.appExceptions import ValidationError, NoJSONError
 
 __author__ = 'shahryar_saljoughi'
 
@@ -18,6 +18,9 @@ def apply_freight():
     """
     this view function makes an apply for a freight !
     """
+    if not request.json:
+        raise NoJSONError()
+
     validation_result = validate(
         document=request.json,
         viewfunction=apply_freight
@@ -50,6 +53,9 @@ def apply_freight():
 @auth.login_required
 def approve_courier():
 
+    if not request.json:
+        raise NoJSONError()
+
     validation_result = validate(document=request.json, viewfunction=approve_courier)
     if not validation_result['is_validated']:
         raise ValidationError(errors=validation_result['errors'], status_code=400)
@@ -66,6 +72,9 @@ def approve_courier():
 @main.route('/freight_delivered', methods=['POST'])
 @auth.login_required
 def freight_received():
+
+    if not request.json:
+        raise NoJSONError()
 
     result = validate(request.json, freight_received)
 
@@ -90,6 +99,9 @@ def show_tenders():
     give the freight_id and see the couriers who have applied for this freight and what price they have suggested
     :return: tenders
     """
+
+    if not request.json:
+        raise NoJSONError()
 
     validation_result = validate(
         document=request.json,
